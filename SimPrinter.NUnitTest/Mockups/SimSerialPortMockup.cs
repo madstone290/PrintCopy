@@ -1,0 +1,106 @@
+﻿using SimPrinter.Core;
+using System;
+using System.Collections.Generic;
+using System.IO.Ports;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SimPrinter.NUnitTest.Mockups
+{
+    public class SimSerialPortMockup : SimSerialPort
+    {
+        public const string BYTE_ARRAY = "1B 45 31 1B 45 31 1D 21 11 50 49 5A 5A 41 20 41 4C 56 4F 4C 4F 1B 21 00 0D 0A 1B 45 31 1B 45 31 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 1B 21 00 0D 0A 1B 45 31 1B 45 31 BB F3 20 20 20 20 C8 A3 3A 20 C7 C7 C0 DA BE CB BA BC B7 CE 20 C1 F6 BB EA B9 FC B9 B0 C1 A1 1B 21 00 0D 0A 1B 45 31 1B 45 31 C1 D6 20 20 20 20 BC D2 3A 20 B4 EB B1 B8 B1 A4 BF AA BD C3 20 BC F6 BC BA B1 B8 20 C1 F6 BB EA B5 BF 20 31 32 36 38 2D 31 35 20 31 C3 FE 1B 21 00 0D 0A 1B 45 31 1B 45 31 BB E7 BE F7 C0 DA 4E 4F 3A 20 35 30 32 36 33 35 37 38 31 35 1B 21 00 0D 0A 1B 45 31 1B 45 31 B4 EB 20 C7 A5 20 C0 DA 3A 20 BF C0 C0 DA C8 F1 1B 21 00 0D 0A 1B 45 31 1B 45 31 C0 FC C8 AD B9 F8 C8 A3 3A 20 30 35 33 37 38 33 38 34 39 35 1B 21 00 0D 0A 1B 45 31 1B 45 31 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 1B 21 00 0D 0A 1B 45 31 1B 45 31 50 4F 53 20 B9 F8 C8 A3 3A 20 30 30 30 31 1B 21 00 0D 0A 1B 45 31 1B 45 31 C1 D6 B9 AE B9 F8 C8 A3 3A 20 30 30 30 33 31 1B 21 00 0D 0A 1B 45 31 1B 45 31 C1 A2 BC F6 C0 AF C7 FC 3A 20 50 44 28 B8 C5 C0 E5 29 1B 21 00 0D 0A 1B 45 31 1B 45 31 B0 C5 B7 A1 C0 CF BD C3 3A 20 32 30 32 31 2D 31 30 2D 30 35 20 32 32 3A 33 35 3A 34 32 20 28 C8 AD 29 1B 21 00 0D 0A 1B 45 31 1B 45 31 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 1B 21 00 0D 0A 1B 45 31 1B 45 31 20 20 20 20 20 BB F3 20 C7 B0 20 B8 ED 20 20 20 20 20 20 20 20 20 20 20 20 20 20 BC F6 B7 AE 20 20 20 20 B1 DD 20 BE D7 1B 21 00 0D 0A 1B 45 31 1B 45 31 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 1B 21 00 0D 0A 1B 45 31 1B 45 31 1B 45 31 1B 21 00 1B 45 31 BD AC B8 B2 C7 C1 6E C7 D6 C4 A1 C5 B2 B0 F1 B5 E5 C7 C7 C0 DA 20 BC BC C6 AE 20 4C 1B 21 00 0D 0A 1B 45 31 1B 45 31 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 31 1B 45 31 20 20 20 20 20 35 33 2C 35 30 30 1B 21 00 0D 0A 1B 45 31 1B 45 31 1B 45 31 20 20 2D BD AC B8 B2 C7 C1 6E C7 D6 C4 A1 C5 B2 20 B0 F1 B5 E5 20 4C 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 1B 21 00 0D 0A 1B 45 31 1B 45 31 20 20 2D C4 DD B6 F3 20 31 2E 32 35 4C 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 1B 21 00 0D 0A 1B 45 31 1B 45 31 20 20 2D C4 A1 C1 EE BF C0 BA EC BD BA C6 C4 B0 D4 C6 BC 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 1B 21 00 0D 0A 1B 45 31 1B 45 31 20 20 2D C4 DC C4 A1 C1 EE B1 D7 B6 F3 C5 C1 20 4C 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 1B 21 00 0D 0A 1B 45 31 1B 45 31 20 20 2D BD B4 C5 A9 B8 B2 C4 A1 C1 EE BD BA C6 BD 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 1B 21 00 0D 0A 1B 21 00 1B 45 31 1B 21 00 1B 45 31 BD AC B8 B2 C7 C1 6E C7 D6 C4 A1 C5 B2 20 BD B4 C5 A9 B8 B2 B9 AB BD BA 20 4C 20 1B 45 31 20 20 20 31 1B 45 31 20 20 20 20 20 33 31 2C 30 30 30 1B 21 00 0D 0A 1B 45 31 1B 21 00 1B 45 31 C4 DD B6 F3 20 31 2E 32 35 4C 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 1B 45 31 20 20 20 31 1B 45 31 20 20 20 20 20 20 32 2C 30 30 30 1B 21 00 0D 0A 1B 45 31 1B 21 00 1B 45 31 BD AC B8 B2 C7 C1 6E C7 D6 C4 A1 C5 B2 20 C7 C7 C0 DA 20 C8 A6 BC BC C6 AE 20 52 1B 45 31 20 20 20 31 1B 45 31 20 20 20 20 20 33 35 2C 30 30 30 1B 21 00 0D 0A 1B 45 31 1B 45 31 1B 45 31 20 20 2D BD AC B8 B2 C7 C1 6E C7 D6 C4 A1 C5 B2 20 B0 F1 B5 E5 20 52 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 1B 21 00 0D 0A 1B 45 31 1B 45 31 20 20 2D C4 A1 C1 EE BF C0 BA EC BD BA C6 C4 B0 D4 C6 BC 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 1B 21 00 0D 0A 1B 45 31 1B 45 31 20 20 2D C4 DA C4 AB C4 DD B6 F3 20 28 C8 A6 29 20 33 35 35 6D 6C 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 1B 21 00 0D 0A 1B 45 31 1B 45 31 20 20 2D C4 DA C4 AB C4 DD B6 F3 20 28 C8 A6 29 20 33 35 35 6D 6C 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 1B 21 00 0D 0A 1B 21 00 1B 21 00 0D 0A 1B 45 31 1B 45 31 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 1B 21 00 0D 0A 1B 45 31 1B 45 31 1D 21 10 BC D2 20 20 B0 E8 20 20 20 20 20 20 20 20 31 32 31 2C 35 30 30 1B 21 00 0D 0A 1B 45 31 1B 45 31 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 1B 21 00 0D 0A 1B 45 31 1B 45 31 1D 21 11 C7 D5 20 20 B0 E8 20 20 20 20 20 20 20 20 31 32 31 2C 35 30 30 1B 21 00 0D 0A 1B 45 31 1B 45 31 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 1B 21 00 0D 0A 1B 45 31 1B 45 31 1D 21 01 BD C5 BF EB C4 AB B5 E5 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 1B 45 31 1D 21 01 20 20 20 20 20 20 20 20 20 31 32 31 2C 35 30 30 1B 21 00 0D 0A 1B 45 31 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 1B 21 00 0D 0A 1B 45 31 1B 45 31 1D 21 01 C3 BB B1 B8 20 B1 DD BE D7 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 1B 45 31 1D 21 01 20 20 20 20 20 20 20 20 20 31 32 31 2C 35 30 30 1B 21 00 0D 0A 1B 45 31 1B 45 31 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 1B 21 00 0D 0A 1B 45 31 1B 45 31 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 1B 21 00 0D 0A 1B 45 31 1B 45 31 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 1B 21 00 0D 0A 1B 45 31 1B 45 31 1D 21 01 BC F6 BD C5 B0 A1 B4 C9 3A 20 30 31 30 2D 33 32 33 34 2D 33 33 34 35 1B 21 00 0D 0A 1B 45 31 1B 45 31 1D 21 01 B0 ED B0 B4 B9 F8 C8 A3 3A 20 30 35 33 2D 34 34 33 2D 33 34 33 34 1B 21 00 0D 0A 1B 45 31 1B 45 31 1D 21 01 B0 ED 20 B0 B4 20 B8 ED 3A 20 B0 ED B0 B4 B4 D4 28 BD C5 B1 D4 29 1B 21 00 0D 0A 1B 45 31 1B 45 31 1D 21 01 B0 ED B0 B4 C1 D6 BC D2 3A 20 BC F6 BC BA B1 B8 20 C1 F6 BB EA B5 BF 20 20 C3 BB BC F6 B7 CE 20 32 33 B1 E6 20 BE C6 C5 D7 B3 D7 20 32 30 33 C8 A3 1B 21 00 0D 0A 1B 45 31 1B 45 31 1D 21 01 C1 D6 B9 AE B8 DE B8 F0 3A 20 C1 D6 B9 AE BF E4 C3 BB BB E7 C7 D7 31 1B 21 00 0D 0A 1B 45 31 0D 0A 0D 0A 0D 0A 0D 0A 1D 56 01 1B 21 00 0D 0A";
+
+        public const string ORDER_TIME = "2021-10-05 22:35:42 (화)";
+        public const string SUB_TOTAL = "121,500";
+        public const string TOTAL = "121,500";
+        public const string CREDIT_AMOUNT = "121,500";
+        public const string BILL_AMOUNT = "121,500";
+        public const string CONTACT = "053-443-3434";
+        public const string ADDRESS = "수성구 지산동  청수로 23길 아테네 203호";
+        public const string MEMO = "주문요청사항1";
+
+        public string OrderText => string.Format(@"
+PIZZA ALVOLO
+                                          
+상    호: 피자알볼로 지산범물점
+주    소: 대구광역시 수성구 지산동 1268-15 1층
+사업자NO: 5026357815
+대 표 자: 오자희
+전화번호: 0537838495
+                                          
+POS 번호: 0001
+주문번호: 00031
+접수유형: PD(매장)
+거래일시: {0}
+------------------------------------------
+     상 품 명              수량    금 액
+------------------------------------------
+쉬림프n핫치킨골드피자 세트 L
+                       1     53,500
+  -쉬림프n핫치킨 골드 L                   
+  -콜라 1.25L                             
+  -치즈오븐스파게티                       
+  -콘치즈그라탕 L                         
+  -슈크림치즈스틱                         
+쉬림프n핫치킨 슈크림무스 L    1     31,000
+콜라 1.25L              1      2,000
+쉬림프n핫치킨 피자 홀세트 R   1     35,000
+  -쉬림프n핫치킨 골드 R                   
+  -치즈오븐스파게티                       
+  -코카콜라 (홀) 355ml                    
+  -코카콜라 (홀) 355ml                    
+
+------------------------------------------
+소  계        {1}
+------------------------------------------
+합  계        {2}
+                                          
+신용카드                           {3}
+------------------------------------------
+청구 금액                          {4}
+                                          
+                                          
+                                          
+수신가능: 010-3234-3345
+고객번호: {5}
+고 객 명: 고객님(신규)
+고객주소: {6}
+주문메모: {7}
+", ORDER_TIME, SUB_TOTAL, TOTAL, CREDIT_AMOUNT, BILL_AMOUNT, CONTACT, ADDRESS, MEMO);
+
+
+        public SimSerialPortMockup(SerialPort serialPort) : base(serialPort)
+        {
+            
+        }
+
+        /// <summary>
+        /// 데이터 수신
+        /// </summary>
+        /// <param name="data"></param>
+        public void DataReceive(byte[] data)
+        {
+            RaiseDataReceived(data, 0, data.Length);
+        }
+
+        /// <summary>
+        /// 주문데이터를 수신한다.
+        /// </summary>
+        public void OrderDataReceived()
+        {
+          
+            string[] byteChars = BYTE_ARRAY.Trim().Split(' ');
+
+            var byteArray = byteChars.Select(x => Convert.ToByte(x, 16))
+                .ToArray();
+
+            DataReceive(byteArray);
+        }
+
+       
+
+
+    }
+}

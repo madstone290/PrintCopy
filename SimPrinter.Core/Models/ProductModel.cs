@@ -1,0 +1,46 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SimPrinter.Core.Models
+{
+    /// <summary>
+    /// 제품
+    /// </summary>
+    public class ProductModel
+    {
+        /// <summary>
+        /// 제품명
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// 수량
+        /// </summary>
+        public string Quantity { get; set; }
+        
+        /// <summary>
+        /// 금액
+        /// </summary>
+        public string Price { get; set; }
+
+        /// <summary>
+        /// 세트 구성품
+        /// </summary>
+        public List<string> SetComponents { get; set; } = new List<string>();
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat("{0} {1, 5}개", Name, Quantity);
+            foreach(string component in SetComponents)
+            {
+                sb.AppendLine();
+                sb.Append(component);
+            }
+            return sb.ToString();
+        }
+    }
+}
