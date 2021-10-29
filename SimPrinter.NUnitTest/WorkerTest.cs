@@ -37,8 +37,8 @@ namespace SimPrinter.NUnitTest
         public void ByteReceive_OrderCreate()
         {
             // 시리얼포트 이름 설정할 것
-            SimSerialPort appPort = new SimSerialPortMockup(CreateSerialPort("COM1"));
-            SimSerialPort printPort = new SimSerialPort(CreateSerialPort("COM2"));
+            SimSerialPort appPort = new SimSerialPortMockup(CreateSerialPort("COM0"));
+            SimSerialPort printPort = new SimSerialPort(CreateSerialPort("COM0"));
             IByteParser byteParser = new AlvoloByteParser(Encoding.GetEncoding(949));
             ITextParser textParser = new AlvoloTextParser();
             LabelPrinter labelPrinter = new LabelPrinter(null);

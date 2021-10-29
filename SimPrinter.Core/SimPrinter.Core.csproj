@@ -61,10 +61,12 @@
     <Compile Include="ITextParser.cs" />
     <Compile Include="LabelPrinter.cs" />
     <Compile Include="Models\OrderModel.cs" />
+    <Compile Include="Models\PrintoutType.cs" />
     <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Persistence\OrderDao.cs" />
     <Compile Include="PrintCommand.cs" />
     <Compile Include="PrintCommandRemover.cs" />
+    <Compile Include="PrintoutDistinguisher.cs" />
     <Compile Include="SimSerialPort.cs" />
     <Compile Include="TextParsers\AlvoloTextParser.cs" />
     <Compile Include="Worker.cs" />

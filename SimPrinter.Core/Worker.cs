@@ -50,6 +50,11 @@ namespace SimPrinter.Core
         private readonly OrderDao orderDao;
 
         /// <summary>
+        /// 출력물 구분기
+        /// </summary>
+        private readonly PrintoutDistinguisher printoutDistinguisher = new PrintoutDistinguisher();
+
+        /// <summary>
         /// 주문목록
         /// </summary>
         private readonly List<OrderModel> orders = new List<OrderModel>();
@@ -118,12 +123,16 @@ namespace SimPrinter.Core
         private void ByteParser_ParsingCompleted(object sender, ByteParsingArgs e)
         {
             /*
-             * 영수증 분석이 완료되면
-             * 1.주문정보 분석
-             * 2.라벨프린터 출력
-             * 3.주문생성 이벤트
+             * 출력물 분석이 완료되면
+             * 1. 주문 출력물이 아니면 종료
+             * 2. 주문정보 분석
+             * 3. 라벨프린터 출력
+             * 4. 주문생성 이벤트
              * */
             logger.Information("ReceiptParsed {NewLine}{Receipt}", Environment.NewLine, e.Text);
+
+            if (printoutDistinguisher.Distinguish(e.Text) != PrintoutType.Order)
+                return;
 
             OrderModel order = textParser.Parse(e.Text);
             order.OrderNumber = orderDao.GetOrderNumber(DateTime.Today);
