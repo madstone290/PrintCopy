@@ -1,4 +1,4 @@
-﻿using SimPrinter.DeskTop.Models;
+﻿using SimPrinter.DeskTop.Settings;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,11 +19,11 @@ namespace SimPrinter.DeskTop
         /// </summary>
         public string GroupTitle { get => groupBox1.Text; set => groupBox1.Text = value; }
 
-        public PortSettingModel PortSetting
+        public PortSetting PortSetting
         {
             get
             {
-                return new PortSettingModel()
+                return new PortSetting()
                 {
                     PortName = (string)comboBoxPort.SelectedItem,
                     BaudRate = (int)comboBoxBaudRate.SelectedItem,
@@ -69,8 +69,8 @@ namespace SimPrinter.DeskTop
             comboBoxParity.Items.AddRange(new object[] { Parity.None, Parity.Odd, Parity.Even, Parity.Mark, Parity.Space });
             comboBoxParity.SelectedItem = Parity.Even;
 
-            comboBoxEncoding.Items.AddRange(new object[] { PortSettingModel.CP949, PortSettingModel.UTF8, PortSettingModel.EUCKR});
-            comboBoxEncoding.SelectedItem = PortSettingModel.CP949;
+            comboBoxEncoding.Items.AddRange(new object[] { PortSetting.CP949, PortSetting.UTF8, PortSetting.EUCKR});
+            comboBoxEncoding.SelectedItem = PortSetting.CP949;
 
             comboBoxNewLine.Items.AddRange(new object[] { @"\n", @"\r\n" });
             comboBoxNewLine.SelectedItem = @"\n";

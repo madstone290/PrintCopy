@@ -79,7 +79,7 @@
     <Compile Include="Models\BinaryDataModel.cs" />
     <Compile Include="Settings\GeneralSetting.cs" />
     <Compile Include="Models\OrderViewModel.cs" />
-    <Compile Include="Models\PortSettingModel.cs" />
+    <Compile Include="Settings\PortSetting.cs" />
     <Compile Include="Models\TextDataModel.cs" />
     <Compile Include="PortSettingManager.cs" />
     <Compile Include="PortSettingUC.cs">

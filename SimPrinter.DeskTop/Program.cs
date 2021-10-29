@@ -2,7 +2,7 @@
 using SimPrinter.Core.ByteParsers;
 using SimPrinter.Core.Persistence;
 using SimPrinter.Core.TextParsers;
-using SimPrinter.DeskTop.Models;
+using SimPrinter.DeskTop.Settings;
 using System;
 using System.Collections.Generic;
 using System.IO.Ports;
@@ -50,7 +50,7 @@ namespace SimPrinter.DeskTop
         /// 피자알볼로 생성
         /// </summary>
         /// <returns></returns>
-        static Worker PizzaAlvolo(PortSettingModel appPortSetting, PortSettingModel printPortSetting, PortSettingModel labelPrintPortSetting)
+        static Worker PizzaAlvolo(PortSetting appPortSetting, PortSetting printPortSetting, PortSetting labelPrintPortSetting)
         {
             SimSerialPort appPort = new SimSerialPort(CreateSerialPort(appPortSetting));
             SimSerialPort printPort = new SimSerialPort(CreateSerialPort(printPortSetting));
@@ -65,7 +65,7 @@ namespace SimPrinter.DeskTop
         }
 
 
-        static SerialPort CreateSerialPort(PortSettingModel portSetting)
+        static SerialPort CreateSerialPort(PortSetting portSetting)
         {
             SerialPort port = new SerialPort();
             port.PortName = portSetting.PortName;

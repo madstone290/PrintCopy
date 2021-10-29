@@ -1,4 +1,5 @@
 ﻿using SimPrinter.DeskTop.Models;
+using SimPrinter.DeskTop.Settings;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,18 +27,18 @@ namespace SimPrinter.DeskTop
         /// <summary>
         /// 입력포트 설정
         /// </summary>
-        public PortSettingModel AppPortSetting { get; private set; } = new PortSettingModel();
+        public PortSetting AppPortSetting { get; private set; } = new PortSetting();
 
         /// <summary>
         /// 일반 프린터 설정
         /// </summary>
-        public PortSettingModel PrinterPortSetting { get; private set; } = new PortSettingModel();
+        public PortSetting PrinterPortSetting { get; private set; } = new PortSetting();
 
 
         /// <summary>
         /// 라벨 프린터 설정
         /// </summary>
-        public PortSettingModel LabelPrinterPortSetting { get; private set; } = new PortSettingModel();
+        public PortSetting LabelPrinterPortSetting { get; private set; } = new PortSetting();
 
         /// <summary>
         /// 포트설정을 갱신한다.
@@ -45,7 +46,7 @@ namespace SimPrinter.DeskTop
         /// <param name="appPortSetting"></param>
         /// <param name="printPortSetting"></param>
         /// <param name="labelPrinterPortSetting"></param>
-        public void SetPortSettings(PortSettingModel appPortSetting, PortSettingModel printPortSetting, PortSettingModel labelPrinterPortSetting)
+        public void SetPortSettings(PortSetting appPortSetting, PortSetting printPortSetting, PortSetting labelPrinterPortSetting)
         {
             if (appPortSetting == null)
                 throw new ArgumentNullException(nameof(appPortSetting), "앱포트 설정이 null입니다");
@@ -73,10 +74,10 @@ namespace SimPrinter.DeskTop
                 .WithNamingConvention(CamelCaseNamingConvention.Instance)  // see height_in_inches in sample yml 
                 .Build();
 
-            PortSettingModel[] portSettings = null;
+            PortSetting[] portSettings = null;
             try
             {
-                portSettings = deserializer.Deserialize<PortSettingModel[]>(yaml);
+                portSettings = deserializer.Deserialize<PortSetting[]>(yaml);
             }
             catch (YamlDotNet.Core.YamlException)
             {
@@ -86,9 +87,9 @@ namespace SimPrinter.DeskTop
             if (portSettings == null)
                 return;
 
-            AppPortSetting = 0 < portSettings.Length ? portSettings[0] : new PortSettingModel();
-            PrinterPortSetting = 1 < portSettings.Length ? portSettings[1] : new PortSettingModel();
-            LabelPrinterPortSetting = 2 < portSettings.Length ? portSettings[2] : new PortSettingModel();
+            AppPortSetting = 0 < portSettings.Length ? portSettings[0] : new PortSetting();
+            PrinterPortSetting = 1 < portSettings.Length ? portSettings[1] : new PortSetting();
+            LabelPrinterPortSetting = 2 < portSettings.Length ? portSettings[2] : new PortSetting();
 
         }
 
@@ -102,7 +103,7 @@ namespace SimPrinter.DeskTop
                 .Build();
             try
             {
-                string yaml = serializer.Serialize(new PortSettingModel[]
+                string yaml = serializer.Serialize(new PortSetting[]
                 {
                     AppPortSetting, PrinterPortSetting, LabelPrinterPortSetting
                 });

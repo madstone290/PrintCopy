@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimPrinter.DeskTop.Models
+namespace SimPrinter.DeskTop.Settings
 {
     /// <summary>
     /// 시리얼포트 설정
     /// </summary>
-    public class PortSettingModel
+    public class PortSetting
     {
         private const int euckrCodepage = 51949;
 
