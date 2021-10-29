@@ -29,52 +29,52 @@ namespace SimPrinter.Core.TextParsers
         /// <summary>
         /// 거래일시 문자열
         /// </summary>
-        public string OrderTimeText { get; set; } = "거래일시:";
+        public string OrderTimeString { get; set; } = "거래일시:";
 
         /// <summary>
         /// 소계 문자열
         /// </summary>
-        public string SubTotalText { get; set; } = "소  계";
+        public string SubTotalString { get; set; } = "소  계";
 
         /// <summary>
         /// 합계 문자열
         /// </summary>
-        public string TotalText { get; set; } = "합  계";
+        public string TotalString { get; set; } = "합  계";
 
         /// <summary>
         /// 신용카드 문자열
         /// </summary>
-        public string CreditText { get; set; } = "신용카드";
+        public string CreditString { get; set; } = "신용카드";
 
         /// <summary>
         /// 청구금액 문자
         /// </summary>
-        public string BillAmountText { get; set; } = "청구 금액";
+        public string BillAmountString { get; set; } = "청구 금액";
 
         /// <summary>
         /// 고객번호 문자
         /// </summary>
-        public string ContactText { get; set; } = "고객번호:";
+        public string ContactString { get; set; } = "고객번호:";
 
         /// <summary>
         /// 고객주소 문자
         /// </summary>
-        public string AddressText { get; set; } = "고객주소:";
+        public string AddressString { get; set; } = "고객주소:";
 
         /// <summary>
         /// 주문메모 문자
         /// </summary>
-        public string MemoText { get; set; } = "주문메모:";
+        public string MemoString { get; set; } = "주문메모:";
 
         /// <summary>
         /// 제품구분 문자
         /// </summary>
-        public string ProductText { get; set; } = "-----------";
+        public string ProductString { get; set; } = "-----------";
         
         /// <summary>
         /// 세트구성품 문자
         /// </summary>
-        public string SetComponentText { get; set; } = "  -";
+        public string SetComponentString { get; set; } = "  -";
 
         public OrderModel Parse(string receiptText)
         {
@@ -103,8 +103,8 @@ namespace SimPrinter.Core.TextParsers
         public string ParseOrderTime(string[] textLines)
         {
             // 거래일시 문자열로 검색
-            string orderTime = FindByDelimiter(textLines, OrderTimeText);
-            logger.Information("ParseOrderTime {OrderTimeText} {orderTime}", OrderTimeText, orderTime);
+            string orderTime = FindByDelimiter(textLines, OrderTimeString);
+            logger.Information("ParseOrderTime {OrderTimeText} {orderTime}", OrderTimeString, orderTime);
             return orderTime;
         }
 
@@ -116,8 +116,8 @@ namespace SimPrinter.Core.TextParsers
         public string ParseSubTotal(string[] textLines)
         {
             // 소계 문자열로 검색
-            string subTotal = FindByDelimiter(textLines, SubTotalText);
-            logger.Information("ParseSubTotal {SubTotalText} {subTotal}", SubTotalText, subTotal);
+            string subTotal = FindByDelimiter(textLines, SubTotalString);
+            logger.Information("ParseSubTotal {SubTotalText} {subTotal}", SubTotalString, subTotal);
             return subTotal;
         }
 
@@ -129,8 +129,8 @@ namespace SimPrinter.Core.TextParsers
         public string ParseTotal(string[] textLines)
         {
             // 합계 문자열로 검색
-            string total = FindByDelimiter(textLines, TotalText);
-            logger.Information("ParseTotal {TotalText} {total}", TotalText, total);
+            string total = FindByDelimiter(textLines, TotalString);
+            logger.Information("ParseTotal {TotalString} {total}", TotalString, total);
             return total;
         }
 
@@ -142,8 +142,8 @@ namespace SimPrinter.Core.TextParsers
         public string ParseCreditAmount(string[] textLines)
         {
             // 신용카드 문자열로 검색
-            string credit = FindByDelimiter(textLines, CreditText);
-            logger.Information("ParseCreditAmount {CreditText} {credit}", CreditText, credit);
+            string credit = FindByDelimiter(textLines, CreditString);
+            logger.Information("ParseCreditAmount {CreditString} {credit}", CreditString, credit);
             return credit;
         }
 
@@ -155,8 +155,8 @@ namespace SimPrinter.Core.TextParsers
         public string ParseBillAmount(string[] textLines)
         { 
             // 청구금액 문자열로 검색
-            string billAmount = FindByDelimiter(textLines, BillAmountText);
-            logger.Information("ParseCreditAmount {BillAmountText} {billAmount}", BillAmountText, billAmount);
+            string billAmount = FindByDelimiter(textLines, BillAmountString);
+            logger.Information("ParseCreditAmount {BillAmountString} {billAmount}", BillAmountString, billAmount);
             return billAmount;
         }
 
@@ -169,8 +169,8 @@ namespace SimPrinter.Core.TextParsers
         public string ParseContact(string[] textLines)
         {
             // 고객번호 문자열로 검색
-            string contact = FindByDelimiter(textLines, ContactText);
-            logger.Information("ParseContact {ContactText} {contact}", ContactText, contact);
+            string contact = FindByDelimiter(textLines, ContactString);
+            logger.Information("ParseContact {ContactString} {contact}", ContactString, contact);
             return contact;
         }
 
@@ -182,8 +182,8 @@ namespace SimPrinter.Core.TextParsers
         public string ParseAddress(string[] textLines)
         {
             // 고객주소 문자열에서 주문메모 문자열 사이
-            string address = FindByDelimiters(textLines, AddressText, MemoText);
-            logger.Information("ParseAddress {AddressText} {MemoText} {address}", AddressText, MemoText, address);
+            string address = FindByDelimiters(textLines, AddressString, MemoString);
+            logger.Information("ParseAddress {AddressString} {MemoString} {address}", AddressString, MemoString, address);
             return address;
         }
 
@@ -195,8 +195,8 @@ namespace SimPrinter.Core.TextParsers
         public string ParseMemo(string[] textLines)
         {
             // 주문메모 문자열에서 끝가지
-            string memo = FindByDelimiters(textLines, MemoText, null);
-            logger.Information("ParseAddress {MemoText} {memo}", MemoText, memo);
+            string memo = FindByDelimiters(textLines, MemoString, null);
+            logger.Information("ParseAddress {MemoString} {memo}", MemoString, memo);
             return memo;
         }
 
@@ -216,7 +216,7 @@ namespace SimPrinter.Core.TextParsers
 
             // TODO Hint클래스 적용할 것
             // 제품문자열 검색
-            string[] productTextLines = FindLinesByDelimiters(textLines, ProductText, 1, ProductText, 2);
+            string[] productTextLines = FindLinesByDelimiters(textLines, ProductString, 1, ProductString, 2);
 
             // 제품명, 수량, 가격 합치기
             string[] mergedProductTextLines = MergeProductText(productTextLines);
@@ -298,10 +298,10 @@ namespace SimPrinter.Core.TextParsers
                     string product = textLine.Trim();
                     products.Add(product);
                 }
-                else if (textLine.StartsWith(SetComponentText))
+                else if (textLine.StartsWith(SetComponentString))
                 {
                     // 세트구성품. 세트구성품문자를 변경한다.
-                    string component = SET_MARK + textLine.Replace(SetComponentText, "").Trim();
+                    string component = SET_MARK + textLine.Replace(SetComponentString, "").Trim();
                     products.Add(component);
                 }
                 else
