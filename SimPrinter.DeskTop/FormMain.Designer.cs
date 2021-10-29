@@ -29,23 +29,12 @@ namespace SimPrinter.DeskTop
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle45 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle46 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle47 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle48 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.binaryGridView = new System.Windows.Forms.DataGridView();
-            this.orderNumberCol_Serial = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rawHexColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.orderHexColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.textGridView = new System.Windows.Forms.DataGridView();
-            this.oderNumberCol_Text = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.textColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.printLabelBtn = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.orderGridView = new System.Windows.Forms.DataGridView();
             this.orderNumberColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.orderTimeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,14 +46,28 @@ namespace SimPrinter.DeskTop
             this.productTotalColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.creditColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.billAmountColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.printLabelBtn = new System.Windows.Forms.Button();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.binaryGridView = new System.Windows.Forms.DataGridView();
+            this.orderNumberCol_Serial = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rawHexColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.orderHexColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.textGridView = new System.Windows.Forms.DataGridView();
+            this.oderNumberCol_Text = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.textColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.generalSettingView1 = new SimPrinter.DeskTop.GeneralSettingView();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.orderGridView)).BeginInit();
+            this.panel1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.binaryGridView)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.textGridView)).BeginInit();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.orderGridView)).BeginInit();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -72,8 +75,9 @@ namespace SimPrinter.DeskTop
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Font = new System.Drawing.Font("Gulim", 12F);
+            this.tabControl1.Font = new System.Drawing.Font("Gulim", 10F);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -84,13 +88,127 @@ namespace SimPrinter.DeskTop
             // 
             this.tabPage1.Controls.Add(this.orderGridView);
             this.tabPage1.Controls.Add(this.panel1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 26);
+            this.tabPage1.Location = new System.Drawing.Point(4, 23);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(976, 531);
+            this.tabPage1.Size = new System.Drawing.Size(976, 534);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "주문목록";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // orderGridView
+            // 
+            this.orderGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.orderGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.orderNumberColumn,
+            this.orderTimeColumn,
+            this.addressColumn,
+            this.contactColumn,
+            this.productDetailColumn,
+            this.memoColumn,
+            this.subTotalColumn,
+            this.productTotalColumn,
+            this.creditColumn,
+            this.billAmountColumn});
+            this.orderGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.orderGridView.Location = new System.Drawing.Point(3, 47);
+            this.orderGridView.Name = "orderGridView";
+            this.orderGridView.RowTemplate.Height = 23;
+            this.orderGridView.Size = new System.Drawing.Size(970, 484);
+            this.orderGridView.TabIndex = 3;
+            // 
+            // orderNumberColumn
+            // 
+            this.orderNumberColumn.DataPropertyName = "OrderNumber";
+            this.orderNumberColumn.HeaderText = "주문번호";
+            this.orderNumberColumn.Name = "orderNumberColumn";
+            // 
+            // orderTimeColumn
+            // 
+            this.orderTimeColumn.DataPropertyName = "OrderTime";
+            this.orderTimeColumn.HeaderText = "주문시간";
+            this.orderTimeColumn.Name = "orderTimeColumn";
+            this.orderTimeColumn.Width = 180;
+            // 
+            // addressColumn
+            // 
+            this.addressColumn.DataPropertyName = "Address";
+            dataGridViewCellStyle45.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.addressColumn.DefaultCellStyle = dataGridViewCellStyle45;
+            this.addressColumn.HeaderText = "주소";
+            this.addressColumn.Name = "addressColumn";
+            this.addressColumn.Width = 300;
+            // 
+            // contactColumn
+            // 
+            this.contactColumn.DataPropertyName = "Contact";
+            this.contactColumn.HeaderText = "연락처";
+            this.contactColumn.Name = "contactColumn";
+            this.contactColumn.Width = 150;
+            // 
+            // productDetailColumn
+            // 
+            this.productDetailColumn.DataPropertyName = "ProductDetail";
+            dataGridViewCellStyle46.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.productDetailColumn.DefaultCellStyle = dataGridViewCellStyle46;
+            this.productDetailColumn.HeaderText = "제품상세";
+            this.productDetailColumn.Name = "productDetailColumn";
+            this.productDetailColumn.Width = 300;
+            // 
+            // memoColumn
+            // 
+            this.memoColumn.DataPropertyName = "Memo";
+            dataGridViewCellStyle47.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.memoColumn.DefaultCellStyle = dataGridViewCellStyle47;
+            this.memoColumn.HeaderText = "메모";
+            this.memoColumn.Name = "memoColumn";
+            this.memoColumn.Width = 200;
+            // 
+            // subTotalColumn
+            // 
+            this.subTotalColumn.DataPropertyName = "SubTotal";
+            this.subTotalColumn.HeaderText = "소계";
+            this.subTotalColumn.Name = "subTotalColumn";
+            this.subTotalColumn.Width = 80;
+            // 
+            // productTotalColumn
+            // 
+            this.productTotalColumn.DataPropertyName = "Total";
+            this.productTotalColumn.HeaderText = "합계";
+            this.productTotalColumn.Name = "productTotalColumn";
+            this.productTotalColumn.Width = 80;
+            // 
+            // creditColumn
+            // 
+            this.creditColumn.DataPropertyName = "Credit";
+            this.creditColumn.HeaderText = "신용카드";
+            this.creditColumn.Name = "creditColumn";
+            this.creditColumn.Width = 80;
+            // 
+            // billAmountColumn
+            // 
+            this.billAmountColumn.DataPropertyName = "BillAmount";
+            this.billAmountColumn.HeaderText = "청구금액";
+            this.billAmountColumn.Name = "billAmountColumn";
+            this.billAmountColumn.Width = 80;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.printLabelBtn);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(970, 44);
+            this.panel1.TabIndex = 2;
+            // 
+            // printLabelBtn
+            // 
+            this.printLabelBtn.Location = new System.Drawing.Point(5, 3);
+            this.printLabelBtn.Name = "printLabelBtn";
+            this.printLabelBtn.Size = new System.Drawing.Size(125, 38);
+            this.printLabelBtn.TabIndex = 0;
+            this.printLabelBtn.Text = "라벨 발행";
+            this.printLabelBtn.UseVisualStyleBackColor = true;
             // 
             // tabPage2
             // 
@@ -126,8 +244,8 @@ namespace SimPrinter.DeskTop
             // rawHexColumn
             // 
             this.rawHexColumn.DataPropertyName = "RawHex";
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.rawHexColumn.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle48.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.rawHexColumn.DefaultCellStyle = dataGridViewCellStyle48;
             this.rawHexColumn.HeaderText = "원본 데이터";
             this.rawHexColumn.Name = "rawHexColumn";
             this.rawHexColumn.Width = 500;
@@ -176,119 +294,24 @@ namespace SimPrinter.DeskTop
             this.textColumn.Name = "textColumn";
             this.textColumn.Width = 500;
             // 
-            // printLabelBtn
+            // tabPage4
             // 
-            this.printLabelBtn.Location = new System.Drawing.Point(5, 3);
-            this.printLabelBtn.Name = "printLabelBtn";
-            this.printLabelBtn.Size = new System.Drawing.Size(125, 38);
-            this.printLabelBtn.TabIndex = 0;
-            this.printLabelBtn.Text = "라벨 발행";
-            this.printLabelBtn.UseVisualStyleBackColor = true;
+            this.tabPage4.Controls.Add(this.generalSettingView1);
+            this.tabPage4.Location = new System.Drawing.Point(4, 23);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(976, 534);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "설정";
+            this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // panel1
+            // generalSettingView1
             // 
-            this.panel1.Controls.Add(this.printLabelBtn);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(3, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(970, 44);
-            this.panel1.TabIndex = 2;
-            // 
-            // orderGridView
-            // 
-            this.orderGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.orderGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.orderNumberColumn,
-            this.orderTimeColumn,
-            this.addressColumn,
-            this.contactColumn,
-            this.productDetailColumn,
-            this.memoColumn,
-            this.subTotalColumn,
-            this.productTotalColumn,
-            this.creditColumn,
-            this.billAmountColumn});
-            this.orderGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.orderGridView.Location = new System.Drawing.Point(3, 47);
-            this.orderGridView.Name = "orderGridView";
-            this.orderGridView.RowTemplate.Height = 23;
-            this.orderGridView.Size = new System.Drawing.Size(970, 481);
-            this.orderGridView.TabIndex = 3;
-            // 
-            // orderNumberColumn
-            // 
-            this.orderNumberColumn.DataPropertyName = "OrderNumber";
-            this.orderNumberColumn.HeaderText = "주문번호";
-            this.orderNumberColumn.Name = "orderNumberColumn";
-            // 
-            // orderTimeColumn
-            // 
-            this.orderTimeColumn.DataPropertyName = "OrderTime";
-            this.orderTimeColumn.HeaderText = "주문시간";
-            this.orderTimeColumn.Name = "orderTimeColumn";
-            this.orderTimeColumn.Width = 180;
-            // 
-            // addressColumn
-            // 
-            this.addressColumn.DataPropertyName = "Address";
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.addressColumn.DefaultCellStyle = dataGridViewCellStyle6;
-            this.addressColumn.HeaderText = "주소";
-            this.addressColumn.Name = "addressColumn";
-            this.addressColumn.Width = 300;
-            // 
-            // contactColumn
-            // 
-            this.contactColumn.DataPropertyName = "Contact";
-            this.contactColumn.HeaderText = "연락처";
-            this.contactColumn.Name = "contactColumn";
-            this.contactColumn.Width = 150;
-            // 
-            // productDetailColumn
-            // 
-            this.productDetailColumn.DataPropertyName = "ProductDetail";
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.productDetailColumn.DefaultCellStyle = dataGridViewCellStyle7;
-            this.productDetailColumn.HeaderText = "제품상세";
-            this.productDetailColumn.Name = "productDetailColumn";
-            this.productDetailColumn.Width = 300;
-            // 
-            // memoColumn
-            // 
-            this.memoColumn.DataPropertyName = "Memo";
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.memoColumn.DefaultCellStyle = dataGridViewCellStyle8;
-            this.memoColumn.HeaderText = "메모";
-            this.memoColumn.Name = "memoColumn";
-            this.memoColumn.Width = 200;
-            // 
-            // subTotalColumn
-            // 
-            this.subTotalColumn.DataPropertyName = "SubTotal";
-            this.subTotalColumn.HeaderText = "소계";
-            this.subTotalColumn.Name = "subTotalColumn";
-            this.subTotalColumn.Width = 80;
-            // 
-            // productTotalColumn
-            // 
-            this.productTotalColumn.DataPropertyName = "Total";
-            this.productTotalColumn.HeaderText = "합계";
-            this.productTotalColumn.Name = "productTotalColumn";
-            this.productTotalColumn.Width = 80;
-            // 
-            // creditColumn
-            // 
-            this.creditColumn.DataPropertyName = "Credit";
-            this.creditColumn.HeaderText = "신용카드";
-            this.creditColumn.Name = "creditColumn";
-            this.creditColumn.Width = 80;
-            // 
-            // billAmountColumn
-            // 
-            this.billAmountColumn.DataPropertyName = "BillAmount";
-            this.billAmountColumn.HeaderText = "청구금액";
-            this.billAmountColumn.Name = "billAmountColumn";
-            this.billAmountColumn.Width = 80;
+            this.generalSettingView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.generalSettingView1.Location = new System.Drawing.Point(3, 3);
+            this.generalSettingView1.Name = "generalSettingView1";
+            this.generalSettingView1.Size = new System.Drawing.Size(970, 528);
+            this.generalSettingView1.TabIndex = 0;
             // 
             // FormMain
             // 
@@ -300,12 +323,13 @@ namespace SimPrinter.DeskTop
             this.Text = "심프린터";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.orderGridView)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.binaryGridView)).EndInit();
             this.tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.textGridView)).EndInit();
-            this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.orderGridView)).EndInit();
+            this.tabPage4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -336,6 +360,8 @@ namespace SimPrinter.DeskTop
         private System.Windows.Forms.DataGridViewTextBoxColumn billAmountColumn;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button printLabelBtn;
+        private System.Windows.Forms.TabPage tabPage4;
+        private GeneralSettingView generalSettingView1;
     }
 }
 

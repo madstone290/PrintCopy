@@ -1,5 +1,6 @@
 ﻿using SimPrinter.Core;
 using SimPrinter.DeskTop.Models;
+using SimPrinter.DeskTop.Settings;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +15,7 @@ namespace SimPrinter.DeskTop
 {
     public partial class FormMain : Form
     {
+        private readonly SettingManager settingManager = Program.SettingManager;
         private readonly Worker worker;
 
         private readonly BindingList<OrderViewModel> orderBindingList = new BindingList<OrderViewModel>();
@@ -45,27 +47,17 @@ namespace SimPrinter.DeskTop
             textGridView.DataSource = textBindingList;
 
             printLabelBtn.Click += PrintLabelBtn_Click;
+            settingManager.SettingSaved += SettingManager_SettingSaved;
+            orderBindingList.Add(new OrderViewModel() { Address = "sdfsdf", ProductDetail = "dfdfe아항ㅎ너ㅏㄴㅇ1개=\r\n아나가거 2개" });
         }
+
+
 
         public FormMain(Worker worker) : this()
         {
             this.worker = worker;
             this.worker.OrderCreated += Worker_OrderCreated;
         }
-
-        private void PrintLabelBtn_Click(object sender, EventArgs e)
-        {
-            if (orderGridView.SelectedRows.Count == 0) 
-            {
-                MessageBoxEx.Show("주문을 먼저 선택하세요");
-                return;
-            }
-
-            OrderViewModel selectedOrder = orderGridView.SelectedRows[orderGridView.SelectedRows.Count - 1].DataBoundItem as OrderViewModel;
-            worker.PrintLabel(selectedOrder.Id);
-
-        }
-
 
         private void Worker_OrderCreated(object sender, Core.EventArgs.OrderArgs e)
         {
@@ -90,6 +82,27 @@ namespace SimPrinter.DeskTop
             });
         }
 
+        private void PrintLabelBtn_Click(object sender, EventArgs e)
+        {
+            if (orderGridView.SelectedRows.Count == 0)
+            {
+                MessageBoxEx.Show("주문을 먼저 선택하세요");
+                return;
+            }
+
+            OrderViewModel selectedOrder = orderGridView.SelectedRows[orderGridView.SelectedRows.Count - 1].DataBoundItem as OrderViewModel;
+            worker.PrintLabel(selectedOrder.Id);
+        }
+
+
+        private void SettingManager_SettingSaved(object sender, object e)
+        {
+            if (e is GeneralSetting setting)
+            {
+                ApplySetting(setting);
+            }
+        }
+ 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -100,6 +113,8 @@ namespace SimPrinter.DeskTop
                 orderBindingList.Add(OrderViewModel.FromOrderModel(order));
 
             // TODO load gridview settings
+            GeneralSetting setting = settingManager.Load<GeneralSetting>();
+            ApplySetting(setting);
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)
@@ -117,6 +132,26 @@ namespace SimPrinter.DeskTop
 
             e.Cancel = result != DialogResult.Yes;
         }
+
+        private void ApplySetting(GeneralSetting setting)
+        {
+            Font parentFont = tabControl1.Font;
+            foreach (DataGridViewColumn column in orderGridView.Columns)
+            {
+                column.DefaultCellStyle.Font = new Font(parentFont.FontFamily, setting.FontSize);
+            }
+
+            foreach (DataGridViewColumn column in binaryGridView.Columns)
+            {
+                column.DefaultCellStyle.Font = new Font(parentFont.FontFamily, setting.FontSize);
+            }
+
+            foreach (DataGridViewColumn column in textGridView.Columns)
+            {
+                column.DefaultCellStyle.Font = new Font(parentFont.FontFamily, setting.FontSize);
+            }
+        }
+
 
 
 

@@ -14,6 +14,8 @@ namespace SimPrinter.DeskTop
 {
     static class Program
     {
+        public static SettingManager SettingManager { get; private set; }
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -22,6 +24,8 @@ namespace SimPrinter.DeskTop
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            SettingManager = new SettingManager(Application.StartupPath);
 
             Worker worker = null;
 
