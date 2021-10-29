@@ -63,6 +63,7 @@
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\PrintoutType.cs" />
     <Compile Include="Models\ProductModel.cs" />
+    <Compile Include="Models\ProductType.cs" />
     <Compile Include="Persistence\OrderDao.cs" />
     <Compile Include="PrintCommand.cs" />
     <Compile Include="PrintCommandRemover.cs" />

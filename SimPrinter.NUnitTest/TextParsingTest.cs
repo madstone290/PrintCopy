@@ -212,5 +212,19 @@ POS 번호: 0001
             Assert.AreEqual(MEMO.Replace("\r\n", " "), order.Memo);
 
         }
+
+        [Test]
+        public void CheckPizzaCount()
+        {
+            AlvoloTextParser textParser = new AlvoloTextParser();
+
+            ProductModel[] products = textParser.ParseProduct(textLines);
+
+            Assert.NotNull(products);
+            Assert.IsTrue(0 < products.Length);
+
+            // 쉬림프n핫치킨골드피자 세트 L, 쉬림프n핫치킨 슈크림무스 L, 쉬림프n핫치킨 피자 홀세트 R
+            Assert.AreEqual(3, products.Count(x => x.Type == ProductType.Pizza));
+        }
     }
 }

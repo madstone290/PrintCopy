@@ -22,6 +22,11 @@ namespace SimPrinter.Core.TextParsers
         private const string SET_MARK = "-";
 
         /// <summary>
+        /// 피자사이즈 문자열
+        /// </summary>
+        public string[] PizzaSizeStrings { get; set; } = new string[] { "R", "S", "L" };
+
+        /// <summary>
         /// 거래일시 문자열
         /// </summary>
         public string OrderTimeText { get; set; } = "거래일시:";
@@ -220,26 +225,44 @@ namespace SimPrinter.Core.TextParsers
 
             foreach(var textLine in mergedProductTextLines)
             {
-                if (!textLine.StartsWith(SET_MARK))
+                if (!textLine.StartsWith(SET_MARK)) // 제품
                 {
-                    // 제품
-                    string[] parts = textLine.Split(' ').Where(x=> !string.IsNullOrWhiteSpace(x)).ToArray();
+                    // 제품전체 파트
+                    string[] allParts = textLine.Split(' ').Where(x=> !string.IsNullOrWhiteSpace(x)).ToArray();
 
                     // 공백으로 구분시 끝에서부터 순서대로 가격, 수량, 제품명
-                    string price = parts[parts.Length - 1];
-                    string quantity = parts[parts.Length - 2];
-                    string name = string.Join(" ", parts.Take(parts.Length - 2));
-
+                    string quantity;
+                    string price;
+                    string name;
+                    if(allParts.Length < 3) // 이름, 수량, 가격 구성을 이루지 않음
+                    {
+                        price = string.Empty;
+                        quantity = string.Empty;
+                        name = string.Join(" ", allParts);
+                    }
+                    else
+                    {
+                        price = allParts[allParts.Length - 1];
+                        quantity = allParts[allParts.Length - 2];
+                        name = string.Join(" ", allParts.Take(allParts.Length - 2));
+                    }
+                    
+                    // 제품명 파트
+                    string[] nameParts = name.Split(' ');
+                    string pizzaSize = nameParts[nameParts.Length - 1];
+                    ProductType productType = PizzaSizeStrings.Contains(pizzaSize) ? ProductType.Pizza : ProductType.Other;
+                    
+                    // 제품 유형분석
                     ProductModel productModel = new ProductModel();
                     productModel.Name = name;
                     productModel.Price = price;
                     productModel.Quantity = quantity;
+                    productModel.Type = productType;
 
                     productModels.Add(productModel);
                 }
-                else
+                else // 구성품
                 {
-                    // 구성품
                     ProductModel productModel = productModels.Last();
                     productModel.SetComponents.Add(textLine);
                 }

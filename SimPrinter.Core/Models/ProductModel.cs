@@ -27,6 +27,11 @@ namespace SimPrinter.Core.Models
         public string Price { get; set; }
 
         /// <summary>
+        /// 제품유형
+        /// </summary>
+        public ProductType Type { get; set; }
+
+        /// <summary>
         /// 세트 구성품
         /// </summary>
         public List<string> SetComponents { get; set; } = new List<string>();
