@@ -225,9 +225,10 @@ namespace SimPrinter.Core.TextParsers
                     // 제품
                     string[] parts = textLine.Split(' ').Where(x=> !string.IsNullOrWhiteSpace(x)).ToArray();
 
-                    string name = string.Join(" ", parts.Take(parts.Length - 2));
+                    // 공백으로 구분시 끝에서부터 순서대로 가격, 수량, 제품명
                     string price = parts[parts.Length - 1];
                     string quantity = parts[parts.Length - 2];
+                    string name = string.Join(" ", parts.Take(parts.Length - 2));
 
                     ProductModel productModel = new ProductModel();
                     productModel.Name = name;
@@ -256,15 +257,17 @@ namespace SimPrinter.Core.TextParsers
         /// <returns></returns>
         private string[] MergeProductText(string[] productTextLines)
         {
-            List<string> products = new List<string>();
+            /*
+             * 제품이름이 긴 경우 제품1, 제품2 파트로 나뉜다
+             * */
 
+            List<string> products = new List<string>();
             for (int i = 0; i < productTextLines.Length; i++)
             {
                 string textLine = productTextLines[i];
 
                 if (string.IsNullOrWhiteSpace(textLine))
                     continue;
-
                 
                 if (!string.IsNullOrWhiteSpace(textLine[0].ToString()))
                 {
