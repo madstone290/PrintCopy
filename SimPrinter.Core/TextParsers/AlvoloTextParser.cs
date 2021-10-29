@@ -85,8 +85,6 @@ namespace SimPrinter.Core.TextParsers
             order.Address = ParseAddress(textLines);
             order.Memo = ParseMemo(textLines);
             order.Products = ParseProduct(textLines);
-            // TODO 주문정보에 따라 조건 설정
-            order.IsLabelPrinted = true;
 
             return order;
         }

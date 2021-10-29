@@ -63,12 +63,6 @@ namespace SimPrinter.Core.Models
         /// </summary>
         public string Memo { get; set; }
 
-        /// <summary>
-        /// 라벨프린터 출력여부 
-        /// </summary>
-        public bool IsLabelPrinted{ get; set; }
-
-
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();

@@ -141,8 +141,7 @@ namespace SimPrinter.Core
 
             logger.Information("OrderParsed {order}", order);
 
-            if (order.IsLabelPrinted)
-                labelPrinter.Print(order);
+            labelPrinter.Print(order);
 
             OrderCreated?.Invoke(this, new OrderArgs(order, e.RawBufferHex, e.TextBufferHex, e.Text));
         }
