@@ -88,7 +88,7 @@ namespace SimPrinter.Core.ByteParsers
 
             // ESC/POS 커맨드 제거.
             byte[] receipt = printCommandRemover.Remove(rawReceipt);
-            logger.Information("Removed command: {array}", BitConverter.ToString(rawReceipt, 0, rawReceipt.Length));
+            logger.Information("Removed command: {array}", BitConverter.ToString(receipt, 0, receipt.Length));
 
             string text = encoding.GetString(receipt);
             ParsingCompleted?.Invoke(this, new ByteParsingArgs(rawReceipt, 0, rawReceiptLength, receipt, 0, receipt.Length, text));
