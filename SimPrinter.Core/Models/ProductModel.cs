@@ -39,7 +39,7 @@ namespace SimPrinter.Core.Models
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("{0} {1, 5}개", Name, Quantity);
+            sb.AppendFormat("{0, 5} {1} {2, 5}개", Type, Name, Quantity );
             foreach(string component in SetComponents)
             {
                 sb.AppendLine();
