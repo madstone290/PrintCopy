@@ -18,11 +18,12 @@ namespace SimPrinter.Core.ByteParsers
         private readonly Logger logger = LoggingManager.Logger;
 
         /// <summary>
-        /// 영수증 끝을 식별할 수 있는 명령어
+        /// 영수증 끝을 식별할 수 있는 명령어. 다음중 하나라도 포함되어 있으면 출력물이 끝났다고 판단한다.
+        /// 앞에서부터 순서대로 검색한다.
         /// </summary>
-        private readonly PrintCommand[] receiptEndCommands = new PrintCommand[]
+        private readonly PrintCommand[] printoutEndCommand = new PrintCommand[]
         {
-            PrintCommand.PartialCut, PrintCommand.FullCut, PrintCommand.SelectCutModeAndCutPaper
+             PrintCommand.EndOfPrintout, PrintCommand.PartialCut, PrintCommand.FullCut, PrintCommand.SelectCutModeAndCutPaper
         };
 
         /// <summary>
@@ -101,7 +102,7 @@ namespace SimPrinter.Core.ByteParsers
         /// <returns></returns>
         private int FindEndOfReceipt(out int endCommandLength)
         {
-            foreach(var endCommand in receiptEndCommands)
+            foreach(var endCommand in printoutEndCommand)
             {
                 int index = ArrayUtil.FindIndex(receiptBuffer, endCommand.Code, 0);
                 if (0 < index)

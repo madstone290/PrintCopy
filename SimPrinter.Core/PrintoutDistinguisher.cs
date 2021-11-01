@@ -24,8 +24,12 @@ namespace SimPrinter.Core
         /// <returns>출력물 유형</returns>
         public PrintoutType Distinguish(string printoutText)
         {
-            PrintoutType printoutType = printoutText.StartsWith(DISTINGUISH_PHRASE1) 
-                ? PrintoutType.Order 
+            // 첫번째 라인에서 문구 포함여부 확인
+
+            string[] textLines = printoutText.TrimStart().Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+            
+            PrintoutType printoutType = 0 < textLines.Length && textLines[0].Contains(DISTINGUISH_PHRASE1)
+                ? PrintoutType.Order
                 : PrintoutType.Other;
 
             return printoutType;

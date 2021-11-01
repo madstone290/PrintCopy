@@ -46,6 +46,9 @@ namespace SimPrinter.Core
         /// </summary>
         public static PrintCommand[] PrintCommandCollection => new PrintCommand[]
         {
+            // 커스텀 명령어
+            Unknown1,
+
             // 프린터 정보
             PrinterId, TransmitStatus, TransmitPaperSensorStatus,
 
@@ -54,9 +57,26 @@ namespace SimPrinter.Core
             SelectFontA, SelectFontC, SelectFontD, Rotation, SelectCharacterCodePage,
             UpsideDownMode, SetCpiMode, SelectCodePage, SelectCharacterSize, ReversePrintMode, SelectDoubleStrikeMode,
 
+            // 이미지
+            NVBitImage,
+
             // 용지 설정
             PartialCut, FullCut,Ejector, EnableAndDisableAutoCut, SelectCutModeAndCutPaper, PrintAndFeedPaperNLines, PrintAndFeedPaper,
         };
+
+        #region 커스텀 명령어. 알수없는 명령어.
+        
+        /// <summary>
+        /// 알수없는 명령어1
+        /// </summary>
+        public static readonly PrintCommand Unknown1 = new PrintCommand(new byte[] { 0x1C, 0x70, 0x01, 0x00, 0x1B }, 0);
+
+        /// <summary>
+        /// 출력물 끝 커스텀명령어. 용지자르기 + 프린트모드 + NewLine으로 구성되어 있다.
+        /// </summary>
+        public static readonly PrintCommand EndOfPrintout = new PrintCommand(new byte[] { 0x1D, 0x56, 0x01, 0x1B, 0x21, 0x00, 0x0D, 0x0A }, 0);
+
+        #endregion
 
 
         #region 프린터 정보 
@@ -255,7 +275,12 @@ namespace SimPrinter.Core
 
         #endregion
 
-        #region 이미지 & 바코드. 사용하지 않음.
+        #region 이미지 & 바코드
+
+        /// <summary>
+        /// NV 비트 이미지 출력
+        /// </summary>
+        public static readonly PrintCommand NVBitImage = new PrintCommand(new byte[] { 0x1C, 0x70 }, 2);
 
         #endregion
 
