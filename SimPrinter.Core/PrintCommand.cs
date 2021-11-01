@@ -10,6 +10,7 @@ namespace SimPrinter.Core
     /// ESC/POS 프린터 커맨드.
     /// 명령어 코드 및 명령어 인자로 구성된다.
     /// 명령어 참조. https://escpos.readthedocs.io
+    /// PDF 참조. http://www.sam4s.co.kr/files/DOWN/2019012393432_1.pdf
     /// </summary>
     public class PrintCommand
     {
