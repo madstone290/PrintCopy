@@ -48,7 +48,6 @@ namespace SimPrinter.DeskTop
 
             printLabelBtn.Click += PrintLabelBtn_Click;
             settingManager.SettingSaved += SettingManager_SettingSaved;
-            orderBindingList.Add(new OrderViewModel() { Address = "sdfsdf", ProductDetail = "dfdfe아항ㅎ너ㅏㄴㅇ1개=\r\n아나가거 2개" });
         }
 
 
