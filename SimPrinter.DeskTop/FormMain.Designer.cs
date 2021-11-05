@@ -29,10 +29,10 @@ namespace SimPrinter.DeskTop
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.orderGridView = new System.Windows.Forms.DataGridView();
@@ -137,8 +137,8 @@ namespace SimPrinter.DeskTop
             // addressColumn
             // 
             this.addressColumn.DataPropertyName = "Address";
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.addressColumn.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.addressColumn.DefaultCellStyle = dataGridViewCellStyle1;
             this.addressColumn.HeaderText = "주소";
             this.addressColumn.Name = "addressColumn";
             this.addressColumn.Width = 300;
@@ -153,8 +153,8 @@ namespace SimPrinter.DeskTop
             // productDetailColumn
             // 
             this.productDetailColumn.DataPropertyName = "ProductDetail";
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.productDetailColumn.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.productDetailColumn.DefaultCellStyle = dataGridViewCellStyle2;
             this.productDetailColumn.HeaderText = "제품상세";
             this.productDetailColumn.Name = "productDetailColumn";
             this.productDetailColumn.Width = 300;
@@ -162,8 +162,8 @@ namespace SimPrinter.DeskTop
             // memoColumn
             // 
             this.memoColumn.DataPropertyName = "Memo";
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.memoColumn.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.memoColumn.DefaultCellStyle = dataGridViewCellStyle3;
             this.memoColumn.HeaderText = "메모";
             this.memoColumn.Name = "memoColumn";
             this.memoColumn.Width = 200;
@@ -248,8 +248,8 @@ namespace SimPrinter.DeskTop
             // rawHexColumn
             // 
             this.rawHexColumn.DataPropertyName = "RawHex";
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.rawHexColumn.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.rawHexColumn.DefaultCellStyle = dataGridViewCellStyle4;
             this.rawHexColumn.HeaderText = "원본 데이터";
             this.rawHexColumn.Name = "rawHexColumn";
             this.rawHexColumn.Width = 500;
@@ -331,6 +331,7 @@ namespace SimPrinter.DeskTop
             // customLabelListView1
             // 
             this.customLabelListView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.customLabelListView1.LabelPrinter = null;
             this.customLabelListView1.Location = new System.Drawing.Point(3, 3);
             this.customLabelListView1.Name = "customLabelListView1";
             this.customLabelListView1.Size = new System.Drawing.Size(970, 528);
