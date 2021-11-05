@@ -48,6 +48,11 @@ namespace SimPrinter.DeskTop
 
             printLabelBtn.Click += PrintLabelBtn_Click;
             settingManager.SettingSaved += SettingManager_SettingSaved;
+            orderBindingList.Add(new OrderViewModel()
+            {
+                ProductDetail = "dfsdf안녕",
+                Address = "대구시 수성과 황금도오ㅓㅏㅇ 3123"
+            });
         }
 
 
@@ -111,16 +116,38 @@ namespace SimPrinter.DeskTop
             foreach (var order in worker.Orders)
                 orderBindingList.Add(OrderViewModel.FromOrderModel(order));
 
-            // TODO load gridview settings
+            // 전역설정
             GeneralSetting setting = settingManager.Load<GeneralSetting>();
             ApplySetting(setting);
+
+            // 그리드 설정
+            GridSetting gridSetting = settingManager.Load<GridSetting>();
+            if(gridSetting.OrderGridViewColumnWidth != null)
+            {
+                for(int i = 0; i < gridSetting.OrderGridViewColumnWidth.Length; i++)
+                {
+                    orderGridView.Columns[i].Width = gridSetting.OrderGridViewColumnWidth[i];
+                }
+            }
+           
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)
         {
             base.OnFormClosed(e);
 
-            // TODO save gridview settings
+            // 그리드 설정 저장
+            int[] columnWidths = new int[orderGridView.Columns.Count];
+            int index = 0;
+            foreach (DataGridViewColumn col in orderGridView.Columns)
+            {
+                columnWidths[index++] = col.Width;
+            }
+
+            GridSetting gridSetting = new GridSetting();
+            gridSetting.OrderGridViewColumnWidth = columnWidths;
+
+            settingManager.Save(gridSetting);
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -132,23 +159,22 @@ namespace SimPrinter.DeskTop
             e.Cancel = result != DialogResult.Yes;
         }
 
+        /// <summary>
+        /// 설정을 적용한다
+        /// </summary>
+        /// <param name="setting"></param>
         private void ApplySetting(GeneralSetting setting)
         {
-            Font parentFont = tabControl1.Font;
-            foreach (DataGridViewColumn column in orderGridView.Columns)
-            {
-                column.DefaultCellStyle.Font = new Font(parentFont.FontFamily, setting.FontSize);
-            }
+            Font font = new Font(DataGridView.DefaultFont.FontFamily, setting.FontSize);
 
-            foreach (DataGridViewColumn column in binaryGridView.Columns)
-            {
-                column.DefaultCellStyle.Font = new Font(parentFont.FontFamily, setting.FontSize);
-            }
+            orderGridView.ColumnHeadersDefaultCellStyle.Font = font;
+            orderGridView.DefaultCellStyle.Font = font;
 
-            foreach (DataGridViewColumn column in textGridView.Columns)
-            {
-                column.DefaultCellStyle.Font = new Font(parentFont.FontFamily, setting.FontSize);
-            }
+            binaryGridView.ColumnHeadersDefaultCellStyle.Font = font;
+            binaryGridView.DefaultCellStyle.Font = font;
+
+            textGridView.ColumnHeadersDefaultCellStyle.Font = font;
+            textGridView.DefaultCellStyle.Font = font;
         }
 
 
