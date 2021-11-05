@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 namespace SimPrinter.Core.TextParsers
 {
     /// <summary>
-    /// 피자알볼로 영수증 텍스트를 분석해서 주문정보를 추출한다.
+    /// ZPos 주문텍스트를 분석해서 주문정보를 추출한다.
     /// </summary>
-    public class AlvoloTextParser : ITextParser
+    public class ZPosTextParser : ITextParser
     {
         private readonly Logger logger = LoggingManager.Logger;
 

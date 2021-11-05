@@ -51,7 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArrayUtil.cs" />
-    <Compile Include="ByteParsers\AlvoloByteParser.cs" />
+    <Compile Include="ByteParsers\EscPosByteParser.cs" />
     <Compile Include="EventArgs\ByteParsingArgs.cs" />
     <Compile Include="EventArgs\TextParsedArgs.cs" />
     <Compile Include="Logging\LoggingManager.cs" />
@@ -69,7 +69,7 @@
     <Compile Include="PrintCommandRemover.cs" />
     <Compile Include="PrintoutDistinguisher.cs" />
     <Compile Include="SimSerialPort.cs" />
-    <Compile Include="TextParsers\AlvoloTextParser.cs" />
+    <Compile Include="TextParsers\ZPosTextParser.cs" />
     <Compile Include="TextParsers\DaeguroTextParser.cs" />
     <Compile Include="Worker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 namespace SimPrinter.Core.ByteParsers
 {
     /// <summary>
-    /// 바이트 배열을 분석해서 영수증을 추출한다.
+    /// Esc/Pos 명령어 바이트를 분석해서 텍스트를 추출한다.
     /// </summary>
-    public class AlvoloByteParser : IByteParser
+    public class EscPosByteParser : IByteParser
     {
         private readonly Logger logger = LoggingManager.Logger;
 
@@ -37,18 +37,18 @@ namespace SimPrinter.Core.ByteParsers
         private readonly PrintCommandRemover printCommandRemover;
 
         /// <summary>
-        /// 영수증버퍼
+        /// 출력물버퍼
         /// </summary>
-        private byte[] receiptBuffer = new byte[1024];
+        private byte[] printoutBuffer = new byte[1024];
 
         /// <summary>
-        /// 영수증버퍼 복사 위치
+        /// 출력물버퍼 복사 위치
         /// </summary>
-        private int receiptBufferPosition;
+        private int printoutBufferPostion;
 
         public event EventHandler<ByteParsingArgs> ParsingCompleted;
 
-        public AlvoloByteParser(Encoding encoding)
+        public EscPosByteParser(Encoding encoding)
         {
             this.encoding = encoding;
             this.printCommandRemover = new PrintCommandRemover();
@@ -64,11 +64,11 @@ namespace SimPrinter.Core.ByteParsers
              * 2-2. 영수증버퍼를 문자열로 변환한다.
              * */
             
-            if(receiptBuffer.Length < receiptBufferPosition + length)
-                Array.Resize(ref receiptBuffer, receiptBufferPosition + length);
+            if(printoutBuffer.Length < printoutBufferPostion + length)
+                Array.Resize(ref printoutBuffer, printoutBufferPostion + length);
 
-            Array.Copy(buffer, offset, receiptBuffer, receiptBufferPosition, length);
-            receiptBufferPosition += length;
+            Array.Copy(buffer, offset, printoutBuffer, printoutBufferPostion, length);
+            printoutBufferPostion += length;
 
             int index = FindEndOfReceipt(out int endOfReceiptLength);
             
@@ -78,14 +78,14 @@ namespace SimPrinter.Core.ByteParsers
             // 버퍼 데이터 복사
             int rawReceiptLength = index + endOfReceiptLength;
             byte[] rawReceipt = new byte[rawReceiptLength];
-            Array.Copy(receiptBuffer, rawReceipt, rawReceiptLength);
+            Array.Copy(printoutBuffer, rawReceipt, rawReceiptLength);
             logger.Information("Found End of receipt: {array}", BitConverter.ToString(rawReceipt, 0, rawReceipt.Length));
 
             // 버퍼 초기화
-            receiptBufferPosition -= rawReceiptLength;
-            byte[] temp = new byte[receiptBufferPosition];
-            Array.Copy(receiptBuffer, temp, temp.Length);
-            receiptBuffer = temp;
+            printoutBufferPostion -= rawReceiptLength;
+            byte[] temp = new byte[printoutBufferPostion];
+            Array.Copy(printoutBuffer, temp, temp.Length);
+            printoutBuffer = temp;
 
             // ESC/POS 커맨드 제거.
             byte[] receipt = printCommandRemover.Remove(rawReceipt);
@@ -104,7 +104,7 @@ namespace SimPrinter.Core.ByteParsers
         {
             foreach(var endCommand in printoutEndCommand)
             {
-                int index = ArrayUtil.FindIndex(receiptBuffer, endCommand.Code, 0);
+                int index = ArrayUtil.FindIndex(printoutBuffer, endCommand.Code, 0);
                 if (0 < index)
                 {
                     endCommandLength = endCommand.TotalLength;

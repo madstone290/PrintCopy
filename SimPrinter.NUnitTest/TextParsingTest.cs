@@ -86,7 +86,7 @@ POS 번호: 0001
         [Test]
         public void ParseOrderTimeTest()
         {
-            AlvoloTextParser textParser = new AlvoloTextParser();
+            ZPosTextParser textParser = new ZPosTextParser();
 
             string orderTime = textParser.ParseOrderTime(textLines);
 
@@ -98,7 +98,7 @@ POS 번호: 0001
         [Test]
         public void ParseProductSubTotal()
         {
-            AlvoloTextParser textParser = new AlvoloTextParser();
+            ZPosTextParser textParser = new ZPosTextParser();
 
             string subTotal = textParser.ParseSubTotal(textLines);
 
@@ -110,7 +110,7 @@ POS 번호: 0001
         [Test]
         public void ParseProductTotal()
         {
-            AlvoloTextParser textParser = new AlvoloTextParser();
+            ZPosTextParser textParser = new ZPosTextParser();
 
             string total = textParser.ParseTotal(textLines);
 
@@ -122,7 +122,7 @@ POS 번호: 0001
         [Test]
         public void ParseCreditAmount()
         {
-            AlvoloTextParser textParser = new AlvoloTextParser();
+            ZPosTextParser textParser = new ZPosTextParser();
 
             string amount = textParser.ParseCreditAmount(textLines);
 
@@ -134,7 +134,7 @@ POS 번호: 0001
         [Test]
         public void ParseBillAmount()
         {
-            AlvoloTextParser textParser = new AlvoloTextParser();
+            ZPosTextParser textParser = new ZPosTextParser();
 
             string amount = textParser.ParseBillAmount(textLines);
 
@@ -147,7 +147,7 @@ POS 번호: 0001
         [Test]
         public void ParseContactNumber()
         {
-            AlvoloTextParser textParser = new AlvoloTextParser();
+            ZPosTextParser textParser = new ZPosTextParser();
 
             string number = textParser.ParseContact(textLines);
 
@@ -159,7 +159,7 @@ POS 번호: 0001
         [Test]
         public void ParseAddress()
         {
-            AlvoloTextParser textParser = new AlvoloTextParser();
+            ZPosTextParser textParser = new ZPosTextParser();
 
             string address = textParser.ParseAddress(textLines);
 
@@ -171,7 +171,7 @@ POS 번호: 0001
         [Test]
         public void ParseMemo()
         {
-            AlvoloTextParser textParser = new AlvoloTextParser();
+            ZPosTextParser textParser = new ZPosTextParser();
 
             string memo = textParser.ParseMemo(textLines);
 
@@ -183,7 +183,7 @@ POS 번호: 0001
         [Test]
         public void ParseProduct()
         {
-            AlvoloTextParser textParser = new AlvoloTextParser();
+            ZPosTextParser textParser = new ZPosTextParser();
 
             ProductModel[] products = textParser.ParseProduct(textLines);
 
@@ -197,7 +197,7 @@ POS 번호: 0001
         [Test]
         public void ParseOrder()
         {
-            AlvoloTextParser textParser = new AlvoloTextParser();
+            ZPosTextParser textParser = new ZPosTextParser();
 
             OrderModel order = textParser.Parse(testText);
 
@@ -216,7 +216,7 @@ POS 번호: 0001
         [Test]
         public void CheckPizzaCount()
         {
-            AlvoloTextParser textParser = new AlvoloTextParser();
+            ZPosTextParser textParser = new ZPosTextParser();
 
             ProductModel[] products = textParser.ParseProduct(textLines);
 

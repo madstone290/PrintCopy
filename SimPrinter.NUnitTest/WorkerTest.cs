@@ -39,7 +39,7 @@ namespace SimPrinter.NUnitTest
             // 시리얼포트 이름 설정할 것
             SimSerialPort appPort = new SimSerialPortMockup(CreateSerialPort("COM0"));
             SimSerialPort printPort = new SimSerialPort(CreateSerialPort("COM0"));
-            IByteParser byteParser = new AlvoloByteParser(Encoding.GetEncoding(949));
+            IByteParser byteParser = new EscPosByteParser(Encoding.GetEncoding(949));
             LabelPrinter labelPrinter = new LabelPrinter(null);
             //LabelPrinter labelPrinter = new LabelPrinter(CreateSerialPort(labelPrintPortSetting));
             OrderDao orderDao = new OrderDao(Directory.GetCurrentDirectory());

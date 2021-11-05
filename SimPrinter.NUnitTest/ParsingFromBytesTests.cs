@@ -24,8 +24,8 @@ namespace SimPrinter.NUnitTest
             var byteArray = byteChars.Select(x => Convert.ToByte(x, 16))
                 .ToArray();
 
-            AlvoloByteParser byteParser = new AlvoloByteParser(Encoding.GetEncoding(949));
-            AlvoloTextParser textParser = new AlvoloTextParser();
+            EscPosByteParser byteParser = new EscPosByteParser(Encoding.GetEncoding(949));
+            ZPosTextParser textParser = new ZPosTextParser();
 
             OrderModel orderModel = null;
             byteParser.ParsingCompleted += (s, e) =>

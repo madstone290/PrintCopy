@@ -94,7 +94,7 @@ namespace SimPrinter.Core
             this.labelPrinter = labelPrinter;
             this.orderDao = orderDao;
 
-            textParsers.Add(PrintoutType.ZPosOrder, new AlvoloTextParser());
+            textParsers.Add(PrintoutType.ZPosOrder, new ZPosTextParser());
             textParsers.Add(PrintoutType.DaeguroOrder, new DaeguroTextParser());
 
             appPort.DataReceived += AppPort_DataReceived;
