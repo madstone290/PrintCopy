@@ -33,5 +33,15 @@ namespace SimPrinter.Core
             // TODO implement
             Console.WriteLine("Print");
         }
+
+        /// <summary>
+        /// 본문을 출력한다.
+        /// </summary>
+        /// <param name="text"></param>
+        public void Print(string text)
+        {
+            // TODO implement
+            Console.WriteLine(text);
+        }
     }
 }

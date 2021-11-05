@@ -67,7 +67,9 @@ namespace SimPrinter.DeskTop
                 PortSettingManager portSettingManager = PortSettingManager.Instance;
                 portSettingManager.Load();
                 worker = PizzaAlvolo(portSettingManager.AppPortSetting, portSettingManager.PrinterPortSetting, portSettingManager.LabelPrinterPortSetting);
+#if !DEBUG
                 worker.Run();
+#endif
             };
             Application.Run(formStart);
 

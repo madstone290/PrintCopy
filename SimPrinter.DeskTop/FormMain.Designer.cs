@@ -29,10 +29,10 @@ namespace SimPrinter.DeskTop
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle45 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle46 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle47 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle48 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.orderGridView = new System.Windows.Forms.DataGridView();
@@ -59,6 +59,8 @@ namespace SimPrinter.DeskTop
             this.textColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.generalSettingView1 = new SimPrinter.DeskTop.GeneralSettingView();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.customLabelListView1 = new SimPrinter.DeskTop.Views.CustomLabelListView();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.orderGridView)).BeginInit();
@@ -68,6 +70,7 @@ namespace SimPrinter.DeskTop
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.textGridView)).BeginInit();
             this.tabPage4.SuspendLayout();
+            this.tabPage5.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -76,8 +79,9 @@ namespace SimPrinter.DeskTop
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Font = new System.Drawing.Font("Gulim", 10F);
+            this.tabControl1.Font = new System.Drawing.Font("굴림", 10F);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -133,8 +137,8 @@ namespace SimPrinter.DeskTop
             // addressColumn
             // 
             this.addressColumn.DataPropertyName = "Address";
-            dataGridViewCellStyle45.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.addressColumn.DefaultCellStyle = dataGridViewCellStyle45;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.addressColumn.DefaultCellStyle = dataGridViewCellStyle5;
             this.addressColumn.HeaderText = "주소";
             this.addressColumn.Name = "addressColumn";
             this.addressColumn.Width = 300;
@@ -149,8 +153,8 @@ namespace SimPrinter.DeskTop
             // productDetailColumn
             // 
             this.productDetailColumn.DataPropertyName = "ProductDetail";
-            dataGridViewCellStyle46.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.productDetailColumn.DefaultCellStyle = dataGridViewCellStyle46;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.productDetailColumn.DefaultCellStyle = dataGridViewCellStyle6;
             this.productDetailColumn.HeaderText = "제품상세";
             this.productDetailColumn.Name = "productDetailColumn";
             this.productDetailColumn.Width = 300;
@@ -158,8 +162,8 @@ namespace SimPrinter.DeskTop
             // memoColumn
             // 
             this.memoColumn.DataPropertyName = "Memo";
-            dataGridViewCellStyle47.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.memoColumn.DefaultCellStyle = dataGridViewCellStyle47;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.memoColumn.DefaultCellStyle = dataGridViewCellStyle7;
             this.memoColumn.HeaderText = "메모";
             this.memoColumn.Name = "memoColumn";
             this.memoColumn.Width = 200;
@@ -213,10 +217,10 @@ namespace SimPrinter.DeskTop
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.binaryGridView);
-            this.tabPage2.Location = new System.Drawing.Point(4, 26);
+            this.tabPage2.Location = new System.Drawing.Point(4, 23);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(976, 531);
+            this.tabPage2.Size = new System.Drawing.Size(976, 534);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "시리얼 데이터";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -232,7 +236,7 @@ namespace SimPrinter.DeskTop
             this.binaryGridView.Location = new System.Drawing.Point(3, 3);
             this.binaryGridView.Name = "binaryGridView";
             this.binaryGridView.RowTemplate.Height = 23;
-            this.binaryGridView.Size = new System.Drawing.Size(970, 525);
+            this.binaryGridView.Size = new System.Drawing.Size(970, 528);
             this.binaryGridView.TabIndex = 0;
             // 
             // orderNumberCol_Serial
@@ -244,8 +248,8 @@ namespace SimPrinter.DeskTop
             // rawHexColumn
             // 
             this.rawHexColumn.DataPropertyName = "RawHex";
-            dataGridViewCellStyle48.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.rawHexColumn.DefaultCellStyle = dataGridViewCellStyle48;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.rawHexColumn.DefaultCellStyle = dataGridViewCellStyle8;
             this.rawHexColumn.HeaderText = "원본 데이터";
             this.rawHexColumn.Name = "rawHexColumn";
             this.rawHexColumn.Width = 500;
@@ -260,10 +264,10 @@ namespace SimPrinter.DeskTop
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.textGridView);
-            this.tabPage3.Location = new System.Drawing.Point(4, 26);
+            this.tabPage3.Location = new System.Drawing.Point(4, 23);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(976, 531);
+            this.tabPage3.Size = new System.Drawing.Size(976, 534);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "텍스트 데이터";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -278,7 +282,7 @@ namespace SimPrinter.DeskTop
             this.textGridView.Location = new System.Drawing.Point(3, 3);
             this.textGridView.Name = "textGridView";
             this.textGridView.RowTemplate.Height = 23;
-            this.textGridView.Size = new System.Drawing.Size(970, 525);
+            this.textGridView.Size = new System.Drawing.Size(970, 528);
             this.textGridView.TabIndex = 1;
             // 
             // oderNumberCol_Text
@@ -313,6 +317,25 @@ namespace SimPrinter.DeskTop
             this.generalSettingView1.Size = new System.Drawing.Size(970, 528);
             this.generalSettingView1.TabIndex = 0;
             // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.customLabelListView1);
+            this.tabPage5.Location = new System.Drawing.Point(4, 23);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(976, 534);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "라벨출력";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // customLabelListView1
+            // 
+            this.customLabelListView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.customLabelListView1.Location = new System.Drawing.Point(3, 3);
+            this.customLabelListView1.Name = "customLabelListView1";
+            this.customLabelListView1.Size = new System.Drawing.Size(970, 528);
+            this.customLabelListView1.TabIndex = 0;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -330,6 +353,7 @@ namespace SimPrinter.DeskTop
             this.tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.textGridView)).EndInit();
             this.tabPage4.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -362,6 +386,8 @@ namespace SimPrinter.DeskTop
         private System.Windows.Forms.Button printLabelBtn;
         private System.Windows.Forms.TabPage tabPage4;
         private GeneralSettingView generalSettingView1;
+        private System.Windows.Forms.TabPage tabPage5;
+        private Views.CustomLabelListView customLabelListView1;
     }
 }
 
