@@ -12,13 +12,20 @@ namespace SimPrinter.Core.Models
     public enum PrintoutType
     {
         /// <summary>
-        /// 주문 출력물
-        /// </summary>
-        Order,
-
-        /// <summary>
         /// 기타 출력물
         /// </summary>
-        Other
+        Other,
+
+        /// <summary>
+        /// ZPos 주문 출력물
+        /// </summary>
+        ZPosOrder,
+
+        /// <summary>
+        /// 대구로 주문
+        /// </summary>
+        DaeguroOrder,
+
+        
     }
 }

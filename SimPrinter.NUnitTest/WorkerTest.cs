@@ -40,12 +40,11 @@ namespace SimPrinter.NUnitTest
             SimSerialPort appPort = new SimSerialPortMockup(CreateSerialPort("COM0"));
             SimSerialPort printPort = new SimSerialPort(CreateSerialPort("COM0"));
             IByteParser byteParser = new AlvoloByteParser(Encoding.GetEncoding(949));
-            ITextParser textParser = new AlvoloTextParser();
             LabelPrinter labelPrinter = new LabelPrinter(null);
             //LabelPrinter labelPrinter = new LabelPrinter(CreateSerialPort(labelPrintPortSetting));
             OrderDao orderDao = new OrderDao(Directory.GetCurrentDirectory());
 
-            Worker worker = new Worker(appPort, printPort, byteParser, textParser, labelPrinter, orderDao);
+            Worker worker = new Worker(appPort, printPort, byteParser, labelPrinter, orderDao);
             worker.Run();
 
             OrderModel order = null;
@@ -101,7 +100,7 @@ E1ds23PIZZA ALVOLO
 "
                 );
 
-            Assert.AreEqual(PrintoutType.Order, type);
+            Assert.AreEqual(PrintoutType.ZPosOrder, type);
         }
     }
 }

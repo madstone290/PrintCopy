@@ -70,6 +70,7 @@
     <Compile Include="PrintoutDistinguisher.cs" />
     <Compile Include="SimSerialPort.cs" />
     <Compile Include="TextParsers\AlvoloTextParser.cs" />
+    <Compile Include="TextParsers\DaeguroTextParser.cs" />
     <Compile Include="Worker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

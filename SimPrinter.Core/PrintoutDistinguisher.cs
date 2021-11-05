@@ -29,7 +29,7 @@ namespace SimPrinter.Core
             string[] textLines = printoutText.TrimStart().Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
             
             PrintoutType printoutType = 0 < textLines.Length && textLines[0].Contains(DISTINGUISH_PHRASE1)
-                ? PrintoutType.Order
+                ? PrintoutType.ZPosOrder
                 : PrintoutType.Other;
 
             return printoutType;

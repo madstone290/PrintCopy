@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using SimPrinter.Core.Logging;
 using Serilog.Core;
 using SimPrinter.Core.Persistence;
+using SimPrinter.Core.TextParsers;
 
 namespace SimPrinter.Core
 {
@@ -37,7 +38,7 @@ namespace SimPrinter.Core
         /// <summary>
         /// 주문정보 추출기
         /// </summary>
-        private readonly ITextParser textParser;
+        private readonly Dictionary<PrintoutType, ITextParser> textParsers = new Dictionary<PrintoutType, ITextParser>();
 
         /// <summary>
         /// 라벨프린터
@@ -74,7 +75,7 @@ namespace SimPrinter.Core
         /// </summary>
         public event EventHandler<OrderArgs> OrderCreated;
 
-        public Worker(SimSerialPort appPort, SimSerialPort printerPort, IByteParser byteParser, ITextParser textParser, LabelPrinter labelPrinter, OrderDao orderDao)
+        public Worker(SimSerialPort appPort, SimSerialPort printerPort, IByteParser byteParser, LabelPrinter labelPrinter, OrderDao orderDao)
         {
             if (appPort == null)
                 throw new ArgumentNullException(nameof(appPort));
@@ -82,8 +83,6 @@ namespace SimPrinter.Core
                 throw new ArgumentNullException(nameof(printerPort));
             if (byteParser == null)
                 throw new ArgumentNullException(nameof(byteParser));
-            if (textParser == null)
-                throw new ArgumentNullException(nameof(textParser));
             if (labelPrinter == null)
                 throw new ArgumentNullException(nameof(labelPrinter));
             if (orderDao == null)
@@ -92,9 +91,11 @@ namespace SimPrinter.Core
             this.appPort = appPort;
             this.printerPort = printerPort;
             this.byteParser = byteParser;
-            this.textParser = textParser;
             this.labelPrinter = labelPrinter;
             this.orderDao = orderDao;
+
+            textParsers.Add(PrintoutType.ZPosOrder, new AlvoloTextParser());
+            textParsers.Add(PrintoutType.DaeguroOrder, new DaeguroTextParser());
 
             appPort.DataReceived += AppPort_DataReceived;
             printerPort.DataReceived += PrinterPort_DataReceived;
@@ -136,7 +137,9 @@ namespace SimPrinter.Core
              * */
             logger.Information("ReceiptParsed {NewLine}{Receipt}", Environment.NewLine, e.Text);
 
-            if (printoutDistinguisher.Distinguish(e.Text) != PrintoutType.Order)
+            PrintoutType printoutType = printoutDistinguisher.Distinguish(e.Text);
+
+            if(!textParsers.TryGetValue(printoutType, out ITextParser textParser))
                 return;
 
             OrderModel order = textParser.Parse(e.Text);
