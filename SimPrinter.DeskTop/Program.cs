@@ -5,8 +5,11 @@ using SimPrinter.Core.TextParsers;
 using SimPrinter.DeskTop.Settings;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO.Ports;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -14,14 +17,43 @@ namespace SimPrinter.DeskTop
 {
     static class Program
     {
+        /// <summary>
+        /// 프로그램 설정 관리자
+        /// </summary>
         public static SettingManager SettingManager { get; private set; }
 
+        [DllImport("user32.dll", EntryPoint = "FindWindow")]
+        private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
+        [DllImport("user32.dll")]
+        public static extern void SetForegroundWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+        private const int SW_SHOWNORMAL = 1;
+
+        
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()
         {
+            // 중복 실행시 기존 윈도우를 활성화한다.
+            Process current = Process.GetCurrentProcess();
+            Process[] processes = Process.GetProcessesByName(current.ProcessName);
+            Process previous = processes.Where(p => p.Id != current.Id).FirstOrDefault();
+
+            if(previous != null)
+            {
+                IntPtr handle = FindWindow(null, previous.MainWindowTitle);
+                
+                // 활성화
+                ShowWindow(handle, SW_SHOWNORMAL);
+                SetForegroundWindow(handle);
+                return;
+            }
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -37,11 +69,11 @@ namespace SimPrinter.DeskTop
                 worker = PizzaAlvolo(portSettingManager.AppPortSetting, portSettingManager.PrinterPortSetting, portSettingManager.LabelPrinterPortSetting);
                 worker.Run();
             };
+            Application.Run(formStart);
 
-            formStart.ShowDialog();
             if (!formStart.Start)
                 return;
-
+            
             Application.ApplicationExit += (s, e) => { worker.Stop(); };
             Application.Run(new FormMain(worker));
         }

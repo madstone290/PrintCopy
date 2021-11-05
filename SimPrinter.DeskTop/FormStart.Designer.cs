@@ -36,7 +36,7 @@ namespace SimPrinter.DeskTop
             // 
             // buttonStart
             // 
-            this.buttonStart.Font = new System.Drawing.Font("Gulim", 20F);
+            this.buttonStart.Font = new System.Drawing.Font("굴림", 20F);
             this.buttonStart.Location = new System.Drawing.Point(12, 12);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(200, 100);
@@ -46,7 +46,7 @@ namespace SimPrinter.DeskTop
             // 
             // buttonSetting
             // 
-            this.buttonSetting.Font = new System.Drawing.Font("Gulim", 20F);
+            this.buttonSetting.Font = new System.Drawing.Font("굴림", 20F);
             this.buttonSetting.Location = new System.Drawing.Point(218, 12);
             this.buttonSetting.Name = "buttonSetting";
             this.buttonSetting.Size = new System.Drawing.Size(200, 100);
@@ -56,7 +56,7 @@ namespace SimPrinter.DeskTop
             // 
             // buttonClose
             // 
-            this.buttonClose.Font = new System.Drawing.Font("Gulim", 20F);
+            this.buttonClose.Font = new System.Drawing.Font("굴림", 20F);
             this.buttonClose.Location = new System.Drawing.Point(424, 12);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(200, 100);
