@@ -48,11 +48,7 @@ namespace SimPrinter.DeskTop
 
             printLabelBtn.Click += PrintLabelBtn_Click;
             settingManager.SettingSaved += SettingManager_SettingSaved;
-            orderBindingList.Add(new OrderViewModel()
-            {
-                ProductDetail = "dfsdf안녕",
-                Address = "대구시 수성과 황금도오ㅓㅏㅇ 3123"
-            });
+           
         }
 
 
