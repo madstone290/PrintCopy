@@ -61,6 +61,8 @@ namespace SimPrinter.DeskTop
         {
             this.worker = worker;
             this.worker.OrderCreated += Worker_OrderCreated;
+
+            this.customLabelListView1.LabelPrinter = worker.LabelPrinter;
         }
 
         private void Worker_OrderCreated(object sender, Core.EventArgs.OrderArgs e)

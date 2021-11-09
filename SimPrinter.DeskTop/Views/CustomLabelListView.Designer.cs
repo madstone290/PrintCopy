@@ -29,7 +29,7 @@ namespace SimPrinter.DeskTop.Views
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.printBtn = new System.Windows.Forms.Button();
             this.labelTextEdit = new System.Windows.Forms.RichTextBox();
@@ -37,12 +37,17 @@ namespace SimPrinter.DeskTop.Views
             this.idCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.textCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.printCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label1 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.labelGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.numericUpDown1);
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.printBtn);
             this.panel1.Controls.Add(this.labelTextEdit);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -53,7 +58,7 @@ namespace SimPrinter.DeskTop.Views
             // 
             // printBtn
             // 
-            this.printBtn.Location = new System.Drawing.Point(325, 3);
+            this.printBtn.Location = new System.Drawing.Point(325, 58);
             this.printBtn.Name = "printBtn";
             this.printBtn.Size = new System.Drawing.Size(75, 23);
             this.printBtn.TabIndex = 1;
@@ -89,8 +94,8 @@ namespace SimPrinter.DeskTop.Views
             // 
             // textCol
             // 
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.textCol.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.textCol.DefaultCellStyle = dataGridViewCellStyle2;
             this.textCol.HeaderText = "본문";
             this.textCol.Name = "textCol";
             this.textCol.Width = 300;
@@ -99,6 +104,22 @@ namespace SimPrinter.DeskTop.Views
             // 
             this.printCol.HeaderText = "출력";
             this.printCol.Name = "printCol";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(336, 14);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(57, 12);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "폰크 크기";
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(399, 12);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(120, 21);
+            this.numericUpDown1.TabIndex = 4;
             // 
             // CustomLabelListView
             // 
@@ -109,7 +130,9 @@ namespace SimPrinter.DeskTop.Views
             this.Name = "CustomLabelListView";
             this.Size = new System.Drawing.Size(861, 582);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.labelGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -122,5 +145,7 @@ namespace SimPrinter.DeskTop.Views
         private System.Windows.Forms.DataGridViewTextBoxColumn idCol;
         private System.Windows.Forms.DataGridViewTextBoxColumn textCol;
         private System.Windows.Forms.DataGridViewTextBoxColumn printCol;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Label label1;
     }
 }

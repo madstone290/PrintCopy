@@ -13,6 +13,13 @@ namespace SimPrinter.DeskTop.Views
 {
     public partial class CustomLabelListView : UserControl
     {
+        public decimal FontSize 
+        {
+            get => numericUpDown1.Value;
+            set => numericUpDown1.Value = value;
+        }
+
+
         /// <summary>
         /// 라벨프린터
         /// </summary>
@@ -27,7 +34,17 @@ namespace SimPrinter.DeskTop.Views
         {
             InitializeComponent();
 
+            numericUpDown1.Minimum = 8;
+            numericUpDown1.Maximum = 30;
+            numericUpDown1.ValueChanged += NumericUpDown1_ValueChanged;
             printBtn.Click += PrintBtn_Click;
+
+            FontSize = 10;
+        }
+
+        private void NumericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            labelTextEdit.Font = new Font(labelTextEdit.Font.FontFamily, Convert.ToSingle(FontSize));
         }
 
         private void PrintBtn_Click(object sender, EventArgs e)
