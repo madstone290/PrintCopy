@@ -21,7 +21,7 @@ namespace SimPrinter.Core.TextParsers
         /// 제품텍스트라인에서 세트구성품을 식별하기위한 표식문자
         /// </summary>
         private const string SET_MARK = "-";
-        
+
         /// <summary>
         /// 피자사이즈 문자열
         /// </summary>
@@ -41,7 +41,7 @@ namespace SimPrinter.Core.TextParsers
         /// 고객주소 문자
         /// </summary>
         public string AddressString { get; set; } = "고객 주소";
-        
+
         /// <summary>
         /// 메모1 문자
         /// </summary>
@@ -75,7 +75,7 @@ namespace SimPrinter.Core.TextParsers
         /// <summary>
         /// 배달팁 
         /// </summary>
-        public string DeliveryTip { get; set; } = "배달팁"; 
+        public string DeliveryTip { get; set; } = "배달팁";
 
         public OrderModel Parse(string receiptText)
         {
@@ -139,7 +139,7 @@ namespace SimPrinter.Core.TextParsers
         public string ParseMemo1(string[] textLines)
         {
             // 메모1에서 메모2까지
-            string memo = StringUtil.FindByDelimiters(textLines, Memo1String,  Memo2String).Trim();
+            string memo = StringUtil.FindByDelimiters(textLines, Memo1String, Memo2String).Trim();
             logger.Information("ParseAddress {Memo1String} {memo}", Memo1String, memo);
             return memo;
         }
@@ -196,7 +196,7 @@ namespace SimPrinter.Core.TextParsers
                     string price;
                     string name;
 
-                    if(allParts[0] == DeliveryTip)  // 예외처리
+                    if (allParts[0] == DeliveryTip)  // 예외처리
                     {
                         name = DeliveryTip;
                         price = allParts[1];
@@ -250,6 +250,10 @@ namespace SimPrinter.Core.TextParsers
         {
             /*
              * 제품이름이 긴 경우 제품1, 제품2 파트로 나뉜다
+             * 제품1 파트는 이름, 수량, 가격으로 구성
+             * 제품2 파트는 이름으로 구성.
+             * 제품은 제품1이름 + 제품2이름 , 제품1수량, 제품1 가격
+             * 예외) 배달팁
              * */
 
             List<string> products = new List<string>();
@@ -260,24 +264,41 @@ namespace SimPrinter.Core.TextParsers
                 if (string.IsNullOrWhiteSpace(textLine))
                     continue;
 
-                if (!string.IsNullOrWhiteSpace(textLine[0].ToString()))
+                var components = textLine.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+
+
+                // 배달팁 제품
+                if (0 < components.Length && components[0] == DeliveryTip)
                 {
-                    // 첫글자가 공백이 아닌 경우 제품1
-                    string product = textLine.Trim();
-                    products.Add(product);
+                    products.Add(textLine.Trim());
                 }
+                // 제품1 식별. 가격 및 수량이 존재한다.
+                else if (3 <= components.Length
+                    && decimal.TryParse(components[components.Length - 1], out decimal r1)
+                    && decimal.TryParse(components[components.Length - 2], out decimal r2)
+                )
+                {
+                    products.Add(textLine.Trim());
+                }
+                // 세트구성품. 세트구성품문자를 변경한다.
                 else if (textLine.StartsWith(SetComponentString))
                 {
-                    // 세트구성품. 세트구성품문자를 변경한다.
                     string component = SET_MARK + textLine.Replace(SetComponentString, "").Trim();
                     products.Add(component);
                 }
+                // 제품2. 제품1과 결합한다.
                 else
                 {
-                    // 제품2. 제품1과 결합한다.
-                    var product2 = textLine.Trim();
-                    var product = products.Last();
-                    products[products.Count - 1] = string.Join(" ", product, product2);
+                    string product2 = textLine.Trim();
+                    string product1 = products.Last();
+
+                    var productComponents = product1.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                    string product = string.Join(" ",
+                        string.Join(" ", productComponents.ToArray(), 0, productComponents.Count - 2) + product2,
+                        string.Join(" ", productComponents.ToArray(), productComponents.Count - 2, 2)
+                        );
+                    
+                    products[products.Count - 1] = product;
                 }
             }
             return products.ToArray();
