@@ -13,9 +13,14 @@ namespace SimPrinter.Core
     public class PrintoutDistinguisher
     {
         /// <summary>
-        /// 구분문구
+        /// ZPos 문구
         /// </summary>
-        private const string DISTINGUISH_PHRASE1 = "PIZZA ALVOLO";
+        private const string ZPOS_PHRASE = "PIZZA ALVOLO";
+
+        /// <summary>
+        /// 대구로 문구
+        /// </summary>
+        private const string DAEGURO_PHRASE = "가맹점 명 :";
 
         /// <summary>
         /// 출력물을 구분한다.
@@ -25,14 +30,18 @@ namespace SimPrinter.Core
         public PrintoutType Distinguish(string printoutText)
         {
             // 첫번째 라인에서 문구 포함여부 확인
-
             string[] textLines = printoutText.TrimStart().Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
-            
-            PrintoutType printoutType = 0 < textLines.Length && textLines[0].Contains(DISTINGUISH_PHRASE1)
-                ? PrintoutType.ZPosOrder
-                : PrintoutType.Other;
 
-            return printoutType;
+            if (textLines.Length < 1)
+                return PrintoutType.Other;
+
+            if (textLines[0].Contains(ZPOS_PHRASE))
+                return PrintoutType.ZPosOrder;
+
+            if (textLines[0].Contains(DAEGURO_PHRASE))
+                return PrintoutType.DaeguroOrder;
+
+            return PrintoutType.Other;
         }
     }
 }
