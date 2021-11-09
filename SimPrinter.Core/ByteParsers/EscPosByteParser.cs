@@ -1,6 +1,7 @@
 ﻿using Serilog.Core;
 using SimPrinter.Core.EventArgs;
 using SimPrinter.Core.Logging;
+using SimPrinter.Core.Utils;
 using System;
 using System.Collections.Generic;
 using System.IO;

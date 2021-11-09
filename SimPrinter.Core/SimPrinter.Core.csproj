@@ -50,7 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArrayUtil.cs" />
+    <Compile Include="Utils\ArrayUtil.cs" />
     <Compile Include="ByteParsers\EscPosByteParser.cs" />
     <Compile Include="EventArgs\ByteParsingArgs.cs" />
     <Compile Include="EventArgs\TextParsedArgs.cs" />
@@ -71,6 +71,7 @@
     <Compile Include="SimSerialPort.cs" />
     <Compile Include="TextParsers\ZPosTextParser.cs" />
     <Compile Include="TextParsers\DaeguroTextParser.cs" />
+    <Compile Include="Utils\StringUtil.cs" />
     <Compile Include="Worker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
