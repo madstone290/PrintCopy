@@ -104,7 +104,7 @@ namespace SimPrinter.Core.TextParsers
         public string ParseOrderTime(string[] textLines)
         {
             // 거래일시 문자열로 검색
-            string orderTime = StringUtil.FindByDelimiter(textLines, OrderTimeString).Trim();
+            string orderTime = StringUtil.FindByDelimiter(textLines, OrderTimeString)?.Trim();
             logger.Information("ParseOrderTime {OrderTimeText} {orderTime}", OrderTimeString, orderTime);
             return orderTime;
         }
@@ -117,7 +117,7 @@ namespace SimPrinter.Core.TextParsers
         public string ParseSubTotal(string[] textLines)
         {
             // 소계 문자열로 검색
-            string subTotal = StringUtil.FindByDelimiter(textLines, SubTotalString).Trim();
+            string subTotal = StringUtil.FindByDelimiter(textLines, SubTotalString)?.Trim();
             logger.Information("ParseSubTotal {SubTotalText} {subTotal}", SubTotalString, subTotal);
             return subTotal;
         }
@@ -130,7 +130,7 @@ namespace SimPrinter.Core.TextParsers
         public string ParseTotal(string[] textLines)
         {
             // 합계 문자열로 검색
-            string total = StringUtil.FindByDelimiter(textLines, TotalString).Trim();
+            string total = StringUtil.FindByDelimiter(textLines, TotalString)?.Trim();
             logger.Information("ParseTotal {TotalString} {total}", TotalString, total);
             return total;
         }
@@ -143,7 +143,7 @@ namespace SimPrinter.Core.TextParsers
         public string ParseCreditAmount(string[] textLines)
         {
             // 신용카드 문자열로 검색
-            string credit = StringUtil.FindByDelimiter(textLines, CreditString).Trim();
+            string credit = StringUtil.FindByDelimiter(textLines, CreditString)?.Trim();
             logger.Information("ParseCreditAmount {CreditString} {credit}", CreditString, credit);
             return credit;
         }
@@ -156,7 +156,7 @@ namespace SimPrinter.Core.TextParsers
         public string ParseBillAmount(string[] textLines)
         { 
             // 청구금액 문자열로 검색
-            string billAmount = StringUtil.FindByDelimiter(textLines, BillAmountString).Trim();
+            string billAmount = StringUtil.FindByDelimiter(textLines, BillAmountString)?.Trim();
             logger.Information("ParseCreditAmount {BillAmountString} {billAmount}", BillAmountString, billAmount);
             return billAmount;
         }
@@ -170,7 +170,7 @@ namespace SimPrinter.Core.TextParsers
         public string ParseContact(string[] textLines)
         {
             // 고객번호 문자열로 검색
-            string contact = StringUtil.FindByDelimiter(textLines, ContactString).Trim();
+            string contact = StringUtil.FindByDelimiter(textLines, ContactString)?.Trim();
             logger.Information("ParseContact {ContactString} {contact}", ContactString, contact);
             return contact;
         }
@@ -183,7 +183,7 @@ namespace SimPrinter.Core.TextParsers
         public string ParseAddress(string[] textLines)
         {
             // 고객주소 문자열에서 주문메모 문자열 사이
-            string address = StringUtil.FindByDelimiters(textLines, AddressString, MemoString).Trim();
+            string address = StringUtil.FindByDelimiters(textLines, AddressString, MemoString)?.Trim();
             logger.Information("ParseAddress {AddressString} {MemoString} {address}", AddressString, MemoString, address);
             return address;
         }
@@ -196,7 +196,7 @@ namespace SimPrinter.Core.TextParsers
         public string ParseMemo(string[] textLines)
         {
             // 주문메모 문자열에서 끝가지
-            string memo = StringUtil.FindByDelimiters(textLines, MemoString, null).Trim();
+            string memo = StringUtil.FindByDelimiters(textLines, MemoString, null)?.Trim();
             logger.Information("ParseAddress {MemoString} {memo}", MemoString, memo);
             return memo;
         }
@@ -302,7 +302,7 @@ namespace SimPrinter.Core.TextParsers
                 else if (textLine.StartsWith(SetComponentString))
                 {
                     // 세트구성품. 세트구성품문자를 변경한다.
-                    string component = SET_MARK + textLine.Replace(SetComponentString, "").Trim();
+                    string component = SET_MARK + textLine.Replace(SetComponentString, "")?.Trim();
                     products.Add(component);
                 }
                 else

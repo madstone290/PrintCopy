@@ -100,7 +100,7 @@ namespace SimPrinter.Core.TextParsers
         public string ParseOrderTime(string[] textLines)
         {
             // 거래일시 문자열로 검색
-            string orderTime = StringUtil.FindByDelimiter(textLines, OrderTimeString).Trim();
+            string orderTime = StringUtil.FindByDelimiter(textLines, OrderTimeString)?.Trim();
             logger.Information("ParseOrderTime {OrderTimeText} {orderTime}", OrderTimeString, orderTime);
             return orderTime;
         }
@@ -113,7 +113,7 @@ namespace SimPrinter.Core.TextParsers
         public string ParseContact(string[] textLines)
         {
             // 고객번호 문자열로 검색
-            string contact = StringUtil.FindByDelimiter(textLines, ContactString).Trim();
+            string contact = StringUtil.FindByDelimiter(textLines, ContactString)?.Trim();
             logger.Information("ParseContact {ContactString} {contact}", ContactString, contact);
             return contact;
         }
@@ -126,7 +126,7 @@ namespace SimPrinter.Core.TextParsers
         public string ParseAddress(string[] textLines)
         {
             // 고객주소 문자열에서 연락처 문자열 사이
-            string address = StringUtil.FindByDelimiters(textLines, AddressString, ContactString).Trim();
+            string address = StringUtil.FindByDelimiters(textLines, AddressString, ContactString)?.Trim();
             logger.Information("ParseAddress {AddressString} {MemoString} {address}", AddressString, ContactString, address);
             return address;
         }
@@ -139,7 +139,7 @@ namespace SimPrinter.Core.TextParsers
         public string ParseMemo1(string[] textLines)
         {
             // 메모1에서 메모2까지
-            string memo = StringUtil.FindByDelimiters(textLines, Memo1String, Memo2String).Trim();
+            string memo = StringUtil.FindByDelimiters(textLines, Memo1String, Memo2String)?.Trim();
             logger.Information("ParseAddress {Memo1String} {memo}", Memo1String, memo);
             return memo;
         }
@@ -152,7 +152,7 @@ namespace SimPrinter.Core.TextParsers
         public string ParseMemo2(string[] textLines)
         {
             // 메모2에서 주문끝까지
-            string memo = StringUtil.FindByDelimiters(textLines, Memo2String, OrderEndLineString).Trim();
+            string memo = StringUtil.FindByDelimiters(textLines, Memo2String, OrderEndLineString)?.Trim();
             logger.Information("ParseAddress {Memo2String} {memo}", Memo2String, memo);
             return memo;
         }
@@ -283,7 +283,7 @@ namespace SimPrinter.Core.TextParsers
                 // 세트구성품. 세트구성품문자를 변경한다.
                 else if (textLine.StartsWith(SetComponentString))
                 {
-                    string component = SET_MARK + textLine.Replace(SetComponentString, "").Trim();
+                    string component = SET_MARK + textLine.Replace(SetComponentString, "")?.Trim();
                     products.Add(component);
                 }
                 // 제품2. 제품1과 결합한다.
