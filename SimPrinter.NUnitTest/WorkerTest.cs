@@ -66,7 +66,7 @@ namespace SimPrinter.NUnitTest
         }
 
         [Test]
-        public void DistinguishTest()
+        public void DistinguishTest1()
         {
             PrintoutDistinguisher printoutDistinguisher = new PrintoutDistinguisher();
             var type = printoutDistinguisher.Distinguish(
@@ -102,5 +102,53 @@ E1ds23PIZZA ALVOLO
 
             Assert.AreEqual(PrintoutType.ZPosOrder, type);
         }
+
+        [Test]
+        public void DistinguishTest2()
+        {
+            PrintoutDistinguisher printoutDistinguisher = new PrintoutDistinguisher();
+            var type = printoutDistinguisher.Distinguish(
+                @"가맹점 명 : 피자알볼로 지산범물점
+가맹점 주소
+대구 수성구 지산동 1268-15
+주문시간 : 2021-11-20 19:13:36
+==========================================
+상품명                    수량        가격
+------------------------------------------
+쉬림프 & 핫치킨골드피       1       31,000
+자 L                      
+ ▶L                                      
+ ▶기본                                   
+ ▶코카콜라 1.25L 추가               2,000
+배달팁                               1,000
+==========================================
+                   총  금액 :       34,000
+------------------------------------------
+                   할인금액 :        5,200
+                   결제금액 :       28,800
+------------------------------------------
+고객 주소
+대구광역시 수성구 범물동 1269
+대구광역시 수성구 용학로 316
+ 205동 606호
+
+고객 연락처: 050389134759
+
+결제방법 : 선결제
+
+고객요청사항: (수저포크 X)
+
+배달: 문 앞에 두고 벨 눌러 주세요
+------------------------------------------
+
+
+"
+                );
+
+            Assert.AreEqual(PrintoutType.DaeguroOrder, type);
+
+        }
+
+
     }
 }
