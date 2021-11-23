@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SimPrinter.NUnitTest
 {
-    public class DaeguroParsingTest
+    public class DaeguroParsingTest1
     {
         public const string ORDER_TIME = "2021-11-04 11:30:35";
         public const string CONTACT = "050389140859";
