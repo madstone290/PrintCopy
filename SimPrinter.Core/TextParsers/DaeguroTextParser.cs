@@ -79,7 +79,7 @@ namespace SimPrinter.Core.TextParsers
 
         public OrderModel Parse(string receiptText)
         {
-            string[] textLines = receiptText.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+            string[] textLines = receiptText.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
             OrderModel order = new OrderModel();
             order.OrderTime = ParseOrderTime(textLines);
