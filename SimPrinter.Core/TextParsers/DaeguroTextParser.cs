@@ -126,7 +126,13 @@ namespace SimPrinter.Core.TextParsers
         public string ParseAddress(string[] textLines)
         {
             // 고객주소 문자열에서 연락처 문자열 사이
-            string address = StringUtil.FindByDelimiters(textLines, AddressString, ContactString)?.Trim();
+            string address = StringUtil.FindByDelimiters(textLines, AddressString, ContactString,
+                includeDelimiter1Line: true,
+                includeDelimiter2Line: false,
+                removeDelimiter1: true,
+                removeDelimiter2: true);
+
+            address = address?.Trim();
             logger.Information("ParseAddress {AddressString} {MemoString} {address}", AddressString, ContactString, address);
             return address;
         }
@@ -139,7 +145,13 @@ namespace SimPrinter.Core.TextParsers
         public string ParseMemo1(string[] textLines)
         {
             // 메모1에서 메모2까지
-            string memo = StringUtil.FindByDelimiters(textLines, Memo1String, Memo2String)?.Trim();
+            string memo = StringUtil.FindByDelimiters(textLines, Memo1String, Memo2String,
+                includeDelimiter1Line: true,
+                includeDelimiter2Line: false,
+                removeDelimiter1: true,
+                removeDelimiter2: true);
+
+            memo = memo?.Trim();
             logger.Information("ParseAddress {Memo1String} {memo}", Memo1String, memo);
             return memo;
         }
@@ -152,7 +164,12 @@ namespace SimPrinter.Core.TextParsers
         public string ParseMemo2(string[] textLines)
         {
             // 메모2에서 주문끝까지
-            string memo = StringUtil.FindByDelimiters(textLines, Memo2String, OrderEndLineString)?.Trim();
+            string memo = StringUtil.FindByDelimiters(textLines, Memo2String, OrderEndLineString,
+                includeDelimiter1Line: true,
+                includeDelimiter2Line: false,
+                removeDelimiter1: true,
+                removeDelimiter2: true);
+            memo = memo?.Trim();
             logger.Information("ParseAddress {Memo2String} {memo}", Memo2String, memo);
             return memo;
         }
@@ -171,9 +188,11 @@ namespace SimPrinter.Core.TextParsers
             // 1-N-Y. 제품 병합
             // 1-N-N(세트). 제품 구성품 추가
 
-            // TODO Hint클래스 적용할 것
             // 제품문자열 검색
-            string[] productTextLines = StringUtil.FindLinesByDelimiters(textLines, ProductStartLineString, 0, ProductEndLineString, 1);
+            string[] productTextLines = 
+                StringUtil.FindLinesByDelimiters(textLines, ProductStartLineString, 0, ProductEndLineString, 1, false);
+            
+
 
             // 제품명, 수량, 가격 합치기
             string[] mergedProductTextLines = MergeProductText(productTextLines);

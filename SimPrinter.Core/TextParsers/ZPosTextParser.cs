@@ -58,14 +58,24 @@ namespace SimPrinter.Core.TextParsers
         public string ContactString { get; set; } = "고객번호:";
 
         /// <summary>
-        /// 고객주소 문자
+        /// 고객주소 시작 구분문자
         /// </summary>
-        public string AddressString { get; set; } = "고객주소:";
+        public string AddressStartDelimiter { get; set; } = "고객주소:";
 
         /// <summary>
-        /// 주문메모 문자
+        /// 고객주소 종료 구분문자
         /// </summary>
-        public string MemoString { get; set; } = "주문메모:";
+        public string[] AddressEndDelimiters { get; set; } = new string[] { "주문메모:", "-----", null };
+
+        /// <summary>
+        /// 주문메모 시작 구분문자
+        /// </summary>
+        public string MemoStartDelimiter { get; set; } = "주문메모:";
+
+        /// <summary>
+        /// 주문메모 종료 구분문자
+        /// </summary>
+        public string[] MemoEndDelimiters { get; set; } = new string[] { "-----", null };
 
         /// <summary>
         /// 제품구분 문자
@@ -182,9 +192,21 @@ namespace SimPrinter.Core.TextParsers
         /// <returns></returns>
         public string ParseAddress(string[] textLines)
         {
-            // 고객주소 문자열에서 주문메모 문자열 사이
-            string address = StringUtil.FindByDelimiters(textLines, AddressString, MemoString)?.Trim();
-            logger.Information("ParseAddress {AddressString} {MemoString} {address}", AddressString, MemoString, address);
+            string address = null;
+            foreach (string endDelimiter in AddressEndDelimiters)
+            {
+                address = StringUtil.FindByDelimiters(textLines, AddressStartDelimiter, endDelimiter,
+                    includeDelimiter1Line: true,
+                    includeDelimiter2Line: false,
+                    removeDelimiter1: true,
+                    removeDelimiter2: true);
+                if (address != null)
+                {
+                    address = address.Trim();
+                    logger.Information("ParseMemo {start} {end} {address}", AddressStartDelimiter, endDelimiter, address);
+                    break;
+                }
+            }
             return address;
         }
 
@@ -195,9 +217,22 @@ namespace SimPrinter.Core.TextParsers
         /// <returns></returns>
         public string ParseMemo(string[] textLines)
         {
-            // 주문메모 문자열에서 끝가지
-            string memo = StringUtil.FindByDelimiters(textLines, MemoString, null)?.Trim();
-            logger.Information("ParseAddress {MemoString} {memo}", MemoString, memo);
+            string memo = null;
+            foreach (string endDelimiter in MemoEndDelimiters)
+            {
+                memo = StringUtil.FindByDelimiters(textLines, MemoStartDelimiter, endDelimiter,
+                    includeDelimiter1Line: true,
+                    includeDelimiter2Line: false,
+                    removeDelimiter1: true,
+                    removeDelimiter2: true);
+
+                if (memo != null)
+                {
+                    memo = memo.Trim();
+                    logger.Information("ParseMemo {start} {end} {memo}", MemoStartDelimiter, endDelimiter, memo);
+                    break;
+                }
+            }
             return memo;
         }
 
@@ -217,7 +252,9 @@ namespace SimPrinter.Core.TextParsers
 
             // TODO Hint클래스 적용할 것
             // 제품문자열 검색
-            string[] productTextLines = StringUtil.FindLinesByDelimiters(textLines, ProductString, 1, ProductString, 2);
+            string[] productTextLines = StringUtil.FindLinesByDelimiters(textLines, ProductString, 1, ProductString, 2,
+                includeDelimiterLine1: false,
+                includeDelimiterLine2: false);
 
             // 제품명, 수량, 가격 합치기
             string[] mergedProductTextLines = MergeProductText(productTextLines);

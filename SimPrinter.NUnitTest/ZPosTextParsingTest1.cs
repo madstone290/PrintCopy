@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SimPrinter.NUnitTest
 {
-    public class TextParsingTest
+    public class ZPosTextParsingTest1
     {
         public const string ORDER_TIME = "2021-10-05 22:35:42 (화)";
         public const string SUB_TOTAL = "121,500";
