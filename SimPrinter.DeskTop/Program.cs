@@ -89,8 +89,7 @@ namespace SimPrinter.DeskTop
             SimSerialPort appPort = new SimSerialPort(CreateSerialPort(appPortSetting));
             SimSerialPort printPort = new SimSerialPort(CreateSerialPort(printPortSetting));
             IByteParser byteParser = new EscPosByteParser(appPortSetting.GetEncoding());
-            LabelPrinter labelPrinter = new LabelPrinter(null);
-            //LabelPrinter labelPrinter = new LabelPrinter(CreateSerialPort(labelPrintPortSetting));
+            ILabelPrinter labelPrinter = LabelPrinterCollection.BixolonSrp770;
             OrderDao orderDao = new OrderDao(Application.StartupPath);
 
             Worker worker = new Worker(appPort, printPort, byteParser, labelPrinter, orderDao);

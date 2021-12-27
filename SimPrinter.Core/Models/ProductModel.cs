@@ -20,7 +20,9 @@ namespace SimPrinter.Core.Models
         /// 수량
         /// </summary>
         public string Quantity { get; set; }
-        
+
+        public int QuantityInt => Convert.ToInt32(Quantity);
+
         /// <summary>
         /// 금액
         /// </summary>

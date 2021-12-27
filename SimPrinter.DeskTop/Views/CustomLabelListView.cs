@@ -23,7 +23,7 @@ namespace SimPrinter.DeskTop.Views
         /// <summary>
         /// 라벨프린터
         /// </summary>
-        public LabelPrinter LabelPrinter { get; set; }
+        public ILabelPrinter LabelPrinter { get; set; }
 
         /// <summary>
         /// 라벨 본문

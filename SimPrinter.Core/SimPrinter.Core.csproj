@@ -50,6 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BixolonPrinter\BXLLApi.cs" />
+    <Compile Include="BixolonPrinter\BXLLApi_x64.cs" />
+    <Compile Include="BixolonPrinter\BXLLApi_x86.cs" />
+    <Compile Include="LabelPrinterCollection.cs" />
+    <Compile Include="LabelPrinters\BixolonSrp770.cs" />
+    <Compile Include="LabelPrinters\DummyPrinter.cs" />
     <Compile Include="Utils\ArrayUtil.cs" />
     <Compile Include="ByteParsers\EscPosByteParser.cs" />
     <Compile Include="EventArgs\ByteParsingArgs.cs" />
@@ -59,7 +65,7 @@
     <Compile Include="EventArgs\SerialDataArgs.cs" />
     <Compile Include="IByteParser.cs" />
     <Compile Include="ITextParser.cs" />
-    <Compile Include="LabelPrinter.cs" />
+    <Compile Include="ILabelPrinter.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\PrintoutType.cs" />
     <Compile Include="Models\ProductModel.cs" />
@@ -78,6 +84,14 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BixolonPrinter\BXLLAPI.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BixolonPrinter\BXLLAPI_x64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

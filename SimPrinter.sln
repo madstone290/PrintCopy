@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimPrinter.Core", "SimPrint
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimPrinter.DeskTop", "SimPrinter.DeskTop\SimPrinter.DeskTop.csproj", "{CE3B2EBA-F2B5-492D-9F00-CA1E73743404}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApp1", "WindowsFormsApp1\WindowsFormsApp1.csproj", "{B41A96CC-9ADD-4814-942F-1C1CCB193ECD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{CE3B2EBA-F2B5-492D-9F00-CA1E73743404}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE3B2EBA-F2B5-492D-9F00-CA1E73743404}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE3B2EBA-F2B5-492D-9F00-CA1E73743404}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B41A96CC-9ADD-4814-942F-1C1CCB193ECD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B41A96CC-9ADD-4814-942F-1C1CCB193ECD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B41A96CC-9ADD-4814-942F-1C1CCB193ECD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B41A96CC-9ADD-4814-942F-1C1CCB193ECD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

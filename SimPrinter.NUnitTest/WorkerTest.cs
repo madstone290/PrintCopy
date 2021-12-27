@@ -40,8 +40,7 @@ namespace SimPrinter.NUnitTest
             SimSerialPort appPort = new SimSerialPortMockup(CreateSerialPort("COM0"));
             SimSerialPort printPort = new SimSerialPort(CreateSerialPort("COM0"));
             IByteParser byteParser = new EscPosByteParser(Encoding.GetEncoding(949));
-            LabelPrinter labelPrinter = new LabelPrinter(null);
-            //LabelPrinter labelPrinter = new LabelPrinter(CreateSerialPort(labelPrintPortSetting));
+            ILabelPrinter labelPrinter = LabelPrinterCollection.BixolonSrp770;
             OrderDao orderDao = new OrderDao(Directory.GetCurrentDirectory());
 
             Worker worker = new Worker(appPort, printPort, byteParser, labelPrinter, orderDao);

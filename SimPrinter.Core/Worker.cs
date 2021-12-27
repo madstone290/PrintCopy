@@ -43,7 +43,7 @@ namespace SimPrinter.Core
         /// <summary>
         /// 라벨프린터
         /// </summary>
-        private readonly LabelPrinter labelPrinter;
+        private readonly ILabelPrinter labelPrinter;
 
         /// <summary>
         /// 주문DAO
@@ -68,14 +68,14 @@ namespace SimPrinter.Core
         /// <summary>
         /// 라벨프린터
         /// </summary>
-        public LabelPrinter LabelPrinter => labelPrinter;
+        public ILabelPrinter LabelPrinter => labelPrinter;
 
         /// <summary>
         /// 주문정보가 생성되었다.
         /// </summary>
         public event EventHandler<OrderArgs> OrderCreated;
 
-        public Worker(SimSerialPort appPort, SimSerialPort printerPort, IByteParser byteParser, LabelPrinter labelPrinter, OrderDao orderDao)
+        public Worker(SimSerialPort appPort, SimSerialPort printerPort, IByteParser byteParser, ILabelPrinter labelPrinter, OrderDao orderDao)
         {
             if (appPort == null)
                 throw new ArgumentNullException(nameof(appPort));
