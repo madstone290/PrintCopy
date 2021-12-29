@@ -31,6 +31,7 @@ namespace SimPrinter.DeskTop
             binaryBindingList.AllowNew = false;
             textBindingList.AllowNew = false;
 
+            orderGridView.ReadOnly = true;
             orderGridView.AutoGenerateColumns = false;
             orderGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             orderGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
