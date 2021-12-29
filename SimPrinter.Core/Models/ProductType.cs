@@ -17,6 +17,11 @@ namespace SimPrinter.Core.Models
         Pizza,
 
         /// <summary>
+        /// 세트품목
+        /// </summary>
+        SetItem,
+
+        /// <summary>
         /// 사이드 및 기타 제품
         /// </summary>
         Other

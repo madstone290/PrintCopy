@@ -17,8 +17,6 @@ namespace SimPrinter.Core.Models
             "배달료", "배달비"
         };
 
-        private const string SET_MARK = "-";
-
         /// <summary>
         /// 제품명
         /// </summary>
@@ -27,14 +25,12 @@ namespace SimPrinter.Core.Models
         /// <summary>
         /// 수량
         /// </summary>
-        public string Quantity { get; set; }
-
-        public int QuantityInt => Convert.ToInt32(Quantity);
+        public decimal Quantity { get; set; }
 
         /// <summary>
         /// 금액
         /// </summary>
-        public string Price { get; set; }
+        public decimal Price { get; set; }
 
         /// <summary>
         /// 제품유형
@@ -44,22 +40,12 @@ namespace SimPrinter.Core.Models
         /// <summary>
         /// 세트 구성품
         /// </summary>
-        public List<string> SetComponents { get; set; } = new List<string>();
-
-        /// <summary>
-        /// 표식이 추가된 세트구성품
-        /// </summary>
-        public IEnumerable<string> MarkedSetComponents => SetComponents.Select(component => SET_MARK + component);
+        public List<ProductModel> SetItems { get; set; } = new List<ProductModel>();
 
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("{0, 5} {1} {2, 5}개", Type, Name, Quantity );
-            foreach(string component in MarkedSetComponents)
-            {
-                sb.AppendLine();
-                sb.Append(component);
-            }
+            sb.AppendFormat("{0}  {1}  {2}  {3}", Type, Name, Quantity, Price);
             return sb.ToString();
         }
     }

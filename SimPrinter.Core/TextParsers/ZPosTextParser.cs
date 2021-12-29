@@ -20,6 +20,11 @@ namespace SimPrinter.Core.TextParsers
         private readonly ProductDistinguisher productDistinguisher = new ProductDistinguisher();
 
         /// <summary>
+        /// 제품 병합단계에서 세트품목을 나타내기위한 마크
+        /// </summary>
+        private const string SET_MARK = "-";
+
+        /// <summary>
         /// 피자사이즈 문자열
         /// </summary>
         public string[] PizzaSizeStrings { get; set; } = new string[] { "R", "S", "L" };
@@ -260,28 +265,13 @@ namespace SimPrinter.Core.TextParsers
 
             foreach(var textLine in mergedProductTextLines)
             {
-                // 제품
-                if (!SetMarkStrings.Any(setMark => textLine.StartsWith(setMark)))
-                {
-                    // 제품전체 파트
-                    string[] allParts = textLine.Split(' ').Where(x=> !string.IsNullOrWhiteSpace(x)).ToArray();
+                if (string.IsNullOrWhiteSpace(textLine))
+                    continue;
 
-                    // 공백으로 구분시 끝에서부터 순서대로 가격, 수량, 제품명
-                    string quantity;
-                    string price;
-                    string name;
-                    if(allParts.Length < 3) // 이름, 수량, 가격 구성을 이루지 않음
-                    {
-                        price = string.Empty;
-                        quantity = string.Empty;
-                        name = string.Join(" ", allParts);
-                    }
-                    else
-                    {
-                        price = allParts[allParts.Length - 1];
-                        quantity = allParts[allParts.Length - 2];
-                        name = string.Join(" ", allParts.Take(allParts.Length - 2));
-                    }
+                // 제품
+                if (!textLine.StartsWith(SET_MARK))
+                {
+                    ParseNameQuantityPrice(textLine, out string name, out decimal quantity, out decimal price);
                     
                     // 제품 유형분석
                     ProductType productType = productDistinguisher.Distinguish(name);
@@ -296,12 +286,21 @@ namespace SimPrinter.Core.TextParsers
                 }
                 else // 구성품
                 {
-                    string setMark = SetMarkStrings.First(mark => textLine.StartsWith(mark));
+                    ParseNameQuantityPrice(textLine, out string name, out decimal quantity, out decimal price);
+
+                    ProductModel setItem = new ProductModel()
+                    {
+                        Name = name.Replace(SET_MARK, ""),
+                        Quantity = quantity,
+                        Price = price,
+                        Type = ProductType.SetItem,
+                    };
 
                     ProductModel productModel = productModels.Last();
-                    productModel.SetComponents.Add(textLine.Replace(setMark, ""));
+                    productModel.SetItems.Add(setItem);
                 }
             }
+
             ProductModel[] products = productModels.ToArray();
             logger.Information("ParseProduct {products}", products);
             return products;
@@ -326,17 +325,19 @@ namespace SimPrinter.Core.TextParsers
 
                 if (string.IsNullOrWhiteSpace(textLine))
                     continue;
-                
-                if (!string.IsNullOrWhiteSpace(textLine[0].ToString()))
+
+                if (SetMarkStrings.Any(setMark => textLine.StartsWith(setMark)))
+                {
+                    // 세트구성품.
+                    string setMark = SetMarkStrings.First(mark => textLine.StartsWith(mark));
+                    string product = textLine.Replace(setMark, SET_MARK).Trim();
+                    products.Add(product);
+                }
+                else if (!string.IsNullOrWhiteSpace(textLine[0].ToString()))
                 {
                     // 첫글자가 공백이 아닌 경우 제품1
                     string product = textLine.Trim();
                     products.Add(product);
-                }
-                else if(SetMarkStrings.Any(setMark => textLine.StartsWith(setMark)))
-                {
-                    // 세트구성품.
-                    products.Add(textLine);
                 }
                 else
                 {
@@ -348,6 +349,60 @@ namespace SimPrinter.Core.TextParsers
             }
             return products.ToArray();
 
+        }
+
+        private void ParseNameQuantityPrice(string text, out string name, out decimal quantity, out decimal price)
+        {
+            // 제품전체 파트
+            string[] allParts = text.Split(' ').Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
+
+            if (allParts.Length == 1) 
+            {
+                // 한 단어만 존재.
+                name = allParts[0];
+                quantity = 1;
+                price = 0;
+            }
+            else if(allParts.Length == 2)
+            {
+                // 두 단어 존재. 이름 or 이름+가격
+                quantity = 1;
+                if (!decimal.TryParse(allParts[allParts.Length - 1], out price))
+                {
+                    name = string.Join(" ", allParts);
+                }
+                else
+                {
+                    name = allParts[0];
+                }
+            }
+            else
+            {
+                // 3단어 이상 존재. 
+                // 아래 패턴중 하나
+                // 1. 이름 수량 가격
+                // 2. 이름 가격
+                // 3. 이름
+
+                // 3번케이스. 가격 변환실패. 모든 파트가 이름. 
+                if (!decimal.TryParse(allParts[allParts.Length - 1], out price))
+                {
+                    name = text;
+                    quantity = 1;
+                    return;
+                }
+
+                // 2번케이스. 수량 변환실패. 이부분까지 이름.
+                if (!decimal.TryParse(allParts[allParts.Length - 2], out quantity))
+                {
+                    name = string.Join(" ", allParts.Take(allParts.Length - 1));
+                    quantity = 1;
+                    return;
+                }
+
+                // 1번케이스. 가격 및 수량 변환성공. 나머지 부분이 이름. 
+                name = string.Join(" ", allParts.Take(allParts.Length - 2));
+            }
         }
 
 

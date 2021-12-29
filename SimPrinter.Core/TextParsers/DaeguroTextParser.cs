@@ -20,6 +20,11 @@ namespace SimPrinter.Core.TextParsers
         private readonly ProductDistinguisher productDistinguisher = new ProductDistinguisher();
 
         /// <summary>
+        /// 제품 병합단계에서 세트품목을 나타내기위한 마크
+        /// </summary>
+        private const string SET_MARK = "-";
+
+        /// <summary>
         /// 거래일시 문자열
         /// </summary>
         public string OrderTimeString { get; set; } = "주문시간 :";
@@ -182,50 +187,25 @@ namespace SimPrinter.Core.TextParsers
 
             // 제품문자열 검색
             string[] productTextLines = 
-                StringUtil.FindLinesByDelimiters(textLines, ProductStartLineString, 0, ProductEndLineString, 1, false);
+                StringUtil.FindLinesByDelimiters(textLines, ProductStartLineString, 0, ProductEndLineString, 1, false, false);
             
 
 
             // 제품명, 수량, 가격 합치기
             string[] mergedProductTextLines = MergeProductText(productTextLines);
-
+             
             List<ProductModel> productModels = new List<ProductModel>();
 
             // 문자열라인을 제품으로 변경
             foreach (var textLine in mergedProductTextLines)
             {
-                if (!textLine.StartsWith(SetComponentString)) // 제품
+                if (string.IsNullOrWhiteSpace(textLine))
+                    continue;
+
+                if (!textLine.StartsWith(SET_MARK)) // 제품
                 {
-                    // 제품전체 파트
-                    string[] allParts = textLine.Split(' ').Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
+                    ParseNameQuantityPrice(textLine, out string name, out decimal quantity, out decimal price);
 
-                    if (allParts.Length == 0)
-                        continue;
-
-                    // 공백으로 구분시 끝에서부터 순서대로 가격, 수량, 제품명
-                    string quantity;
-                    string price;
-                    string name;
-
-                    if (allParts[0] == DeliveryTip)  // 예외처리
-                    {
-                        name = DeliveryTip;
-                        price = allParts[1];
-                        quantity = "1";
-                    }
-                    else if (allParts.Length < 3) // 이름으로 구성
-                    {
-                        price = string.Empty;
-                        quantity = string.Empty;
-                        name = string.Join(" ", allParts);
-                    }
-                    else // 이름, 수량, 가격으로 구성됨
-                    {
-                        price = allParts[allParts.Length - 1];
-                        quantity = allParts[allParts.Length - 2];
-                        name = string.Join(" ", allParts.Take(allParts.Length - 2));
-                    }
-                    
                     // 제품 유형분석
                     ProductType productType = productDistinguisher.Distinguish(name);
                  
@@ -239,8 +219,18 @@ namespace SimPrinter.Core.TextParsers
                 }
                 else // 구성품
                 {
+                    ParseNameQuantityPrice(textLine, out string name, out decimal quantity, out decimal price);
+                    
+                    ProductModel setItem = new ProductModel()
+                    {
+                        Name = name.Replace(SET_MARK, ""),
+                        Quantity = quantity,
+                        Price = price,
+                        Type = ProductType.SetItem,
+                    };
+
                     ProductModel productModel = productModels.Last();
-                    productModel.SetComponents.Add(textLine.Replace(SetComponentString, ""));
+                    productModel.SetItems.Add(setItem);
                 }
             }
             ProductModel[] products = productModels.ToArray();
@@ -280,6 +270,12 @@ namespace SimPrinter.Core.TextParsers
                 {
                     products.Add(textLine.Trim());
                 }
+                // 세트구성품. 세트구성품문자를 변경한다.
+                else if (textLine.StartsWith(SetComponentString))
+                {
+                    string product = textLine.Replace(SetComponentString, SET_MARK).Trim();
+                    products.Add(product);
+                }
                 // 제품1 식별. 가격 및 수량이 존재한다.
                 else if (3 <= components.Length
                     && decimal.TryParse(components[components.Length - 1], out decimal r1)
@@ -287,11 +283,6 @@ namespace SimPrinter.Core.TextParsers
                 )
                 {
                     products.Add(textLine.Trim());
-                }
-                // 세트구성품. 세트구성품문자를 변경한다.
-                else if (textLine.StartsWith(SetComponentString))
-                {
-                    products.Add(textLine);
                 }
                 // 제품2. 제품1과 결합한다.
                 else
@@ -311,6 +302,62 @@ namespace SimPrinter.Core.TextParsers
             return products.ToArray();
 
         }
+
+        private void ParseNameQuantityPrice(string text, out string name, out decimal quantity, out decimal price)
+        {
+            // 제품전체 파트
+            string[] allParts = text.Split(' ').Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
+
+            if (allParts.Length == 1)
+            {
+                // 한 단어만 존재.
+                name = allParts[0];
+                quantity = 1;
+                price = 0;
+            }
+            else if (allParts.Length == 2)
+            {
+                // 두 단어 존재. 이름 or 이름+가격
+                quantity = 1;
+                if (!decimal.TryParse(allParts[allParts.Length - 1], out price))
+                {
+                    name = string.Join(" ", allParts);
+                }
+                else
+                {
+                    name = allParts[0];
+                }
+            }
+            else
+            {
+                // 3단어 이상 존재. 
+                // 아래 패턴중 하나
+                // 1. 이름 수량 가격
+                // 2. 이름 가격
+                // 3. 이름
+
+                // 3번케이스. 가격 변환실패. 모든 파트가 이름. 
+                if (!decimal.TryParse(allParts[allParts.Length - 1], out price))
+                {
+                    name = text;
+                    quantity = 1;
+                    return;
+                }
+
+                // 2번케이스. 수량 변환실패. 이부분까지 이름.
+                if (!decimal.TryParse(allParts[allParts.Length - 2], out quantity))
+                {
+                    name = string.Join(" ", allParts.Take(allParts.Length - 1));
+                    quantity = 1;
+                    return;
+                }
+
+                // 1번케이스. 가격 및 수량 변환성공. 나머지 부분이 이름. 
+                name = string.Join(" ", allParts.Take(allParts.Length - 2));
+            }
+           
+        }
+
 
     }
 }

@@ -98,7 +98,7 @@ namespace SimPrinter.Core.LabelPrinters
             var pizzas = order.Products.Where(x => x.Type == ProductType.Pizza);
             foreach (var pizza in pizzas)
             {
-                for(int i = 0; i < pizza.QuantityInt; i++)
+                for(int i = 0; i < pizza.Quantity; i++)
                     PrintPizza(order, pizza, ref labelNumber);
             }
 
@@ -116,16 +116,16 @@ namespace SimPrinter.Core.LabelPrinters
         {
             int componentIndex = 0;
 
-            while (componentIndex < pizza.MarkedSetComponents.Count())
+            while (componentIndex < pizza.SetItems.Count())
             {
                 PrintText(MarginX, LineHeight * MarginY, order.Contact);
                 PrintText(MarginX, LineHeight * (MarginY + 1), order.Address);
                 PrintText(MarginX, LineHeight * (MarginY + 4), order.Memo);
                 PrintText(MarginX, LineHeight * (MarginY + 7), pizza.Name, bold: true, deviceFont: SLCS_DEVICE_FONT.KOR_24X24);
            
-                foreach (var component in pizza.MarkedSetComponents)
+                foreach (var setItem in pizza.SetItems)
                 {
-                    PrintText(MarginX, LineHeight * (MarginY + 9 + componentIndex), component);
+                    PrintText(MarginX, LineHeight * (MarginY + 9 + componentIndex), $"-{setItem.Name}  {setItem.Quantity}ea");
                     componentIndex++;
 
                     if (componentIndex % SetItemMaxCount == 0)
@@ -154,7 +154,7 @@ namespace SimPrinter.Core.LabelPrinters
 
                 foreach (var sideDish in sideDishes)
                 {
-                    PrintText(MarginX, LineHeight * (MarginY + 7 + sideDishIndex), $"{sideDish.Name} {sideDish.Quantity}EA");
+                    PrintText(MarginX, LineHeight * (MarginY + 7 + sideDishIndex), $"{sideDish.Name}  {sideDish.Quantity}ea");
                     sideDishIndex++;
 
                     if (sideDishIndex % OtherItemMaxCount == 0)

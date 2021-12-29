@@ -157,7 +157,7 @@ PIZZA ALVOLO
 
             Assert.NotNull(products);
             Assert.IsTrue(0 < products.Length);
-            Assert.IsTrue(products.Any(X=> X.SetComponents.Count > 0));
+            Assert.IsTrue(products.Any(X=> X.SetItems.Count > 0));
             foreach (var product in products)
                 Console.WriteLine(product);
         }
