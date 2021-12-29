@@ -18,11 +18,6 @@ namespace SimPrinter.Core.TextParsers
         private readonly Logger logger = LoggingManager.Logger;
 
         /// <summary>
-        /// 제품텍스트라인에서 세트구성품을 식별하기위한 표식문자
-        /// </summary>
-        private const string SET_MARK = "-";
-
-        /// <summary>
         /// 피자사이즈 문자열
         /// </summary>
         public string[] PizzaSizeStrings { get; set; } = new string[] { "R", "S", "L" };
@@ -81,11 +76,11 @@ namespace SimPrinter.Core.TextParsers
         /// 제품구분 문자
         /// </summary>
         public string ProductString { get; set; } = "-----------";
-        
+
         /// <summary>
-        /// 세트구성품 문자
+        /// 세트구성품 문자열
         /// </summary>
-        public string SetComponentString { get; set; } = "  -";
+        public string[] SetMarkStrings { get; set; } = new string[] { "  -", "+" };
 
         public OrderModel Parse(string receiptText)
         {
@@ -263,7 +258,8 @@ namespace SimPrinter.Core.TextParsers
 
             foreach(var textLine in mergedProductTextLines)
             {
-                if (!textLine.StartsWith(SET_MARK)) // 제품
+                // 제품
+                if (!SetMarkStrings.Any(setMark => textLine.StartsWith(setMark)))
                 {
                     // 제품전체 파트
                     string[] allParts = textLine.Split(' ').Where(x=> !string.IsNullOrWhiteSpace(x)).ToArray();
@@ -301,8 +297,10 @@ namespace SimPrinter.Core.TextParsers
                 }
                 else // 구성품
                 {
+                    string setMark = SetMarkStrings.First(mark => textLine.StartsWith(mark));
+
                     ProductModel productModel = productModels.Last();
-                    productModel.SetComponents.Add(textLine);
+                    productModel.SetComponents.Add(textLine.Replace(setMark, ""));
                 }
             }
             ProductModel[] products = productModels.ToArray();
@@ -336,11 +334,10 @@ namespace SimPrinter.Core.TextParsers
                     string product = textLine.Trim();
                     products.Add(product);
                 }
-                else if (textLine.StartsWith(SetComponentString))
+                else if(SetMarkStrings.Any(setMark => textLine.StartsWith(setMark)))
                 {
-                    // 세트구성품. 세트구성품문자를 변경한다.
-                    string component = SET_MARK + textLine.Replace(SetComponentString, "")?.Trim();
-                    products.Add(component);
+                    // 세트구성품.
+                    products.Add(textLine);
                 }
                 else
                 {

@@ -90,7 +90,7 @@ namespace SimPrinter.Core.LabelPrinters
                     PrintText(MarginX, lineHeight * (MarginY + 4), order.Memo);
                     PrintText(MarginX, lineHeight * (MarginY + 7), pizza.Name, bold: true, deviceFont: SLCS_DEVICE_FONT.KOR_24X24);
                     int componentIndex = 0;
-                    foreach (var component in pizza.SetComponents)
+                    foreach (var component in pizza.MarkedSetComponents)
                     {
                         PrintText(MarginX, lineHeight * (MarginY + 9 + componentIndex), component);
                         componentIndex++;

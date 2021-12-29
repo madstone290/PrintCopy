@@ -11,6 +11,9 @@ namespace SimPrinter.Core.Models
     /// </summary>
     public class ProductModel
     {
+
+        private const string SET_MARK = "-";
+
         /// <summary>
         /// 제품명
         /// </summary>
@@ -38,11 +41,16 @@ namespace SimPrinter.Core.Models
         /// </summary>
         public List<string> SetComponents { get; set; } = new List<string>();
 
+        /// <summary>
+        /// 표식이 추가된 세트구성품
+        /// </summary>
+        public IEnumerable<string> MarkedSetComponents => SetComponents.Select(component => SET_MARK + component);
+
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendFormat("{0, 5} {1} {2, 5}개", Type, Name, Quantity );
-            foreach(string component in SetComponents)
+            foreach(string component in MarkedSetComponents)
             {
                 sb.AppendLine();
                 sb.Append(component);
