@@ -42,6 +42,11 @@ namespace SimPrinter.Core.LabelPrinters
 
 
         const int PrintDPI = 203;
+        
+        /// <summary>
+        /// 한줄의 높이(mm)
+        /// </summary>
+        const int LineHeight = 3;
 
         // Interface Type
         public const int ISerial = 0;
@@ -49,6 +54,19 @@ namespace SimPrinter.Core.LabelPrinters
         public const int IUsb = 2;
         public const int ILan = 3;
         public const int IBluetooth = 5;
+
+
+
+        /// <summary>
+        /// 라벨 한장에 출력가능한 세트품목수
+        /// </summary>
+        public int SetItemMaxCount { get; set; } = 4;
+
+        /// <summary>
+        /// 라벨 한장에 출력가능한 기타품목수
+        /// </summary>
+        public int OtherItemMaxCount { get; set; } = 6;
+
 
 
         public void Print(OrderModel order)
@@ -76,56 +94,79 @@ namespace SimPrinter.Core.LabelPrinters
             // 라벨번호 1부터
             int labelNumber = 1;
 
-            // 한줄의 높이(mm)
-            int lineHeight = 3;
-
             // 피자
             var pizzas = order.Products.Where(x => x.Type == ProductType.Pizza);
             foreach (var pizza in pizzas)
             {
                 for(int i = 0; i < pizza.QuantityInt; i++)
-                {
-                    PrintText(MarginX, lineHeight * MarginY, order.Contact);
-                    PrintText(MarginX, lineHeight * (MarginY + 1), order.Address);
-                    PrintText(MarginX, lineHeight * (MarginY + 4), order.Memo);
-                    PrintText(MarginX, lineHeight * (MarginY + 7), pizza.Name, bold: true, deviceFont: SLCS_DEVICE_FONT.KOR_24X24);
-                    int componentIndex = 0;
-                    foreach (var component in pizza.MarkedSetComponents)
-                    {
-                        PrintText(MarginX, lineHeight * (MarginY + 9 + componentIndex), component);
-                        componentIndex++;
-                    }
-                    PrintText(LabelNumberPosX, LabelNumberPosY, labelNumber++.ToString(), bold: true);
-
-                    //	Print Command
-                    BXLLApi.Prints(1, 1);
-                }
+                    PrintPizza(order, pizza, ref labelNumber);
             }
-
+         
             // 사이드 제품
             var others = order.Products.Where(x => x.Type == ProductType.Other);
-            if (others.Any())
-            {
-                PrintText(MarginX, lineHeight * MarginY, order.Contact);
-                PrintText(MarginX, lineHeight * (MarginY + 1), order.Address);
-                PrintText(MarginX, lineHeight * (MarginY + 4), order.Memo);
-
-                int otherIndex = 0;
-                foreach (var other in others)
-                {
-                    PrintText(MarginX, lineHeight * (MarginY + 7 + otherIndex), $"{other.Name} {other.Quantity}EA");
-                    otherIndex++;
-                }
-
-                PrintText(LabelNumberPosX, LabelNumberPosY, labelNumber++.ToString(), bold: true);
-
-                //	Print Command
-                BXLLApi.Prints(1, 1);
-            }
+            PrintSideDishes(order, others, ref labelNumber);
 
             // Disconnect printer
             BXLLApi.DisconnectPrinter();
         }
+
+        private void PrintPizza(OrderModel order, ProductModel pizza, ref int labelNumber)
+        {
+            int componentIndex = 0;
+
+            while (componentIndex < pizza.MarkedSetComponents.Count())
+            {
+                PrintText(MarginX, LineHeight * MarginY, order.Contact);
+                PrintText(MarginX, LineHeight * (MarginY + 1), order.Address);
+                PrintText(MarginX, LineHeight * (MarginY + 4), order.Memo);
+                PrintText(MarginX, LineHeight * (MarginY + 7), pizza.Name, bold: true, deviceFont: SLCS_DEVICE_FONT.KOR_24X24);
+           
+                foreach (var component in pizza.MarkedSetComponents)
+                {
+                    PrintText(MarginX, LineHeight * (MarginY + 9 + componentIndex), component);
+                    componentIndex++;
+
+                    if (componentIndex % SetItemMaxCount == 0)
+                        break;
+                }
+                PrintText(LabelNumberPosX, LabelNumberPosY, labelNumber.ToString(), bold: true);
+                labelNumber++;
+
+                //	Print Command
+                BXLLApi.Prints(1, 1);
+            }
+        }
+
+        private void PrintSideDishes(OrderModel order, IEnumerable<ProductModel> sideDishes, ref int labelNumber)
+        {
+            if (!sideDishes.Any())
+                return;
+
+            int sideDishIndex = 0;
+            while (sideDishIndex < sideDishes.Count())
+            {
+                PrintText(MarginX, LineHeight * MarginY, order.Contact);
+                PrintText(MarginX, LineHeight * (MarginY + 1), order.Address);
+                PrintText(MarginX, LineHeight * (MarginY + 4), order.Memo);
+
+
+                foreach (var sideDish in sideDishes)
+                {
+                    PrintText(MarginX, LineHeight * (MarginY + 7 + sideDishIndex), $"{sideDish.Name} {sideDish.Quantity}EA");
+                    sideDishIndex++;
+
+                    if (sideDishIndex % OtherItemMaxCount == 0)
+                        break;
+                }
+
+                PrintText(LabelNumberPosX, LabelNumberPosY, labelNumber.ToString(), bold: true);
+                labelNumber++;
+
+                //	Print Command
+                BXLLApi.Prints(1, 1);
+            }
+        }
+
 
         void PrintText(int posX, int posY, string text, int multiplier = 1, bool bold = false, SLCS_DEVICE_FONT deviceFont = SLCS_DEVICE_FONT.KOR_20X20)
         {
