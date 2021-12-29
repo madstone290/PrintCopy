@@ -149,7 +149,15 @@ namespace SimPrinter.Core
 
             logger.Information("OrderParsed {order}", order);
 
-            labelPrinter.Print(order);
+            try
+            {
+                labelPrinter.Print(order);
+            }
+            catch(Exception ex)
+            {
+                logger.Error("라벨프린터 에러", ex);
+            }
+            
 
             OrderCreated?.Invoke(this, new OrderArgs(order, e.RawBufferHex, e.TextBufferHex, e.Text));
         }

@@ -9,7 +9,7 @@ namespace SimPrinter.Core.BixolonPrinter
 {
     class BXLLApi_x64
     {
-        const string DLL_PATH = "BixolonPrinter/BXLLAPI_x64.dll";
+        const string DLL_PATH = "BXLLAPI_x64.dll";
 
         //////////////////////////////////////////////////////////////////////
         //  Function List

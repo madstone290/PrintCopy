@@ -20,6 +20,26 @@ namespace SimPrinter.Core.LabelPrinters
         /// </summary>
         const double PaperHeight = 40;
 
+        /// <summary>
+        /// X축 마진
+        /// </summary>
+        const int MarginX = 1;
+
+        /// <summary>
+        /// Y축 마진
+        /// </summary>
+        const int MarginY = 1;
+
+        /// <summary>
+        /// 라벨번호 X위치 
+        /// </summary>
+        const int LabelNumberPosX = 80;
+
+        /// <summary>
+        /// 라벨번호 Y위치 
+        /// </summary>
+        const int LabelNumberPosY = 35;
+
 
         const int PrintDPI = 203;
 
@@ -29,6 +49,7 @@ namespace SimPrinter.Core.LabelPrinters
         public const int IUsb = 2;
         public const int ILan = 3;
         public const int IBluetooth = 5;
+
 
         public void Print(OrderModel order)
         {
@@ -52,27 +73,29 @@ namespace SimPrinter.Core.LabelPrinters
 
             SendPrinterSettingCommand(PaperWidth, PaperHeight, 0, 0);
 
+            // 라벨번호 1부터
+            int labelNumber = 1;
+
+            // 한줄의 높이(mm)
             int lineHeight = 3;
 
-            int labelNumber = 1;
-            
             // 피자
             var pizzas = order.Products.Where(x => x.Type == ProductType.Pizza);
             foreach (var pizza in pizzas)
             {
                 for(int i = 0; i < pizza.QuantityInt; i++)
                 {
-                    PrintText(0, lineHeight * 0, order.Contact);
-                    PrintText(0, lineHeight * 1, order.Address);
-                    PrintText(0, lineHeight * 4, order.Memo);
-                    PrintText(0, lineHeight * 7, pizza.Name, bold: true, deviceFont: SLCS_DEVICE_FONT.KOR_24X24);
+                    PrintText(MarginX, lineHeight * MarginY, order.Contact);
+                    PrintText(MarginX, lineHeight * (MarginY + 1), order.Address);
+                    PrintText(MarginX, lineHeight * (MarginY + 4), order.Memo);
+                    PrintText(MarginX, lineHeight * (MarginY + 7), pizza.Name, bold: true, deviceFont: SLCS_DEVICE_FONT.KOR_24X24);
                     int componentIndex = 0;
                     foreach (var component in pizza.SetComponents)
                     {
-                        PrintText(0, lineHeight * (9 + componentIndex), component);
+                        PrintText(MarginX, lineHeight * (MarginY + 9 + componentIndex), component);
                         componentIndex++;
                     }
-                    PrintText(80, lineHeight * 12, labelNumber++.ToString(), bold: true);
+                    PrintText(LabelNumberPosX, LabelNumberPosY, labelNumber++.ToString(), bold: true);
 
                     //	Print Command
                     BXLLApi.Prints(1, 1);
@@ -83,18 +106,18 @@ namespace SimPrinter.Core.LabelPrinters
             var others = order.Products.Where(x => x.Type == ProductType.Other);
             if (others.Any())
             {
-                PrintText(0, lineHeight * 0, order.Contact);
-                PrintText(0, lineHeight * 1, order.Address);
-                PrintText(0, lineHeight * 4, order.Memo);
+                PrintText(MarginX, lineHeight * MarginY, order.Contact);
+                PrintText(MarginX, lineHeight * (MarginY + 1), order.Address);
+                PrintText(MarginX, lineHeight * (MarginY + 4), order.Memo);
 
                 int otherIndex = 0;
                 foreach (var other in others)
                 {
-                    PrintText(0, lineHeight * (7 + otherIndex), $"{other.Name} {other.Quantity}EA");
+                    PrintText(MarginX, lineHeight * (MarginY + 7 + otherIndex), $"{other.Name} {other.Quantity}EA");
                     otherIndex++;
                 }
 
-                PrintText(80, lineHeight * 12, labelNumber++.ToString(), bold: true);
+                PrintText(LabelNumberPosX, LabelNumberPosY, labelNumber++.ToString(), bold: true);
 
                 //	Print Command
                 BXLLApi.Prints(1, 1);
