@@ -101,9 +101,11 @@ namespace SimPrinter.Core.LabelPrinters
                 for(int i = 0; i < pizza.QuantityInt; i++)
                     PrintPizza(order, pizza, ref labelNumber);
             }
-         
-            // 사이드 제품
-            var others = order.Products.Where(x => x.Type == ProductType.Other);
+
+            // 사이드 제품. 무시가능한 제품 제외.
+            var others = order.Products.Where(x => x.Type == ProductType.Other)
+                .Where(product => !ProductModel.IgnoreList.Contains(product.Name));
+
             PrintSideDishes(order, others, ref labelNumber);
 
             // Disconnect printer

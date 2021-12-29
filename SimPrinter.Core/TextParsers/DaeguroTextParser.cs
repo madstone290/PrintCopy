@@ -17,10 +17,7 @@ namespace SimPrinter.Core.TextParsers
     {
         private readonly Logger logger = LoggingManager.Logger;
 
-        /// <summary>
-        /// 피자사이즈 문자열
-        /// </summary>
-        public string[] PizzaSizeStrings { get; set; } = new string[] { "R", "S", "L" };
+        private readonly ProductDistinguisher productDistinguisher = new ProductDistinguisher();
 
         /// <summary>
         /// 거래일시 문자열
@@ -228,13 +225,10 @@ namespace SimPrinter.Core.TextParsers
                         quantity = allParts[allParts.Length - 2];
                         name = string.Join(" ", allParts.Take(allParts.Length - 2));
                     }
-
-                    // 제품명 파트
-                    string[] nameParts = name.Split(' ');
-                    string pizzaSize = nameParts[nameParts.Length - 1];
-                    ProductType productType = PizzaSizeStrings.Contains(pizzaSize) ? ProductType.Pizza : ProductType.Other;
-
+                    
                     // 제품 유형분석
+                    ProductType productType = productDistinguisher.Distinguish(name);
+                 
                     ProductModel productModel = new ProductModel();
                     productModel.Name = name;
                     productModel.Price = price;

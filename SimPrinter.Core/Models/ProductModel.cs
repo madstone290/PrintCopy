@@ -12,6 +12,11 @@ namespace SimPrinter.Core.Models
     public class ProductModel
     {
 
+        public static string[] IgnoreList { get; set; } = new string[]
+        {
+            "배달료", "배달비"
+        };
+
         private const string SET_MARK = "-";
 
         /// <summary>

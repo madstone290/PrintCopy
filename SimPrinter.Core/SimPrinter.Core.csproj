@@ -56,6 +56,7 @@
     <Compile Include="LabelPrinterCollection.cs" />
     <Compile Include="LabelPrinters\BixolonSrp770.cs" />
     <Compile Include="LabelPrinters\DummyPrinter.cs" />
+    <Compile Include="ProductDistinguisher.cs" />
     <Compile Include="Utils\ArrayUtil.cs" />
     <Compile Include="ByteParsers\EscPosByteParser.cs" />
     <Compile Include="EventArgs\ByteParsingArgs.cs" />
