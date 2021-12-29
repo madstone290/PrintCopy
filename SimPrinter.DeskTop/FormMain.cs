@@ -19,17 +19,12 @@ namespace SimPrinter.DeskTop
         private readonly Worker worker;
 
         private readonly BindingList<OrderViewModel> orderBindingList = new BindingList<OrderViewModel>();
-        private readonly BindingList<BinaryDataModel> binaryBindingList = new BindingList<BinaryDataModel>();
-        private readonly BindingList<TextDataModel> textBindingList = new BindingList<TextDataModel>();
-
 
         public FormMain()
         {
             InitializeComponent();
 
             orderBindingList.AllowNew = false;
-            binaryBindingList.AllowNew = false;
-            textBindingList.AllowNew = false;
 
             orderGridView.ReadOnly = true;
             orderGridView.AutoGenerateColumns = false;
@@ -81,19 +76,6 @@ namespace SimPrinter.DeskTop
             this.UseUIThread(() =>
             {
                 orderBindingList.Add(order);
-
-                binaryBindingList.Add(new BinaryDataModel()
-                {
-                    OrderNumber = e.Order.OrderNumber,
-                    RawHex = e.RawHex,
-                    OrderHex = e.OrderHex
-                });
-
-                textBindingList.Add(new TextDataModel()
-                {
-                    OrderNumber = e.Order.OrderNumber,
-                    Text = e.OrderText,
-                });
             });
         }
 

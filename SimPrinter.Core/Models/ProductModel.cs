@@ -45,7 +45,19 @@ namespace SimPrinter.Core.Models
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("{0}  {1}  {2}  {3}", Type, Name, Quantity, Price);
+            sb.AppendFormat("{0}  {1}  {2}  {3}", Name, Quantity, Price, Type);
+            return sb.ToString();
+        }
+
+        public string PrintDetail()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat("{0}  {1}  {2}  {3}", Name, Quantity, Price, Type);
+            foreach(var setItem in SetItems)
+            {
+                sb.AppendLine();
+                sb.AppendFormat("-{0}  {1}  {2}", setItem.Name, setItem.Quantity, setItem.Price);
+            }
             return sb.ToString();
         }
     }

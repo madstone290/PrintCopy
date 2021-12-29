@@ -78,7 +78,7 @@ namespace SimPrinter.DeskTop.Models
                 Total = order.Total,
                 Credit = order.CreditAmount,
                 BillAmount = order.BillAmount,
-                ProductDetail = string.Join("\r\n", order.Products.Select(p => p.ToString()))
+                ProductDetail = string.Join("\r\n", order.Products.Select(p=> p.PrintDetail()))
             };
         }
 

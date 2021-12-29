@@ -11,7 +11,7 @@ namespace SimPrinter.Core.Models
     /// </summary>
     public class OrderModel
     {
-        public Guid Id { get; private set; } = Guid.NewGuid();
+        public Guid Id { get; set; } 
 
         /// <summary>
         /// 주문번호

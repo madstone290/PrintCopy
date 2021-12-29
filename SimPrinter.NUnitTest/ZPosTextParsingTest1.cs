@@ -189,7 +189,6 @@ POS 번호: 0001
 
             Assert.NotNull(products);
             Assert.IsTrue(0 < products.Length);
-
             foreach (var product in products)
                 Console.WriteLine(product);
         }

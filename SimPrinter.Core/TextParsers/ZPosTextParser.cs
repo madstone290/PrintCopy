@@ -94,6 +94,7 @@ namespace SimPrinter.Core.TextParsers
             string[] textLines = receiptText.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
             
             OrderModel order = new OrderModel();
+            order.Id = new Guid();
             order.OrderTime = ParseOrderTime(textLines);
             order.SubTotal = ParseSubTotal(textLines);
             order.Total = ParseTotal(textLines);

@@ -13,7 +13,7 @@ namespace SimPrinter.Core.LabelPrinters
         /// <summary>
         /// 용지 너비 mm
         /// </summary>
-        const double PaperWidth = 100;
+        const double PaperWidth = 99;
 
         /// <summary>
         /// 용지 높이 mm
@@ -103,10 +103,15 @@ namespace SimPrinter.Core.LabelPrinters
             }
 
             // 사이드 제품. 무시가능한 제품 제외.
-            var others = order.Products.Where(x => x.Type == ProductType.Other)
-                .Where(product => !ProductModel.IgnoreList.Contains(product.Name));
+            var sideDishes = order.Products.Where(x => x.Type == ProductType.Other)
+                .Where(product => !ProductModel.IgnoreList.Contains(product.Name))
+                .SelectMany(sd =>
+                {
+                    return new ProductModel[] { sd }.Concat(sd.SetItems);
+                })
+                .ToArray();
 
-            PrintSideDishes(order, others, ref labelNumber);
+            PrintSideDishes(order, sideDishes, ref labelNumber);
 
             // Disconnect printer
             BXLLApi.DisconnectPrinter();
@@ -114,23 +119,50 @@ namespace SimPrinter.Core.LabelPrinters
 
         private void PrintPizza(OrderModel order, ProductModel pizza, ref int labelNumber)
         {
-            int componentIndex = 0;
+            // 처리된 세트아이템 번호
+            int setItemIndex = 0;
+       
+            // 인쇄 끝
+            bool endOfPrint = false;
 
-            while (componentIndex < pizza.SetItems.Count())
+            // 피자이름 인쇄여부. 피자이름은 1회만 인쇄한다.
+            bool pizzaPrinted = false;
+
+            while (!endOfPrint)
             {
-                PrintText(MarginX, LineHeight * MarginY, order.Contact);
-                PrintText(MarginX, LineHeight * (MarginY + 1), order.Address);
-                PrintText(MarginX, LineHeight * (MarginY + 4), order.Memo);
-                PrintText(MarginX, LineHeight * (MarginY + 7), pizza.Name, bold: true, deviceFont: SLCS_DEVICE_FONT.KOR_24X24);
-           
-                foreach (var setItem in pizza.SetItems)
-                {
-                    PrintText(MarginX, LineHeight * (MarginY + 9 + componentIndex), $"-{setItem.Name}  {setItem.Quantity}ea");
-                    componentIndex++;
+                PrintText(MarginX, MarginY, order.Contact);
+                PrintText(MarginX, MarginY + LineHeight * 1, order.Address);
+                PrintText(MarginX, MarginY + LineHeight * 4, order.Memo);
 
-                    if (componentIndex % SetItemMaxCount == 0)
-                        break;
+                // 세트품목 인쇄위치(26)
+                int printRawPosY;
+                if (!pizzaPrinted)
+                {
+                    PrintText(MarginX, MarginY + LineHeight * 7, pizza.Name, bold: true, deviceFont: SLCS_DEVICE_FONT.KOR_24X24);
+                    pizzaPrinted = true;
+
+                    printRawPosY = MarginY + (LineHeight * 7) + 4;
                 }
+                else
+                {
+                    printRawPosY = MarginY + LineHeight * 7;
+                }
+              
+                // 프린트열 번호
+                int printRawIndex = 0;
+                // 라벨끝
+                bool endOfLabel = false; 
+                while (!endOfLabel)
+                {
+                    var setItem = pizza.SetItems[setItemIndex];
+                    PrintText(MarginX, printRawPosY + (LineHeight * printRawIndex), $"-{setItem.Name}  {setItem.Quantity}ea");
+                    setItemIndex++;
+                    printRawIndex++;
+                    
+                    endOfPrint = setItemIndex == pizza.SetItems.Count();
+                    endOfLabel = endOfPrint || setItemIndex % SetItemMaxCount == 0;
+                }
+
                 PrintText(LabelNumberPosX, LabelNumberPosY, labelNumber.ToString(), bold: true);
                 labelNumber++;
 
@@ -139,26 +171,38 @@ namespace SimPrinter.Core.LabelPrinters
             }
         }
 
-        private void PrintSideDishes(OrderModel order, IEnumerable<ProductModel> sideDishes, ref int labelNumber)
+        private void PrintSideDishes(OrderModel order, ProductModel[] sideDishes, ref int labelNumber)
         {
             if (!sideDishes.Any())
                 return;
 
+            // 처리된 사이트메뉴 번호
             int sideDishIndex = 0;
-            while (sideDishIndex < sideDishes.Count())
+
+            // 인쇄 끝
+            bool endOfPrint = false;
+
+            while (!endOfPrint)
             {
-                PrintText(MarginX, LineHeight * MarginY, order.Contact);
-                PrintText(MarginX, LineHeight * (MarginY + 1), order.Address);
-                PrintText(MarginX, LineHeight * (MarginY + 4), order.Memo);
+                PrintText(MarginX, MarginY, order.Contact);
+                PrintText(MarginX, MarginY + LineHeight * 1, order.Address);
+                PrintText(MarginX, MarginY + LineHeight * 4, order.Memo);
 
-
-                foreach (var sideDish in sideDishes)
+                // 사이드메뉴 인쇄위치(22)
+                int printRawPosY = MarginY + LineHeight * 7; 
+                // 프린트열 번호
+                int printRawIndex = 0;
+                // 라벨끝
+                bool endOfLabel = false;
+                while (!endOfLabel)
                 {
-                    PrintText(MarginX, LineHeight * (MarginY + 7 + sideDishIndex), $"{sideDish.Name}  {sideDish.Quantity}ea");
+                    var sideDish = sideDishes[sideDishIndex];
+                    PrintText(MarginX, printRawPosY + (LineHeight * printRawIndex), $"{sideDish.Name}  {sideDish.Quantity}ea");
                     sideDishIndex++;
+                    printRawIndex++;
 
-                    if (sideDishIndex % OtherItemMaxCount == 0)
-                        break;
+                    endOfPrint = sideDishIndex == sideDishes.Count();
+                    endOfLabel = endOfPrint || sideDishIndex % SetItemMaxCount == 0;
                 }
 
                 PrintText(LabelNumberPosX, LabelNumberPosY, labelNumber.ToString(), bold: true);

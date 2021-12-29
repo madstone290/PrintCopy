@@ -121,9 +121,14 @@ namespace SimPrinter.Core
         public void PrintLabel(Guid orderId)
         {
             OrderModel order = orders.FirstOrDefault(x => x.Id == orderId);
+
+            if (order == null)
+            {
+                logger.Information("주문검색 실패 {Id}", orderId);
+                return;
+            }
             
-            if(order != null)
-                labelPrinter.Print(order);
+            labelPrinter.Print(order);
         }
 
         private void ByteParser_ParsingCompleted(object sender, ByteParsingArgs e)
