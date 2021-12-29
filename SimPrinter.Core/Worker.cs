@@ -137,17 +137,31 @@ namespace SimPrinter.Core
              * */
             logger.Information("ReceiptParsed {NewLine}{Receipt}", Environment.NewLine, e.Text);
 
+            if (string.IsNullOrWhiteSpace(e.Text))
+                return;
+
             PrintoutType printoutType = printoutDistinguisher.Distinguish(e.Text);
 
             if(!textParsers.TryGetValue(printoutType, out ITextParser textParser))
                 return;
 
-            OrderModel order = textParser.Parse(e.Text);
-            order.OrderNumber = orderDao.GetOrderNumber(DateTime.Today);
-            orderDao.Save(DateTime.Today, order);
-            orders.Add(order);
+            OrderModel order = null;
+            try
+            {
+                order = textParser.Parse(e.Text);
+                order.OrderNumber = orderDao.GetOrderNumber(DateTime.Today);
+                orderDao.Save(DateTime.Today, order);
+                orders.Add(order);
 
-            logger.Information("OrderParsed {order}", order);
+                logger.Information("주문분석 완료 {order}", order);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("주문분석 에러", ex);
+            }
+
+            if (order == null)
+                return;
 
             try
             {
@@ -157,7 +171,6 @@ namespace SimPrinter.Core
             {
                 logger.Error("라벨프린터 에러", ex);
             }
-            
 
             OrderCreated?.Invoke(this, new OrderArgs(order, e.RawBufferHex, e.TextBufferHex, e.Text));
         }
@@ -171,9 +184,25 @@ namespace SimPrinter.Core
              * */
             logger.Information("AppPort_DataReceived {Data}", BitConverter.ToString(e.Buffer, e.Offset, e.Length));
 
-            printerPort.Send(e.Buffer, e.Offset, e.Length);
+            try
+            {
+                printerPort.Send(e.Buffer, e.Offset, e.Length);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("프린트포트 송신에러", ex);
+            }
+         
 
-            byteParser.Parse(e.Buffer, e.Offset, e.Length);
+            try
+            {
+                byteParser.Parse(e.Buffer, e.Offset, e.Length);
+            }
+            catch(Exception ex)
+            {
+                logger.Error("바이트파서 분석에러", ex);
+            }
+            
         }
 
         private void PrinterPort_DataReceived(object sender, SerialDataArgs e)
