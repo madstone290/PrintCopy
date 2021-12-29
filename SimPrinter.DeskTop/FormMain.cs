@@ -35,23 +35,14 @@ namespace SimPrinter.DeskTop
             orderGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             orderGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
             orderGridView.DataSource = orderBindingList;
+            orderGridView.RowHeaderMouseDoubleClick += OrderGridView_RowHeaderMouseDoubleClick;
+            orderGridView.CellDoubleClick += OrderGridView_CellDoubleClick;
 
-            binaryGridView.AutoGenerateColumns = false;
-            binaryGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            binaryGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
-            binaryGridView.DataSource = binaryBindingList;
-
-            textGridView.AutoGenerateColumns = false;
-            textGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            textGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
-            textGridView.DataSource = textBindingList;
 
             printLabelBtn.Click += PrintLabelBtn_Click;
             settingManager.SettingSaved += SettingManager_SettingSaved;
            
         }
-
-
 
         public FormMain(Worker worker) : this()
         {
@@ -59,6 +50,27 @@ namespace SimPrinter.DeskTop
             this.worker.OrderCreated += Worker_OrderCreated;
 
             this.customLabelListView1.LabelPrinter = worker.LabelPrinter;
+        }
+
+        private void OrderGridView_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button != MouseButtons.Left)
+                return;
+
+            OrderViewModel selectedOrder = orderGridView.Rows[e.RowIndex].DataBoundItem as OrderViewModel;
+            if (selectedOrder == null)
+                return;
+
+            worker.PrintLabel(selectedOrder.Id);
+        }
+
+        private void OrderGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            OrderViewModel selectedOrder = orderGridView.Rows[e.RowIndex].DataBoundItem as OrderViewModel;
+            if (selectedOrder == null)
+                return;
+
+            worker.PrintLabel(selectedOrder.Id);
         }
 
         private void Worker_OrderCreated(object sender, Core.EventArgs.OrderArgs e)
@@ -167,12 +179,6 @@ namespace SimPrinter.DeskTop
 
             orderGridView.ColumnHeadersDefaultCellStyle.Font = font;
             orderGridView.DefaultCellStyle.Font = font;
-
-            binaryGridView.ColumnHeadersDefaultCellStyle.Font = font;
-            binaryGridView.DefaultCellStyle.Font = font;
-
-            textGridView.ColumnHeadersDefaultCellStyle.Font = font;
-            textGridView.DefaultCellStyle.Font = font;
         }
 
 

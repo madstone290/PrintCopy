@@ -32,7 +32,6 @@ namespace SimPrinter.DeskTop
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.orderGridView = new System.Windows.Forms.DataGridView();
@@ -48,37 +47,22 @@ namespace SimPrinter.DeskTop
             this.billAmountColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.printLabelBtn = new System.Windows.Forms.Button();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.binaryGridView = new System.Windows.Forms.DataGridView();
-            this.orderNumberCol_Serial = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rawHexColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.orderHexColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.textGridView = new System.Windows.Forms.DataGridView();
-            this.oderNumberCol_Text = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.textColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.generalSettingView1 = new SimPrinter.DeskTop.GeneralSettingView();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.customLabelListView1 = new SimPrinter.DeskTop.Views.CustomLabelListView();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.generalSettingView1 = new SimPrinter.DeskTop.GeneralSettingView();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.orderGridView)).BeginInit();
             this.panel1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.binaryGridView)).BeginInit();
-            this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.textGridView)).BeginInit();
-            this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage5);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Font = new System.Drawing.Font("굴림", 10F);
@@ -214,89 +198,30 @@ namespace SimPrinter.DeskTop
             this.printLabelBtn.Text = "라벨 발행";
             this.printLabelBtn.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // tabPage5
             // 
-            this.tabPage2.Controls.Add(this.binaryGridView);
-            this.tabPage2.Location = new System.Drawing.Point(4, 23);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(976, 534);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "시리얼 데이터";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPage5.Controls.Add(this.customLabelListView1);
+            this.tabPage5.Location = new System.Drawing.Point(4, 23);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(976, 534);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "라벨출력";
+            this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // binaryGridView
+            // customLabelListView1
             // 
-            this.binaryGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.binaryGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.orderNumberCol_Serial,
-            this.rawHexColumn,
-            this.orderHexColumn});
-            this.binaryGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.binaryGridView.Location = new System.Drawing.Point(3, 3);
-            this.binaryGridView.Name = "binaryGridView";
-            this.binaryGridView.RowTemplate.Height = 23;
-            this.binaryGridView.Size = new System.Drawing.Size(970, 528);
-            this.binaryGridView.TabIndex = 0;
-            // 
-            // orderNumberCol_Serial
-            // 
-            this.orderNumberCol_Serial.DataPropertyName = "OrderNumber";
-            this.orderNumberCol_Serial.HeaderText = "주문번호";
-            this.orderNumberCol_Serial.Name = "orderNumberCol_Serial";
-            // 
-            // rawHexColumn
-            // 
-            this.rawHexColumn.DataPropertyName = "RawHex";
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.rawHexColumn.DefaultCellStyle = dataGridViewCellStyle4;
-            this.rawHexColumn.HeaderText = "원본 데이터";
-            this.rawHexColumn.Name = "rawHexColumn";
-            this.rawHexColumn.Width = 500;
-            // 
-            // orderHexColumn
-            // 
-            this.orderHexColumn.DataPropertyName = "OrderHex";
-            this.orderHexColumn.HeaderText = "주문 데이터";
-            this.orderHexColumn.Name = "orderHexColumn";
-            this.orderHexColumn.Width = 500;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.textGridView);
-            this.tabPage3.Location = new System.Drawing.Point(4, 23);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(976, 534);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "텍스트 데이터";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // textGridView
-            // 
-            this.textGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.textGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.oderNumberCol_Text,
-            this.textColumn});
-            this.textGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textGridView.Location = new System.Drawing.Point(3, 3);
-            this.textGridView.Name = "textGridView";
-            this.textGridView.RowTemplate.Height = 23;
-            this.textGridView.Size = new System.Drawing.Size(970, 528);
-            this.textGridView.TabIndex = 1;
-            // 
-            // oderNumberCol_Text
-            // 
-            this.oderNumberCol_Text.DataPropertyName = "OrderNumber";
-            this.oderNumberCol_Text.HeaderText = "주문번호";
-            this.oderNumberCol_Text.Name = "oderNumberCol_Text";
-            // 
-            // textColumn
-            // 
-            this.textColumn.DataPropertyName = "Text";
-            this.textColumn.HeaderText = "주문 데이터";
-            this.textColumn.Name = "textColumn";
-            this.textColumn.Width = 500;
+            this.customLabelListView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.customLabelListView1.FontSize = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.customLabelListView1.LabelPrinter = null;
+            this.customLabelListView1.Location = new System.Drawing.Point(3, 3);
+            this.customLabelListView1.Name = "customLabelListView1";
+            this.customLabelListView1.Size = new System.Drawing.Size(970, 528);
+            this.customLabelListView1.TabIndex = 0;
             // 
             // tabPage4
             // 
@@ -317,26 +242,6 @@ namespace SimPrinter.DeskTop
             this.generalSettingView1.Size = new System.Drawing.Size(970, 528);
             this.generalSettingView1.TabIndex = 0;
             // 
-            // tabPage5
-            // 
-            this.tabPage5.Controls.Add(this.customLabelListView1);
-            this.tabPage5.Location = new System.Drawing.Point(4, 23);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(976, 534);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "라벨출력";
-            this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // customLabelListView1
-            // 
-            this.customLabelListView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.customLabelListView1.LabelPrinter = null;
-            this.customLabelListView1.Location = new System.Drawing.Point(3, 3);
-            this.customLabelListView1.Name = "customLabelListView1";
-            this.customLabelListView1.Size = new System.Drawing.Size(970, 528);
-            this.customLabelListView1.TabIndex = 0;
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -349,12 +254,8 @@ namespace SimPrinter.DeskTop
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.orderGridView)).EndInit();
             this.panel1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.binaryGridView)).EndInit();
-            this.tabPage3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.textGridView)).EndInit();
-            this.tabPage4.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -363,15 +264,6 @@ namespace SimPrinter.DeskTop
 
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.DataGridView binaryGridView;
-        private System.Windows.Forms.DataGridView textGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn oderNumberCol_Text;
-        private System.Windows.Forms.DataGridViewTextBoxColumn textColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn orderNumberCol_Serial;
-        private System.Windows.Forms.DataGridViewTextBoxColumn rawHexColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn orderHexColumn;
         private System.Windows.Forms.DataGridView orderGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn orderNumberColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn orderTimeColumn;

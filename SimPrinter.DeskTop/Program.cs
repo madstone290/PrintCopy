@@ -77,6 +77,7 @@ namespace SimPrinter.DeskTop
                 return;
             
             Application.ApplicationExit += (s, e) => { worker.Stop(); };
+            Application.ThreadException += (s, e) => MessageBox.Show(e.Exception.Message);
             Application.Run(new FormMain(worker));
         }
 
