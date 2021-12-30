@@ -31,14 +31,13 @@ namespace SimPrinter.DeskTop
         {
             this.buttonClose = new System.Windows.Forms.Button();
             this.buttonEdit = new System.Windows.Forms.Button();
-            this.labelPrinterPortSettingUC = new SimPrinter.DeskTop.PortSettingUC();
             this.normalPrinterPortSettingUC = new SimPrinter.DeskTop.PortSettingUC();
             this.inputPortSettingUC = new SimPrinter.DeskTop.PortSettingUC();
             this.SuspendLayout();
             // 
             // buttonClose
             // 
-            this.buttonClose.Location = new System.Drawing.Point(666, 276);
+            this.buttonClose.Location = new System.Drawing.Point(411, 276);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(120, 74);
             this.buttonClose.TabIndex = 4;
@@ -47,21 +46,12 @@ namespace SimPrinter.DeskTop
             // 
             // buttonEdit
             // 
-            this.buttonEdit.Location = new System.Drawing.Point(540, 276);
+            this.buttonEdit.Location = new System.Drawing.Point(276, 276);
             this.buttonEdit.Name = "buttonEdit";
             this.buttonEdit.Size = new System.Drawing.Size(120, 74);
             this.buttonEdit.TabIndex = 3;
             this.buttonEdit.Text = "저장";
             this.buttonEdit.UseVisualStyleBackColor = true;
-            // 
-            // labelPrinterPortSettingUC
-            // 
-            this.labelPrinterPortSettingUC.GroupTitle = "라벨 프린터";
-            this.labelPrinterPortSettingUC.Location = new System.Drawing.Point(540, 12);
-            this.labelPrinterPortSettingUC.Name = "labelPrinterPortSettingUC";
-            this.labelPrinterPortSettingUC.Padding = new System.Windows.Forms.Padding(10);
-            this.labelPrinterPortSettingUC.Size = new System.Drawing.Size(258, 258);
-            this.labelPrinterPortSettingUC.TabIndex = 2;
             // 
             // normalPrinterPortSettingUC
             // 
@@ -85,10 +75,9 @@ namespace SimPrinter.DeskTop
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(804, 361);
+            this.ClientSize = new System.Drawing.Size(543, 361);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.buttonEdit);
-            this.Controls.Add(this.labelPrinterPortSettingUC);
             this.Controls.Add(this.normalPrinterPortSettingUC);
             this.Controls.Add(this.inputPortSettingUC);
             this.MaximizeBox = false;
@@ -104,7 +93,6 @@ namespace SimPrinter.DeskTop
 
         private PortSettingUC inputPortSettingUC;
         private PortSettingUC normalPrinterPortSettingUC;
-        private PortSettingUC labelPrinterPortSettingUC;
         private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.Button buttonEdit;
     }

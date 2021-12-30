@@ -66,7 +66,7 @@ namespace SimPrinter.DeskTop
             {
                 PortSettingManager portSettingManager = PortSettingManager.Instance;
                 portSettingManager.Load();
-                worker = PizzaAlvolo(portSettingManager.AppPortSetting, portSettingManager.PrinterPortSetting, portSettingManager.LabelPrinterPortSetting);
+                worker = PizzaAlvolo(portSettingManager.AppPortSetting, portSettingManager.PrinterPortSetting);
 #if !DEBUG
                 worker.Run();
 #endif
@@ -85,7 +85,7 @@ namespace SimPrinter.DeskTop
         /// 피자알볼로 생성
         /// </summary>
         /// <returns></returns>
-        static Worker PizzaAlvolo(PortSetting appPortSetting, PortSetting printPortSetting, PortSetting labelPrintPortSetting)
+        static Worker PizzaAlvolo(PortSetting appPortSetting, PortSetting printPortSetting)
         {
             SimSerialPort appPort = new SimSerialPort(CreateSerialPort(appPortSetting));
             SimSerialPort printPort = new SimSerialPort(CreateSerialPort(printPortSetting));

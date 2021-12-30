@@ -34,30 +34,21 @@ namespace SimPrinter.DeskTop
         /// </summary>
         public PortSetting PrinterPortSetting { get; private set; } = new PortSetting();
 
-
-        /// <summary>
-        /// 라벨 프린터 설정
-        /// </summary>
-        public PortSetting LabelPrinterPortSetting { get; private set; } = new PortSetting();
-
         /// <summary>
         /// 포트설정을 갱신한다.
         /// </summary>
         /// <param name="appPortSetting"></param>
         /// <param name="printPortSetting"></param>
         /// <param name="labelPrinterPortSetting"></param>
-        public void SetPortSettings(PortSetting appPortSetting, PortSetting printPortSetting, PortSetting labelPrinterPortSetting)
+        public void SetPortSettings(PortSetting appPortSetting, PortSetting printPortSetting)
         {
             if (appPortSetting == null)
                 throw new ArgumentNullException(nameof(appPortSetting), "앱포트 설정이 null입니다");
             if (printPortSetting == null)
                 throw new ArgumentNullException(nameof(printPortSetting), "프린터 설정이 null입니다");
-            if (labelPrinterPortSetting == null)
-                throw new ArgumentNullException(nameof(labelPrinterPortSetting), "라벨프린터 설정이 null입니다");
 
             AppPortSetting = appPortSetting;
             PrinterPortSetting = printPortSetting;
-            LabelPrinterPortSetting = labelPrinterPortSetting;
         }
 
         /// <summary>
@@ -89,7 +80,6 @@ namespace SimPrinter.DeskTop
 
             AppPortSetting = 0 < portSettings.Length ? portSettings[0] : new PortSetting();
             PrinterPortSetting = 1 < portSettings.Length ? portSettings[1] : new PortSetting();
-            LabelPrinterPortSetting = 2 < portSettings.Length ? portSettings[2] : new PortSetting();
 
         }
 
@@ -105,7 +95,7 @@ namespace SimPrinter.DeskTop
             {
                 string yaml = serializer.Serialize(new PortSetting[]
                 {
-                    AppPortSetting, PrinterPortSetting, LabelPrinterPortSetting
+                    AppPortSetting, PrinterPortSetting
                 });
                 File.WriteAllText(filePath, yaml);
             }

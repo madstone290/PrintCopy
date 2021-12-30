@@ -36,12 +36,10 @@ namespace SimPrinter.DeskTop
 
             inputPortSettingUC.InitDataSource();
             normalPrinterPortSettingUC.InitDataSource();
-            labelPrinterPortSettingUC.InitDataSource();
            
             portSettingManager.Load();
             inputPortSettingUC.PortSetting = portSettingManager.AppPortSetting;
             normalPrinterPortSettingUC.PortSetting = portSettingManager.PrinterPortSetting;
-            labelPrinterPortSettingUC.PortSetting = portSettingManager.LabelPrinterPortSetting;
 
             SetEditable(false);
         }
@@ -52,8 +50,7 @@ namespace SimPrinter.DeskTop
             if (isEditing)
             {
                 portSettingManager.SetPortSettings(inputPortSettingUC.PortSetting,
-                                                   normalPrinterPortSettingUC.PortSetting,
-                                                   labelPrinterPortSettingUC.PortSetting);
+                                                   normalPrinterPortSettingUC.PortSetting);
                 portSettingManager.Save();
             }
 
@@ -73,7 +70,6 @@ namespace SimPrinter.DeskTop
         { 
             inputPortSettingUC.SetEditable(editable);
             normalPrinterPortSettingUC.SetEditable(editable);
-            labelPrinterPortSettingUC.SetEditable(editable);
 
             buttonEdit.Text = editable ? "저장" : "수정";
 
