@@ -150,8 +150,15 @@ namespace SimPrinter.Core.LabelPrinters
               
                 // 프린트열 번호
                 int printRawIndex = 0;
+                
                 // 라벨끝
-                bool endOfLabel = false; 
+                bool endOfLabel = false;
+                if (!pizza.SetItems.Any())
+                {
+                    endOfPrint = true;
+                    endOfLabel = true;
+                }
+
                 while (!endOfLabel)
                 {
                     var setItem = pizza.SetItems[setItemIndex];
