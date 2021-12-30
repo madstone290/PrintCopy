@@ -63,9 +63,9 @@ namespace SimPrinter.Core.LabelPrinters
         public int SetItemMaxCount { get; set; } = 4;
 
         /// <summary>
-        /// 라벨 한장에 출력가능한 기타품목수
+        /// 라벨 한장에 출력가능한 사이드메뉴수
         /// </summary>
-        public int OtherItemMaxCount { get; set; } = 6;
+        public int SideDishMaxCount { get; set; } = 6;
 
 
 
@@ -202,7 +202,7 @@ namespace SimPrinter.Core.LabelPrinters
                     printRawIndex++;
 
                     endOfPrint = sideDishIndex == sideDishes.Count();
-                    endOfLabel = endOfPrint || sideDishIndex % SetItemMaxCount == 0;
+                    endOfLabel = endOfPrint || sideDishIndex % SideDishMaxCount == 0;
                 }
 
                 PrintText(LabelNumberPosX, LabelNumberPosY, labelNumber.ToString(), bold: true);
