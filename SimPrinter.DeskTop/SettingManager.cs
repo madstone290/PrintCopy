@@ -30,7 +30,7 @@ namespace SimPrinter.DeskTop
 
         public void Save<TSetting>(TSetting setting)
         {
-            string json = JsonConvert.SerializeObject(setting);
+            string json = JsonConvert.SerializeObject(setting, Formatting.Indented);
             File.WriteAllText(GetSettingFilePath<TSetting>(), json);
 
             SettingSaved?.Invoke(this, setting);

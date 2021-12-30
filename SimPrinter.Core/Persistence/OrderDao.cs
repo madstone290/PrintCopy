@@ -53,7 +53,7 @@ namespace SimPrinter.Core.Persistence
             List<OrderModel> orderProducts = GetOrders(date);
             orderProducts.Add(order);
 
-            string json = JsonConvert.SerializeObject(orderProducts);
+            string json = JsonConvert.SerializeObject(orderProducts, Formatting.Indented);
 
             File.WriteAllText(GetFilePath(date), json);
         }
@@ -65,8 +65,8 @@ namespace SimPrinter.Core.Persistence
                 return new List<OrderModel>();
 
             string json = File.ReadAllText(filePath);
-            
-            List<OrderModel> orderProducts = null;
+
+            List<OrderModel> orderProducts;
             try
             {
                 orderProducts = JsonConvert.DeserializeObject<List<OrderModel>>(json);
