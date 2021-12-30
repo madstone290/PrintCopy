@@ -35,9 +35,13 @@ namespace SimPrinter.DeskTop
 
             if (!Program.SettingManager.TryLoad<PortSetting>(out PortSetting setting))
                 setting = PortSetting.Default;
-            
             inputPortSettingUC.PortInfo = setting.AppPort;
             printerPortSettingUC.PortInfo = setting.PrinterPort;
+
+            if (!Program.SettingManager.TryLoad<GeneralSetting>(out GeneralSetting generalSetting))
+                generalSetting = new GeneralSetting();
+            useLabeSettingEdit.Checked = generalSetting.UseLabelSetting;
+            useOrderSettingEdit.Checked = generalSetting.UseOrderSetting;
 
             SetEditable(false);
         }
@@ -52,8 +56,14 @@ namespace SimPrinter.DeskTop
                     AppPort = inputPortSettingUC.PortInfo,
                     PrinterPort = printerPortSettingUC.PortInfo
                 };
-
                 Program.SettingManager.Save(portSetting);
+
+                if (!Program.SettingManager.TryLoad<GeneralSetting>(out GeneralSetting generalSetting))
+                    generalSetting = new GeneralSetting();
+
+                generalSetting.UseLabelSetting = useLabeSettingEdit.Checked;
+                generalSetting.UseOrderSetting = useOrderSettingEdit.Checked;
+                Program.SettingManager.Save(generalSetting);
             }
 
             SetEditable(!isEditing);
@@ -72,6 +82,8 @@ namespace SimPrinter.DeskTop
         { 
             inputPortSettingUC.SetEditable(editable);
             printerPortSettingUC.SetEditable(editable);
+            useLabeSettingEdit.Enabled = editable;
+            useOrderSettingEdit.Enabled = editable;
 
             buttonEdit.Text = editable ? "저장" : "수정";
 

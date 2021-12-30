@@ -84,6 +84,18 @@ namespace SimPrinter.Core.TextParsers
         /// </summary>
         public string[] SetMarkStrings { get; set; } = new string[] { "  -", "+", "    -" };
 
+        public string[] Pizzas
+        {
+            get => productDistinguisher.Pizzas;
+            set => productDistinguisher.Pizzas = value;
+        }
+
+        public string[] SideDishes
+        {
+            get => productDistinguisher.SideDishes;
+            set => productDistinguisher.SideDishes = value;
+        }
+
         public OrderModel Parse(string receiptText)
         {
             string[] textLines = receiptText.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);

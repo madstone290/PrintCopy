@@ -9,18 +9,12 @@ namespace SimPrinter.DeskTop.Settings
     /// <summary>
     /// 주문정보
     /// </summary>
-    public class OrderInfoSetting
+    public class 주문설정
     {
-        public string[] Pizzas { get; set; }
-
-        public string[] SideDishes { get; set; }
-
-        public string[] NoPrintProducts { get; set; }
-
         /// <summary>
         /// 피자 기본값
         /// </summary>
-        public string[] DefaultPizzas { get; set; } = new string[]
+        public static readonly string[] DefaultPizzas = new string[]
         {
             "하프앤하프",
             "디럭스 콤비 피자",
@@ -33,18 +27,23 @@ namespace SimPrinter.DeskTop.Settings
         /// <summary>
         /// 사이드 기본값
         /// </summary>
-        public string[] DefaultSideDishes { get; set; } = new string[]
+        public static readonly string[] DefaultSideDishes = new string[]
         {
             "콘치즈그라탕"
         };
 
-        /// <summary>
-        /// 출력 예외항목 기본값
-        /// </summary>
-        public string[] DefaultNoPrintProducts { get; set; } = new string[]
+        public static 주문설정 Default => new 주문설정()
         {
-            "배달료", "배달비"
+            피자목록 = DefaultPizzas,
+            사이드목록 = DefaultSideDishes,
         };
+        
+        public string[] 피자목록 { get; set; }
+        
+        public string[] 사이드목록 { get; set; }
+
+ 
+
 
     }
 }

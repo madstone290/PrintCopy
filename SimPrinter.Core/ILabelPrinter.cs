@@ -17,6 +17,21 @@ namespace SimPrinter.Core
     public interface ILabelPrinter
     {
         /// <summary>
+        /// 용지높이
+        /// </summary>
+        double PaperHeight { get; set; }
+
+        /// <summary>
+        /// 용지너비
+        /// </summary>
+        double PaperWidth { get; set; }
+
+        /// <summary>
+        /// 미출력 제품
+        /// </summary>
+        string[] NoPrintProducts { get; set; }
+
+        /// <summary>
         /// 주문정보를 출력한다.
         /// </summary>
         /// <param name="order"></param>

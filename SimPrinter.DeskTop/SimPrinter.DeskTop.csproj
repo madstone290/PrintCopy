@@ -95,8 +95,8 @@
     <Compile Include="Settings\GeneralSetting.cs" />
     <Compile Include="Models\OrderViewModel.cs" />
     <Compile Include="Settings\GridSetting.cs" />
-    <Compile Include="Settings\LabelSetting.cs" />
-    <Compile Include="Settings\OrderInfoSetting.cs" />
+    <Compile Include="Settings\라벨설정.cs" />
+    <Compile Include="Settings\주문설정.cs" />
     <Compile Include="Settings\PortSetting.cs" />
     <Compile Include="PortSettingUC.cs">
       <SubType>UserControl</SubType>

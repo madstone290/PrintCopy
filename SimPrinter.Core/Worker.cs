@@ -41,6 +41,11 @@ namespace SimPrinter.Core
         private readonly Dictionary<PrintoutType, ITextParser> textParsers = new Dictionary<PrintoutType, ITextParser>();
 
         /// <summary>
+        /// 제품유형 분석기
+        /// </summary>
+        private readonly ProductDistinguisher productDistinguisher = new ProductDistinguisher();
+
+        /// <summary>
         /// 라벨프린터
         /// </summary>
         private readonly ILabelPrinter labelPrinter;
@@ -69,6 +74,49 @@ namespace SimPrinter.Core
         /// 라벨프린터
         /// </summary>
         public ILabelPrinter LabelPrinter => labelPrinter;
+
+        public double LabelWidth 
+        { 
+            get => labelPrinter.PaperWidth;
+            set => labelPrinter.PaperWidth = value; 
+        }
+
+        public double LabelHeight
+        {
+            get => labelPrinter.PaperHeight;
+            set => labelPrinter.PaperHeight = value;
+        }
+
+        public string[] NoPrintProducts 
+        {
+            get => labelPrinter.NoPrintProducts;
+            set => labelPrinter.NoPrintProducts = value;
+        }
+
+        public string[] DaeguroPizzas 
+        {
+            get => textParsers[PrintoutType.DaeguroOrder].Pizzas;
+            set => textParsers[PrintoutType.DaeguroOrder].Pizzas = value;
+        }
+
+        public string[] DaeguroSideDishes
+        {
+            get => textParsers[PrintoutType.DaeguroOrder].SideDishes;
+            set => textParsers[PrintoutType.DaeguroOrder].SideDishes = value;
+        }
+
+        public string[] ZPosPizzas
+        {
+            get => textParsers[PrintoutType.ZPosOrder].Pizzas;
+            set => textParsers[PrintoutType.ZPosOrder].Pizzas = value;
+        }
+
+        public string[] ZPosSideDishes
+        {
+            get => textParsers[PrintoutType.ZPosOrder].SideDishes;
+            set => textParsers[PrintoutType.ZPosOrder].SideDishes = value;
+        }
+
 
         /// <summary>
         /// 주문정보가 생성되었다.

@@ -13,12 +13,12 @@ namespace SimPrinter.Core.LabelPrinters
         /// <summary>
         /// 용지 너비 mm
         /// </summary>
-        const double PaperWidth = 99;
+        const double DefaultPaperWidth = 99;
 
         /// <summary>
         /// 용지 높이 mm
         /// </summary>
-        const double PaperHeight = 40;
+        const double DefaultPaperHeight = 40;
 
         /// <summary>
         /// X축 마진
@@ -55,7 +55,11 @@ namespace SimPrinter.Core.LabelPrinters
         public const int ILan = 3;
         public const int IBluetooth = 5;
 
-
+        readonly string[] DefaultNoPrintProducts = new string[]
+        {
+            "배달료",
+            "배달비"
+        };
 
         /// <summary>
         /// 라벨 한장에 출력가능한 세트품목수
@@ -66,8 +70,19 @@ namespace SimPrinter.Core.LabelPrinters
         /// 라벨 한장에 출력가능한 사이드메뉴수
         /// </summary>
         public int SideDishMaxCount { get; set; } = 6;
+        
+        public double PaperHeight { get; set; }
 
+        public double PaperWidth { get; set; }
 
+        public string[] NoPrintProducts { get; set; }
+
+        public BixolonSrp770()
+        {
+            PaperWidth = DefaultPaperWidth;
+            PaperHeight = DefaultPaperHeight;
+            NoPrintProducts = DefaultNoPrintProducts;
+        }
 
         public void Print(OrderModel order)
         {
@@ -89,7 +104,7 @@ namespace SimPrinter.Core.LabelPrinters
                 return;
             }
 
-            SendPrinterSettingCommand(PaperWidth, PaperHeight, 0, 0);
+            SendPrinterSettingCommand(DefaultPaperWidth, DefaultPaperHeight, 0, 0);
 
             // 라벨번호 1부터
             int labelNumber = 1;
@@ -104,7 +119,7 @@ namespace SimPrinter.Core.LabelPrinters
 
             // 사이드 제품. 무시가능한 제품 제외.
             var sideDishes = order.Products.Where(x => x.Type == ProductType.SideDish)
-                .Where(product => !ProductModel.IgnoreList.Contains(product.Name))
+                .Where(product => !NoPrintProducts.Contains(product.Name))
                 .SelectMany(sd =>
                 {
                     return new ProductModel[] { sd }.Concat(sd.SetItems);

@@ -66,9 +66,46 @@ namespace SimPrinter.DeskTop
             formStart.InitializeAction = () =>
             {
                 if (!SettingManager.TryLoad<PortSetting>(out PortSetting portSetting))
+                {
                     portSetting = PortSetting.Default;
+                    SettingManager.Save(portSetting);
+                }
 
                 worker = PizzaAlvolo(portSetting);
+
+
+                if (!SettingManager.TryLoad<GeneralSetting>(out GeneralSetting generalSetting))
+                {
+                    generalSetting = new GeneralSetting();
+                    SettingManager.Save(generalSetting);
+                }
+
+                if (generalSetting.UseLabelSetting)
+                {
+                    if (!SettingManager.TryLoad<라벨설정>(out 라벨설정 labelSetting))
+                    {
+                        labelSetting = 라벨설정.Default;
+                        SettingManager.Save(labelSetting);
+                    }
+                    worker.LabelWidth = labelSetting.용지너비mm;
+                    worker.LabelHeight = labelSetting.용지높이mm;
+                    worker.NoPrintProducts = labelSetting.미출력제품목록;
+                }
+
+                if (generalSetting.UseOrderSetting)
+                {
+                    if (!SettingManager.TryLoad<주문설정>(out 주문설정 orderInfoSetting))
+                    {
+                        orderInfoSetting = 주문설정.Default;
+                        SettingManager.Save(orderInfoSetting);
+                    }
+                    worker.ZPosPizzas = orderInfoSetting.피자목록;
+                    worker.DaeguroPizzas = orderInfoSetting.피자목록;
+
+                    worker.ZPosSideDishes = orderInfoSetting.사이드목록;
+                    worker.DaeguroSideDishes = orderInfoSetting.사이드목록;
+                }
+
 #if !DEBUG
                 worker.Run();
 #endif

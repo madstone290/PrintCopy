@@ -18,5 +18,16 @@ namespace SimPrinter.Core
         /// <param name="orderText">주문 텍스트</param>
         /// <returns></returns>
         OrderModel Parse(string orderText);
+
+        /// <summary>
+        /// 피자목록
+        /// </summary>
+        string[] Pizzas { get; set; }
+
+        /// <summary>
+        /// 사이드 제품목록
+        /// </summary>
+        string[] SideDishes { get; set; }
+
     }
 }

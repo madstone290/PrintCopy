@@ -9,6 +9,10 @@ namespace SimPrinter.Core.LabelPrinters
 {
     public class DummyPrinter : ILabelPrinter
     {
+        public double PaperHeight { get; set; }
+        public double PaperWidth { get; set; }
+        public string[] NoPrintProducts { get; set; }
+
         public void Print(OrderModel order)
         {
             

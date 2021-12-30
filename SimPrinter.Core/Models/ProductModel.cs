@@ -11,12 +11,6 @@ namespace SimPrinter.Core.Models
     /// </summary>
     public class ProductModel
     {
-
-        public static string[] IgnoreList { get; set; } = new string[]
-        {
-            "배달료", "배달비"
-        };
-
         /// <summary>
         /// 제품명
         /// </summary>
