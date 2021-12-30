@@ -29,6 +29,10 @@ namespace SimPrinter.NUnitTest
         private string[] textLines;
 
 
+        private string orderText2;
+
+
+
         [SetUp]
         public void Setup()
         {
@@ -85,6 +89,8 @@ POS 번호: 0001
 
 
             textLines = testText.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+         
         }
 
 
@@ -231,5 +237,7 @@ POS 번호: 0001
             // 쉬림프n핫치킨골드피자 세트 L, 쉬림프n핫치킨 슈크림무스 L, 쉬림프n핫치킨 피자 홀세트 R, 하프앤하프
             Assert.AreEqual(4, products.Count(x => x.Type == ProductType.Pizza));
         }
+
+   
     }
 }

@@ -19,8 +19,10 @@ namespace SimPrinter.NUnitTest
         public const string MEMO2 = "조심히 안전운행해서 와주세요";
 
         private string testText;
-
         private string[] textLines;
+
+        private string orderText2;
+        private string[] orderTextLines2;
 
 
         [SetUp]
@@ -63,6 +65,40 @@ namespace SimPrinter.NUnitTest
 
 
             textLines = testText.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+
+            orderText2 = @"
+ 가맹점 명 : 피자알볼로 지산범물점
+가맹점 주소
+대구 수성구 지산동 1268-15
+주문시간 : 2021-12-29 11:18:28
+==========================================
+상품명                    수량        가격
+------------------------------------------
+팔도피자 L                  1       28,000
+ ▶L                                      
+배달팁                               1,000
+==========================================
+                   총  금액 :       29,000
+------------------------------------------
+                   할인금액 :        3,350
+                   결제금액 :       25,650
+------------------------------------------
+고객 주소
+대구광역시 수성구 두산동 28-2
+대구광역시 수성구 들안로16길 58
+ 2학년 1반
+
+고객 연락처: 050389141837
+
+결제방법 : 선결제
+
+고객요청사항: 1:30배달해주세요리뷰콜라부탁드립니다^^
+
+배달: 조심히 안전운행 해서 와주세요
+------------------------------------------
+";
+            orderTextLines2 = testText.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
         }
 
 
@@ -169,5 +205,17 @@ namespace SimPrinter.NUnitTest
 
             Assert.AreEqual(2, products.Count(x => x.Type == ProductType.Pizza));
         }
+
+        [Test]
+        public void ParserOrder2()
+        {
+            DaeguroTextParser textParser = new DaeguroTextParser();
+
+            OrderModel order = textParser.Parse(orderText2);
+            Assert.NotNull(order);
+            Assert.IsTrue(0 < order.Products.Count());
+
+        }
+
     }
 }
