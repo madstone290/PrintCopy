@@ -60,9 +60,9 @@ namespace SimPrinter.Core.TextParsers
         public string ProductEndLineString { get; set; } = "==========================================";
 
         /// <summary>
-        /// 세트구성품 문자
+        /// 세트구성품 문자열
         /// </summary>
-        public string SetComponentString { get; set; } = " ▶";
+        public string[] SetMarkStrings { get; set; } = new string[] { " ▶", "  ▶"};
 
         /// <summary>
         /// 주문 끝 문자열
@@ -265,9 +265,10 @@ namespace SimPrinter.Core.TextParsers
                     products.Add(textLine.Trim());
                 }
                 // 세트구성품. 세트구성품문자를 변경한다.
-                else if (textLine.StartsWith(SetComponentString))
+                else if (SetMarkStrings.Any(setMark => textLine.StartsWith(setMark)))
                 {
-                    string product = textLine.Replace(SetComponentString, SET_MARK).Trim();
+                    string setMark = SetMarkStrings.First(mark => textLine.StartsWith(mark));
+                    string product = textLine.Replace(setMark, SET_MARK).Trim();
                     products.Add(product);
                 }
                 // 제품1 식별. 가격 및 수량이 존재한다.

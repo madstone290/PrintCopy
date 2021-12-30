@@ -82,7 +82,7 @@ namespace SimPrinter.Core.TextParsers
         /// <summary>
         /// 세트구성품 문자열
         /// </summary>
-        public string[] SetMarkStrings { get; set; } = new string[] { "  -", "+" };
+        public string[] SetMarkStrings { get; set; } = new string[] { "  -", "+", "    -" };
 
         public OrderModel Parse(string receiptText)
         {
