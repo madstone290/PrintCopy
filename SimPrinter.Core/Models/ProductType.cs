@@ -24,6 +24,6 @@ namespace SimPrinter.Core.Models
         /// <summary>
         /// 사이드 및 기타 제품
         /// </summary>
-        Other
+        SideDish
     }
 }

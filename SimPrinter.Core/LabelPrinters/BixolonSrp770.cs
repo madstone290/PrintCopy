@@ -103,7 +103,7 @@ namespace SimPrinter.Core.LabelPrinters
             }
 
             // 사이드 제품. 무시가능한 제품 제외.
-            var sideDishes = order.Products.Where(x => x.Type == ProductType.Other)
+            var sideDishes = order.Products.Where(x => x.Type == ProductType.SideDish)
                 .Where(product => !ProductModel.IgnoreList.Contains(product.Name))
                 .SelectMany(sd =>
                 {

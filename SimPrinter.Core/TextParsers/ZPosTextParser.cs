@@ -25,11 +25,6 @@ namespace SimPrinter.Core.TextParsers
         private const string SET_MARK = "-";
 
         /// <summary>
-        /// 피자사이즈 문자열
-        /// </summary>
-        public string[] PizzaSizeStrings { get; set; } = new string[] { "R", "S", "L" };
-
-        /// <summary>
         /// 거래일시 문자열
         /// </summary>
         public string OrderTimeString { get; set; } = "거래일시:";
@@ -94,7 +89,7 @@ namespace SimPrinter.Core.TextParsers
             string[] textLines = receiptText.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
             
             OrderModel order = new OrderModel();
-            order.Id = new Guid();
+            order.Id = Guid.NewGuid();
             order.OrderTime = ParseOrderTime(textLines);
             order.SubTotal = ParseSubTotal(textLines);
             order.Total = ParseTotal(textLines);
@@ -107,7 +102,6 @@ namespace SimPrinter.Core.TextParsers
 
             return order;
         }
-
       
         /// <summary>
         /// 주문시간 분석
@@ -269,36 +263,28 @@ namespace SimPrinter.Core.TextParsers
                 if (string.IsNullOrWhiteSpace(textLine))
                     continue;
 
-                // 제품
-                if (!textLine.StartsWith(SET_MARK))
+                // 제품명, 수량, 가격 분석
+                ParseNameQuantityPrice(textLine, out string productName, out decimal quantity, out decimal price);
+
+                // 제품 유형분석
+                ProductType productType = productDistinguisher.Distinguish(productName);
+
+                ProductModel product = new ProductModel()
                 {
-                    ParseNameQuantityPrice(textLine, out string name, out decimal quantity, out decimal price);
-                    
-                    // 제품 유형분석
-                    ProductType productType = productDistinguisher.Distinguish(name);
+                    Quantity = quantity,
+                    Price = price,
+                    Type = productType,
+                };
 
-                    ProductModel productModel = new ProductModel();
-                    productModel.Name = name;
-                    productModel.Price = price;
-                    productModel.Quantity = quantity;
-                    productModel.Type = productType;
-
-                    productModels.Add(productModel);
+                if (productType == ProductType.SetItem)
+                {
+                    product.Name = productName.Replace(SET_MARK, "");
+                    productModels.Last().SetItems.Add(product);
                 }
-                else // 구성품
+                else
                 {
-                    ParseNameQuantityPrice(textLine, out string name, out decimal quantity, out decimal price);
-
-                    ProductModel setItem = new ProductModel()
-                    {
-                        Name = name.Replace(SET_MARK, ""),
-                        Quantity = quantity,
-                        Price = price,
-                        Type = ProductType.SetItem,
-                    };
-
-                    ProductModel productModel = productModels.Last();
-                    productModel.SetItems.Add(setItem);
+                    product.Name = productName;
+                    productModels.Add(product);
                 }
             }
 

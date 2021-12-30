@@ -10,7 +10,10 @@ using System.Threading.Tasks;
 
 namespace SimPrinter.NUnitTest
 {
-    public class ZPosTextParsingTest1
+    /// <summary>
+    /// Zpos 피자 기본주문 테스트
+    /// </summary>
+    public class ZPos_Pizza_Test
     {
         public const string ORDER_TIME = "2021-10-05 22:35:42 (화)";
         public const string SUB_TOTAL = "121,500";
@@ -59,7 +62,9 @@ POS 번호: 0001
   -치즈오븐스파게티                       
   -코카콜라 (홀) 355ml                    
   -코카콜라 (홀) 355ml                    
-
+(포장) 하프앤하프            1       31,000
+  -콤비네이션 R
+  -포테이토 R
 ------------------------------------------
 소  계        {1}
 ------------------------------------------
@@ -189,6 +194,7 @@ POS 번호: 0001
 
             Assert.NotNull(products);
             Assert.IsTrue(0 < products.Length);
+            Assert.AreEqual(4, products.Count(x=> x.Type == ProductType.Pizza));
             foreach (var product in products)
                 Console.WriteLine(product);
         }
@@ -222,8 +228,8 @@ POS 번호: 0001
             Assert.NotNull(products);
             Assert.IsTrue(0 < products.Length);
 
-            // 쉬림프n핫치킨골드피자 세트 L, 쉬림프n핫치킨 슈크림무스 L, 쉬림프n핫치킨 피자 홀세트 R
-            Assert.AreEqual(3, products.Count(x => x.Type == ProductType.Pizza));
+            // 쉬림프n핫치킨골드피자 세트 L, 쉬림프n핫치킨 슈크림무스 L, 쉬림프n핫치킨 피자 홀세트 R, 하프앤하프
+            Assert.AreEqual(4, products.Count(x => x.Type == ProductType.Pizza));
         }
     }
 }

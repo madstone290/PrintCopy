@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SimPrinter.NUnitTest
 {
-    public class DaeguroParsingTest1
+    public class Daeguro_Pizza_Test
     {
         public const string ORDER_TIME = "2021-11-04 11:30:35";
         public const string CONTACT = "050389140859";
@@ -39,6 +39,9 @@ namespace SimPrinter.NUnitTest
  ▶L                                      
  ▶기본                                   
 배달팁                               2,000
+(포장) 하프앤하프            1       31,000
+ ▶콤비네이션 R
+ ▶포테이토 R
 ==========================================
                    할인금액 :        5,000
                    결제금액 :       28,000
@@ -133,7 +136,7 @@ namespace SimPrinter.NUnitTest
 
             Assert.NotNull(products);
             Assert.IsTrue(0 < products.Length);
-
+            Assert.AreEqual(2, products.Count(x=> x.Type == ProductType.Pizza));
             foreach (var product in products)
                 Console.WriteLine(product);
         }
@@ -164,7 +167,7 @@ namespace SimPrinter.NUnitTest
             Assert.NotNull(products);
             Assert.IsTrue(0 < products.Length);
 
-            Assert.AreEqual(1, products.Count(x => x.Type == ProductType.Pizza));
+            Assert.AreEqual(2, products.Count(x => x.Type == ProductType.Pizza));
         }
     }
 }

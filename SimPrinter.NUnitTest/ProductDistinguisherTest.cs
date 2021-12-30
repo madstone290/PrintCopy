@@ -40,7 +40,7 @@ namespace SimPrinter.NUnitTest
 
             var productType = productDistinguisher.Distinguish("콜라 1.25L");
 
-            Assert.AreEqual(ProductType.Other, productType);
+            Assert.AreEqual(ProductType.SideDish, productType);
         }
 
         [Test]
@@ -50,7 +50,7 @@ namespace SimPrinter.NUnitTest
 
             var productType = productDistinguisher.Distinguish("콘치즈그라탕 L");
 
-            Assert.AreEqual(ProductType.Other, productType);
+            Assert.AreEqual(ProductType.SideDish, productType);
         }
     }
 }
