@@ -2,6 +2,7 @@
 using SimPrinter.Core.ByteParsers;
 using SimPrinter.Core.Persistence;
 using SimPrinter.Core.TextParsers;
+using SimPrinter.DeskTop.Models;
 using SimPrinter.DeskTop.Settings;
 using System;
 using System.Collections.Generic;
@@ -64,9 +65,10 @@ namespace SimPrinter.DeskTop
             FormStart formStart = new FormStart();
             formStart.InitializeAction = () =>
             {
-                PortSettingManager portSettingManager = PortSettingManager.Instance;
-                portSettingManager.Load();
-                worker = PizzaAlvolo(portSettingManager.AppPortSetting, portSettingManager.PrinterPortSetting);
+                if (!SettingManager.TryLoad<PortSetting>(out PortSetting portSetting))
+                    portSetting = PortSetting.Default;
+
+                worker = PizzaAlvolo(portSetting);
 #if !DEBUG
                 worker.Run();
 #endif
@@ -85,11 +87,11 @@ namespace SimPrinter.DeskTop
         /// 피자알볼로 생성
         /// </summary>
         /// <returns></returns>
-        static Worker PizzaAlvolo(PortSetting appPortSetting, PortSetting printPortSetting)
+        static Worker PizzaAlvolo(PortSetting portSetting)
         {
-            SimSerialPort appPort = new SimSerialPort(CreateSerialPort(appPortSetting));
-            SimSerialPort printPort = new SimSerialPort(CreateSerialPort(printPortSetting));
-            IByteParser byteParser = new EscPosByteParser(appPortSetting.GetEncoding());
+            SimSerialPort appPort = new SimSerialPort(CreateSerialPort(portSetting.AppPort));
+            SimSerialPort printPort = new SimSerialPort(CreateSerialPort(portSetting.PrinterPort));
+            IByteParser byteParser = new EscPosByteParser(portSetting.AppPort.GetEncoding());
             ILabelPrinter labelPrinter = LabelPrinterCollection.BixolonSrp770;
             OrderDao orderDao = new OrderDao(Application.StartupPath);
 
@@ -98,16 +100,16 @@ namespace SimPrinter.DeskTop
         }
 
 
-        static SerialPort CreateSerialPort(PortSetting portSetting)
+        static SerialPort CreateSerialPort(PortInfoModel portInfo)
         {
             SerialPort port = new SerialPort();
-            port.PortName = portSetting.PortName;
-            port.BaudRate = portSetting.BaudRate;
-            port.DataBits = portSetting.DataBits;
-            port.StopBits = portSetting.StopBits;
-            port.Parity = portSetting.Parity;
-            port.Encoding = portSetting.GetEncoding();
-            port.NewLine = portSetting.NewLine;
+            port.PortName = portInfo.PortName;
+            port.BaudRate = portInfo.BaudRate;
+            port.DataBits = portInfo.DataBits;
+            port.StopBits = portInfo.StopBits;
+            port.Parity = portInfo.Parity;
+            port.Encoding = portInfo.GetEncoding();
+            port.NewLine = portInfo.NewLine;
             return port;
         }
     }

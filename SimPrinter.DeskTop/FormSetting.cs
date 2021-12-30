@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimPrinter.DeskTop.Settings;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,11 +18,6 @@ namespace SimPrinter.DeskTop
         /// </summary>
         private bool isEditing;
 
-        /// <summary>
-        /// 포트설정 관리자
-        /// </summary>
-        private PortSettingManager portSettingManager = PortSettingManager.Instance;
-
         public FormSetting()
         {
             InitializeComponent();
@@ -35,11 +31,13 @@ namespace SimPrinter.DeskTop
             base.OnLoad(e);
 
             inputPortSettingUC.InitDataSource();
-            normalPrinterPortSettingUC.InitDataSource();
-           
-            portSettingManager.Load();
-            inputPortSettingUC.PortSetting = portSettingManager.AppPortSetting;
-            normalPrinterPortSettingUC.PortSetting = portSettingManager.PrinterPortSetting;
+            printerPortSettingUC.InitDataSource();
+
+            if (!Program.SettingManager.TryLoad<PortSetting>(out PortSetting setting))
+                setting = PortSetting.Default;
+            
+            inputPortSettingUC.PortInfo = setting.AppPort;
+            printerPortSettingUC.PortInfo = setting.PrinterPort;
 
             SetEditable(false);
         }
@@ -49,9 +47,13 @@ namespace SimPrinter.DeskTop
             // 수정모드인 경우 포트설정 저장
             if (isEditing)
             {
-                portSettingManager.SetPortSettings(inputPortSettingUC.PortSetting,
-                                                   normalPrinterPortSettingUC.PortSetting);
-                portSettingManager.Save();
+                PortSetting portSetting = new PortSetting()
+                {
+                    AppPort = inputPortSettingUC.PortInfo,
+                    PrinterPort = printerPortSettingUC.PortInfo
+                };
+
+                Program.SettingManager.Save(portSetting);
             }
 
             SetEditable(!isEditing);
@@ -69,7 +71,7 @@ namespace SimPrinter.DeskTop
         private void SetEditable(bool editable)
         { 
             inputPortSettingUC.SetEditable(editable);
-            normalPrinterPortSettingUC.SetEditable(editable);
+            printerPortSettingUC.SetEditable(editable);
 
             buttonEdit.Text = editable ? "저장" : "수정";
 

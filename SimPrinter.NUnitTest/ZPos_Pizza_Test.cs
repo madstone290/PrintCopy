@@ -28,11 +28,6 @@ namespace SimPrinter.NUnitTest
 
         private string[] textLines;
 
-
-        private string orderText2;
-
-
-
         [SetUp]
         public void Setup()
         {

@@ -31,7 +31,7 @@ namespace SimPrinter.DeskTop
         {
             this.buttonClose = new System.Windows.Forms.Button();
             this.buttonEdit = new System.Windows.Forms.Button();
-            this.normalPrinterPortSettingUC = new SimPrinter.DeskTop.PortSettingUC();
+            this.printerPortSettingUC = new SimPrinter.DeskTop.PortSettingUC();
             this.inputPortSettingUC = new SimPrinter.DeskTop.PortSettingUC();
             this.SuspendLayout();
             // 
@@ -55,12 +55,12 @@ namespace SimPrinter.DeskTop
             // 
             // normalPrinterPortSettingUC
             // 
-            this.normalPrinterPortSettingUC.GroupTitle = "일반 프린터";
-            this.normalPrinterPortSettingUC.Location = new System.Drawing.Point(276, 12);
-            this.normalPrinterPortSettingUC.Name = "normalPrinterPortSettingUC";
-            this.normalPrinterPortSettingUC.Padding = new System.Windows.Forms.Padding(10);
-            this.normalPrinterPortSettingUC.Size = new System.Drawing.Size(258, 258);
-            this.normalPrinterPortSettingUC.TabIndex = 1;
+            this.printerPortSettingUC.GroupTitle = "일반 프린터";
+            this.printerPortSettingUC.Location = new System.Drawing.Point(276, 12);
+            this.printerPortSettingUC.Name = "normalPrinterPortSettingUC";
+            this.printerPortSettingUC.Padding = new System.Windows.Forms.Padding(10);
+            this.printerPortSettingUC.Size = new System.Drawing.Size(258, 258);
+            this.printerPortSettingUC.TabIndex = 1;
             // 
             // inputPortSettingUC
             // 
@@ -78,7 +78,7 @@ namespace SimPrinter.DeskTop
             this.ClientSize = new System.Drawing.Size(543, 361);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.buttonEdit);
-            this.Controls.Add(this.normalPrinterPortSettingUC);
+            this.Controls.Add(this.printerPortSettingUC);
             this.Controls.Add(this.inputPortSettingUC);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -92,7 +92,7 @@ namespace SimPrinter.DeskTop
         #endregion
 
         private PortSettingUC inputPortSettingUC;
-        private PortSettingUC normalPrinterPortSettingUC;
+        private PortSettingUC printerPortSettingUC;
         private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.Button buttonEdit;
     }

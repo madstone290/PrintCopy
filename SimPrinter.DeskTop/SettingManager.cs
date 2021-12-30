@@ -44,7 +44,29 @@ namespace SimPrinter.DeskTop
 
             string json = File.ReadAllText(filePath);
             return JsonConvert.DeserializeObject<TSetting>(json);
+        }
 
+        public bool TryLoad<TSetting>(out TSetting setting)
+        {
+            string filePath = GetSettingFilePath<TSetting>();
+            if (!File.Exists(filePath))
+            {
+                setting = default;
+                return false;
+            }
+
+            try
+            {
+                string json = File.ReadAllText(filePath);
+                setting = JsonConvert.DeserializeObject<TSetting>(json);
+                return true;
+            }
+            catch
+            {
+            }
+            setting = default;
+            return false;
+            
         }
     }
 }
