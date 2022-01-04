@@ -31,7 +31,6 @@ namespace SimPrinter.DeskTop
             orderGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             orderGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
             orderGridView.DataSource = orderBindingList;
-            orderGridView.RowHeaderMouseDoubleClick += OrderGridView_RowHeaderMouseDoubleClick;
             orderGridView.CellDoubleClick += OrderGridView_CellDoubleClick;
 
 
@@ -48,20 +47,10 @@ namespace SimPrinter.DeskTop
             this.customLabelListView1.LabelPrinter = worker.LabelPrinter;
         }
 
-        private void OrderGridView_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if (e.Button != MouseButtons.Left)
-                return;
-
-            OrderViewModel selectedOrder = orderGridView.Rows[e.RowIndex].DataBoundItem as OrderViewModel;
-            if (selectedOrder == null)
-                return;
-
-            worker.PrintLabel(selectedOrder.Id);
-        }
-
         private void OrderGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0)
+                return;
             OrderViewModel selectedOrder = orderGridView.Rows[e.RowIndex].DataBoundItem as OrderViewModel;
             if (selectedOrder == null)
                 return;
@@ -122,7 +111,6 @@ namespace SimPrinter.DeskTop
                     orderGridView.Columns[i].Width = gridSetting.OrderGridViewColumnWidth[i];
                 }
             }
-           
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)
