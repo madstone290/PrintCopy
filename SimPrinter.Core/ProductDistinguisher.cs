@@ -39,6 +39,11 @@ namespace SimPrinter.Core
         public string[] PizzaSizeStrings { get; set; } = new string[] { "R", "S", "L" };
 
         /// <summary>
+        /// 피자 표시 문자열
+        /// </summary>
+        public string[] PizzaMarkStrings { get; set; } = new string[] { "피자" };
+
+        /// <summary>
         /// 세트아이템 표식문자
         /// </summary>
         public string[] SetItemMarkStrings { get; set; } = new string[] { " ▶", "  -", " -", "-", "+" };
@@ -60,6 +65,9 @@ namespace SimPrinter.Core
 
             if (SideDishes.Any(sideDish => productName.Contains(sideDish)))
                 return ProductType.SideDish;
+
+            if (PizzaMarkStrings.Any(pizzaMark => productName.Contains(pizzaMark)))
+                return ProductType.Pizza;
 
             if (Pizzas.Any(pizza => productName.Contains(pizza)))
                 return ProductType.Pizza;
