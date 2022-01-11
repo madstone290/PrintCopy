@@ -30,47 +30,59 @@ namespace SimPrinter.DeskTop
         private void InitializeComponent()
         {
             this.buttonStart = new System.Windows.Forms.Button();
-            this.buttonSetting = new System.Windows.Forms.Button();
+            this.btnSysSetting = new System.Windows.Forms.Button();
             this.buttonClose = new System.Windows.Forms.Button();
+            this.btnUserSetting = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonStart
             // 
-            this.buttonStart.Font = new System.Drawing.Font("굴림", 20F);
+            this.buttonStart.Font = new System.Drawing.Font("굴림", 15F);
             this.buttonStart.Location = new System.Drawing.Point(12, 12);
             this.buttonStart.Name = "buttonStart";
-            this.buttonStart.Size = new System.Drawing.Size(200, 100);
+            this.buttonStart.Size = new System.Drawing.Size(150, 70);
             this.buttonStart.TabIndex = 2;
             this.buttonStart.Text = "시작";
             this.buttonStart.UseVisualStyleBackColor = true;
             // 
-            // buttonSetting
+            // btnSysSetting
             // 
-            this.buttonSetting.Font = new System.Drawing.Font("굴림", 20F);
-            this.buttonSetting.Location = new System.Drawing.Point(218, 12);
-            this.buttonSetting.Name = "buttonSetting";
-            this.buttonSetting.Size = new System.Drawing.Size(200, 100);
-            this.buttonSetting.TabIndex = 3;
-            this.buttonSetting.Text = "설정";
-            this.buttonSetting.UseVisualStyleBackColor = true;
+            this.btnSysSetting.Font = new System.Drawing.Font("굴림", 15F);
+            this.btnSysSetting.Location = new System.Drawing.Point(168, 12);
+            this.btnSysSetting.Name = "btnSysSetting";
+            this.btnSysSetting.Size = new System.Drawing.Size(150, 70);
+            this.btnSysSetting.TabIndex = 3;
+            this.btnSysSetting.Text = "시스템 설정";
+            this.btnSysSetting.UseVisualStyleBackColor = true;
             // 
             // buttonClose
             // 
-            this.buttonClose.Font = new System.Drawing.Font("굴림", 20F);
-            this.buttonClose.Location = new System.Drawing.Point(424, 12);
+            this.buttonClose.Font = new System.Drawing.Font("굴림", 15F);
+            this.buttonClose.Location = new System.Drawing.Point(480, 12);
             this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(200, 100);
+            this.buttonClose.Size = new System.Drawing.Size(150, 70);
             this.buttonClose.TabIndex = 4;
             this.buttonClose.Text = "닫기";
             this.buttonClose.UseVisualStyleBackColor = true;
+            // 
+            // btnUserSetting
+            // 
+            this.btnUserSetting.Font = new System.Drawing.Font("굴림", 15F);
+            this.btnUserSetting.Location = new System.Drawing.Point(324, 12);
+            this.btnUserSetting.Name = "btnUserSetting";
+            this.btnUserSetting.Size = new System.Drawing.Size(150, 70);
+            this.btnUserSetting.TabIndex = 5;
+            this.btnUserSetting.Text = "사용자 설정";
+            this.btnUserSetting.UseVisualStyleBackColor = true;
             // 
             // FormStart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(634, 121);
+            this.Controls.Add(this.btnUserSetting);
             this.Controls.Add(this.buttonClose);
-            this.Controls.Add(this.buttonSetting);
+            this.Controls.Add(this.btnSysSetting);
             this.Controls.Add(this.buttonStart);
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(650, 160);
@@ -85,7 +97,8 @@ namespace SimPrinter.DeskTop
         #endregion
 
         private System.Windows.Forms.Button buttonStart;
-        private System.Windows.Forms.Button buttonSetting;
+        private System.Windows.Forms.Button btnSysSetting;
         private System.Windows.Forms.Button buttonClose;
+        private System.Windows.Forms.Button btnUserSetting;
     }
 }

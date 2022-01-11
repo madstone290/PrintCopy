@@ -89,6 +89,7 @@
     </Compile>
     <Compile Include="MessageBoxEx.cs" />
     <Compile Include="Models\PortInfoModel.cs" />
+    <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Settings\GeneralSetting.cs" />
     <Compile Include="Models\OrderViewModel.cs" />
     <Compile Include="Settings\GridSetting.cs" />
@@ -111,6 +112,12 @@
     </Compile>
     <Compile Include="Views\CustomLabelListView.Designer.cs">
       <DependentUpon>CustomLabelListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserSettingView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\UserSettingView.Designer.cs">
+      <DependentUpon>UserSettingView.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
@@ -138,6 +145,9 @@
     </Compile>
     <EmbeddedResource Include="Views\CustomLabelListView.resx">
       <DependentUpon>CustomLabelListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserSettingView.resx">
+      <DependentUpon>UserSettingView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

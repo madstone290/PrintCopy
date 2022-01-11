@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimPrinter.DeskTop.Views;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -28,7 +29,8 @@ namespace SimPrinter.DeskTop
             StartPosition = FormStartPosition.CenterScreen;
 
             buttonStart.Click += ButtonStart_Click;
-            buttonSetting.Click += ButtonSetting_Click;
+            btnSysSetting.Click += ButtonSysSetting_Click;
+            btnUserSetting.Click+= BtnUserSetting_Click;
             buttonClose.Click += ButtonClose_Click;
         }
 
@@ -47,10 +49,16 @@ namespace SimPrinter.DeskTop
             }
         }
 
-        private void ButtonSetting_Click(object sender, EventArgs e)
+        private void ButtonSysSetting_Click(object sender, EventArgs e)
         {
             FormSetting formSetting = new FormSetting();
             formSetting.ShowDialog();
+        }
+
+        private void BtnUserSetting_Click(object sender, EventArgs e)
+        {
+            UserSettingView view = new UserSettingView();
+            view.ShowDialog();
         }
 
         private void ButtonClose_Click(object sender, EventArgs e)
