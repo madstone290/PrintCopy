@@ -2,6 +2,9 @@
 .vs
 *.csproj.user
 
+# 로그파일
+Logs/
+
 #라이센스 파일
 *.licx
 *.bak
