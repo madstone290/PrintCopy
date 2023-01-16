@@ -113,6 +113,12 @@
     <Compile Include="Views\CustomLabelListView.Designer.cs">
       <DependentUpon>CustomLabelListView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\OrderView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\OrderView.Designer.cs">
+      <DependentUpon>OrderView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserSettingView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,6 +151,9 @@
     </Compile>
     <EmbeddedResource Include="Views\CustomLabelListView.resx">
       <DependentUpon>CustomLabelListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\OrderView.resx">
+      <DependentUpon>OrderView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\UserSettingView.resx">
       <DependentUpon>UserSettingView.cs</DependentUpon>
